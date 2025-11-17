@@ -50,4 +50,33 @@ export function registerOAuthRoutes(app: Express) {
       res.status(500).json({ error: "OAuth callback failed" });
     }
   });
+
+  // Fallback helper for clients when no external OAuth portal is configured.
+  // Redirects to the configured OAuth portal (server env) or returns 400.
+  app.get("/api/oauth/redirect-to-provider", (req: Request, res: Response) => {
+    const redirectUri = getQueryParam(req, "redirectUri") || `${req.protocol}://${req.get("host")}/api/oauth/callback`;
+    const state = getQueryParam(req, "state") || "";
+    const appId = getQueryParam(req, "appId") || "";
+
+    const portal = process.env.OAUTH_SERVER_URL || process.env.VITE_OAUTH_PORTAL_URL || "";
+    if (!portal) {
+      res.status(400).json({ error: "No OAuth portal configured on server" });
+      return;
+    }
+
+    try {
+      const base = portal.replace(/\/$/, "");
+      const url = new URL(base);
+      url.pathname = (url.pathname === "/" ? "" : url.pathname.replace(/\/$/, "")) + "/app-auth";
+      if (appId) url.searchParams.set("appId", appId);
+      url.searchParams.set("redirectUri", redirectUri);
+      if (state) url.searchParams.set("state", state);
+      url.searchParams.set("type", "signIn");
+
+      res.redirect(302, url.toString());
+    } catch (err) {
+      console.error("[OAuth] redirect-to-provider failed", err);
+      res.status(500).json({ error: "Failed to construct redirect URL" });
+    }
+  });
 }
