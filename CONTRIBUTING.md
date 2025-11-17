@@ -1,0 +1,55 @@
+# CONTRIBUTING — Hinweise für Mitwirkende (Deutsch)
+
+Kurz: Diese Datei enthält die wichtigste PR-Checkliste und Hinweise zum lokalen Entwickeln.
+
+Vor dem Erstellen eines PR
+- Stelle sicher, dass du `pnpm install` ausgeführt hast.
+- Führe einen TypeScript-Check aus: `pnpm run check`.
+- Führe Tests lokal aus: `pnpm test`.
+
+Konkrete PR-Checkliste
+- **Beschreibung**: Kurze, klare PR-Beschreibung (Was ändert sich? Warum?).
+- **Tests**: Neue/angepasste Tests hinzufügen oder existierende Tests prüfen.
+- **TypeScript**: `pnpm run check` muss ohne Fehler durchlaufen.
+- **Production-Build**: Führe `pnpm build && pnpm start` lokal aus, wenn Änderungen Server-/Build-relevant sind.
+- **DB-Änderungen**: Wenn du DB-Schema änderst, führe lokal `pnpm run db:push` aus und füge die generierten Migrationsdateien dem PR hinzu.
+- **Shared-Typen**: Ändere `@shared`-Typen nur wenn unbedingt nötig; dokumentiere Breaking-Changes.
+- **Secrets / Env**: Committe niemals `.env` oder echte Secrets. Nutze `.env.example` für Variablenliste.
+
+Lokale Entwicklung (kurz)
+```
+cp .env.example .env
+# .env anpassen
+pnpm install
+# CONTRIBUTING — Hinweise für Mitwirkende (Deutsch)
+
+Kurz: Diese Datei enthält die wichtigste PR-Checkliste und Hinweise zum lokalen Entwickeln.
+
+Vor dem Erstellen eines PR
+
+- Stelle sicher, dass du `pnpm install` ausgeführt hast.
+- Führe einen TypeScript-Check aus: `pnpm run check`.
+- Führe Tests lokal aus: `pnpm test`.
+
+Konkrete PR-Checkliste
+
+- **Beschreibung**: Kurze, klare PR-Beschreibung (Was ändert sich? Warum?).
+- **Tests**: Neue/angepasste Tests hinzufügen oder existierende Tests prüfen.
+- **TypeScript**: `pnpm run check` muss ohne Fehler durchlaufen.
+- **Production-Build**: Führe `pnpm build && pnpm start` lokal aus, wenn Änderungen Server-/Build-relevant sind.
+- **DB-Änderungen**: Wenn du DB-Schema änderst, führe lokal `pnpm run db:push` aus und füge die generierten Migrationsdateien dem PR hinzu.
+- **Shared-Typen**: Ändere `@shared`-Typen nur wenn unbedingt nötig; dokumentiere Breaking-Changes.
+- **Secrets / Env**: Committe niemals `.env` oder echte Secrets. Nutze `.env.example` für Variablenliste.
+
+Lokale Entwicklung (kurz)
+
+```bash
+cp .env.example .env
+# .env anpassen
+pnpm install
+pnpm dev
+```
+
+Support
+
+- Bei Fragen zur Architektur oder Integrationen: siehe `.github/copilot-instructions.md` oder öffne ein Issue.
