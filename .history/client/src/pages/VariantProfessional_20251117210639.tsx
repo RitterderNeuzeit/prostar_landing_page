@@ -339,41 +339,26 @@ export default function VariantProfessional() {
         </div>
       </section>
 
-
-      {/* Testimonials - Organisch & Conversion-optimiert */}
-      <section className="py-20 md:py-32 bg-gradient-to-br from-[#f5fbe7] via-white to-[#eaf6e9]">
+      {/* Testimonials */}
+      <section className="py-20 md:py-32">
         <div className="container">
-          <h2 className="text-4xl font-bold text-center mb-10">Vertrauen & echte Ergebnisse</h2>
-          <p className="text-center text-lg text-[#6B8E5F] mb-16">Unsere Kunden berichten von messbarem Wachstum und nachhaltigem Erfolg.</p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+          <h2 className="text-4xl font-bold text-center mb-16">Vertraut von führenden Unternehmen</h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {testimonials.map((testimonial) => (
-              <div key={testimonial.id} className="relative bg-white border border-[#e3e9dd] rounded-2xl shadow-lg p-10 flex flex-col items-center transition-transform hover:scale-105 hover:shadow-2xl">
-                {/* Organisches Bild-Placeholder */}
-                <div className="w-20 h-20 mb-4 rounded-full bg-gradient-to-tr from-[#6B8E5F]/30 to-[#eaf6e9] flex items-center justify-center overflow-hidden shadow-md">
-                  <img
-                    src={`/assets/testimonial-${testimonial.id}.jpg`}
-                    alt={testimonial.name}
-                    className="w-full h-full object-cover rounded-full"
-                    onError={e => { e.currentTarget.src = '/assets/testimonial-default.jpg'; }}
-                  />
-                </div>
-                <div className="flex gap-1 mb-2">
+              <div key={testimonial.id} className="border border-gray-200 rounded-lg p-8">
+                <div className="flex gap-1 mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <span key={i} className="text-[#6B8E5F] text-xl">★</span>
+                    <span key={i} className="text-[#6B8E5F]">★</span>
                   ))}
                 </div>
-                <blockquote className="text-gray-700 mb-6 italic text-center leading-relaxed">“{testimonial.text}”</blockquote>
-                <div className="border-t border-[#e3e9dd] pt-4 w-full text-center">
-                  <p className="font-semibold text-[#2C2C2C]">{testimonial.name}</p>
-                  <p className="text-sm text-[#6B8E5F]">{testimonial.company}</p>
+                <p className="text-gray-600 mb-6 italic">"{testimonial.text}"</p>
+                <div className="border-t border-gray-200 pt-4">
+                  <p className="font-semibold">{testimonial.name}</p>
+                  <p className="text-sm text-gray-600">{testimonial.company}</p>
                 </div>
-                {/* Conversion-Element */}
-                <Button className="mt-6 w-full bg-[#6B8E5F] text-white hover:bg-[#4A6341] font-semibold transition-colors">Jetzt Kurs buchen</Button>
               </div>
             ))}
-          </div>
-          <div className="flex justify-center mt-12">
-            <Button className="px-10 py-4 bg-gradient-to-r from-[#6B8E5F] to-[#4A6341] text-white text-lg font-bold rounded-full shadow-xl hover:scale-105 transition-transform">Jetzt unverbindlich testen</Button>
           </div>
         </div>
       </section>

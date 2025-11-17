@@ -9,7 +9,7 @@ export default function MiniCourseSignup() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (event: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     event.preventDefault();
     setLoading(true);
 
