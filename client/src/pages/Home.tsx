@@ -10,6 +10,7 @@ import TrustSection from '@/components/TrustSection';
 import ChatWidget from '@/components/ChatWidget';
 import PaymentModal from '@/components/PaymentModal';
 import CheckoutButton from '@/components/CheckoutButton';
+import landingContent from '../../../content/landing.json';
 
 export default function Home() {
   // The userAuth hooks provides authentication state
@@ -30,68 +31,12 @@ export default function Home() {
   // Removed: testimonials array (moved to EnhancedTestimonials component)
   // Removed: case studies (moved to CaseStudies component)
 
-  const modules = [
-    {
-      id: 1,
-      title: 'Strategie & Positionierung',
-      description: 'Entwickeln Sie Ihre einzigartige Social-Media-Strategie basierend auf Ihrer Geschäftsziele und Zielgruppe.',
-      icon: 'icon-strategy',
-    },
-    {
-      id: 2,
-      title: 'Content-Planung & Erstellung',
-      description: 'Lernen Sie, hochwertige Inhalte zu planen und zu erstellen, die Ihre Zielgruppe engagiert.',
-      icon: 'icon-content',
-    },
-    {
-      id: 3,
-      title: 'Community & Engagement',
-      description: 'Bauen Sie eine loyale Community auf und steigern Sie das Engagement mit bewährten Taktiken.',
-      icon: 'icon-community',
-    },
-    {
-      id: 4,
-      title: 'Analytics & Optimierung',
-      description: 'Verstehen Sie Ihre Metriken und optimieren Sie Ihre Kampagnen basierend auf Daten.',
-      icon: 'icon-analytics',
-    },
-    {
-      id: 5,
-      title: 'Conversion & Verkauf',
-      description: 'Verwandeln Sie Ihre Social-Media-Präsenz in messbare geschäftliche Ergebnisse.',
-      icon: 'icon-conversion',
-    },
-  ];
+  const modules = landingContent.modules;
 
   // Testimonials moved to EnhancedTestimonials component
   // Case studies moved to CaseStudies component
 
-  const faqs = [
-    {
-      question: 'Für wen ist dieser Kurs geeignet?',
-      answer: 'Der Kurs ist ideal für Unternehmer, Freelancer und Marketer, die ihre Social-Media-Präsenz aufbauen oder verbessern möchten. Keine Vorkenntnisse erforderlich.',
-    },
-    {
-      question: 'Wie lange habe ich Zugriff auf die Kursinhalte?',
-      answer: 'Sie haben lebenslangen Zugriff auf alle Kursinhalte. Updates und neue Module werden kostenlos hinzugefügt.',
-    },
-    {
-      question: 'Gibt es ein Zertifikat nach Abschluss?',
-      answer: 'Ja, Sie erhalten ein Abschluss-Zertifikat, das Sie in Ihrem Portfolio und auf LinkedIn verwenden können.',
-    },
-    {
-      question: 'Kann ich den Kurs mit anderen teilen?',
-      answer: 'Der Kurs ist für persönliche Nutzung lizenziert. Bitte kontaktieren Sie uns für Gruppen- oder Unternehmenslizenzen.',
-    },
-    {
-      question: 'Welche Plattformen werden behandelt?',
-      answer: 'Wir behandeln Instagram, Facebook, LinkedIn, TikTok und YouTube mit spezifischen Strategien für jede Plattform.',
-    },
-    {
-      question: 'Gibt es Support während des Kurses?',
-      answer: 'Ja, Sie haben Zugriff auf unsere Community und können Fragen in den Diskussionsforen stellen.',
-    },
-  ];
+  const faqs = landingContent.faqs;
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -114,20 +59,20 @@ export default function Home() {
         <div className="container grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="animate-slide-up">
             <h1 className="text-5xl md:text-6xl font-bold leading-tight mb-6">
-              Social-Media-Masterplan für Ihr Business
+              {landingContent.brand.headline}
             </h1>
             <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-              Lernen Sie die bewährten Strategien, um Ihre Social-Media-Präsenz aufzubauen, Ihre Zielgruppe zu engagieren und Ihre Geschäftsziele zu erreichen.
+              {landingContent.brand.subheadline}
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/mini-course">
+              <Link href={landingContent.ctas.primary.href}>
                 <Button className="btn-primary">
-                  Kostenlose Mini-Lektion <ArrowRight className="ml-2 w-4 h-4" />
+                  {landingContent.ctas.primary.label} <ArrowRight className="ml-2 w-4 h-4" />
                 </Button>
               </Link>
-              <Link href="/course-info">
+              <Link href={landingContent.ctas.secondary.href}>
                 <Button className="btn-secondary">
-                  Mehr erfahren
+                  {landingContent.ctas.secondary.label}
                 </Button>
               </Link>
             </div>
@@ -227,7 +172,7 @@ export default function Home() {
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {modules.map((module, index) => (
+                {modules.map((module, index) => (
               <div key={module.id} className="card group hover:shadow-xl transition-all duration-300">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-accent/20 transition-colors">
