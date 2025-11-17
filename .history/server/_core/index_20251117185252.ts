@@ -49,10 +49,10 @@ async function startServer() {
   // Admin routes for local CMS editing of landing content
   // Protected by header `x-admin-key` matching `process.env.ADMIN_KEY` (or allowed in dev when ADMIN_KEY unset)
   try {
-    // lazy dynamic import to avoid ESM/CJS issues and circular deps
-    const adminModule = await import('../routes/admin');
-    const adminRoutes = adminModule.default;
-    if (adminRoutes) app.use('/api/admin', adminRoutes);
+    // lazy require to avoid circular deps in some environments
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const adminRoutes = require('../routes/admin').default;
+    app.use('/api/admin', adminRoutes);
   } catch (e) {
     console.warn('Admin routes not mounted', e);
   }

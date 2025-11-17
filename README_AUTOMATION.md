@@ -1,4 +1,4 @@
-## Automation assisten — Einfache Anleitung (Anfänger-Level)
+# Automation assisten — Einfache Anleitung (Anfänger-Level)
 
 Diese Datei erklärt Schritt für Schritt, was der "Automation assisten" macht und wie du ihn sicher lokal verwendest. Alles ist so erklärt, dass auch Einsteiger es verstehen.
 
@@ -41,28 +41,28 @@ Domain, Deployment und externe Anbindungen (kurz und klar)
 - Lokal (Entwicklung): `pnpm dev` startet einen Entwicklungsserver mit Hot Reload. Gut zum Testen.
 - Produktion: Du baust mit `pnpm build` und startest die gebaute Version (z. B. `node dist/index.js`) auf einem Server.
 
-2) Domain & DNS (sehr einfach)
+## Domain & DNS (sehr einfach)
 
 - Kaufe eine Domain bei einem Provider (z. B. Cloudflare, IONOS, GoDaddy).
 - Beim Hosten (z. B. Vercel, Netlify, Render, DigitalOcean, AWS): der Provider gibt dir IP-Adressen oder CNAMEs.
 - Im Domain-Provider trägst du die DNS-Einträge ein (A-Record oder CNAME), damit deine Domain auf den Server zeigt.
 
-3) HTTPS / SSL (wichtig)
+## HTTPS / SSL (wichtig)
 
 - Für Sicherheit brauchst du HTTPS. Viele Hosting-Provider geben automatisch ein TLS-Zertifikat (Let's Encrypt).
 - Wenn du selbst hostest, konfiguriere einen Reverse-Proxy (z. B. Nginx) und nutze Certbot für Let's Encrypt.
 
-4) Environment‑Variablen & Secrets
+## Environment‑Variablen & Secrets
 
 - Produktion: lege sensible Werte in Umgebungsvariablen (z. B. `STRIPE_SECRET`, `DATABASE_URL`, `JWT_SECRET`).
 - Niemals Secrets ins Repository committen.
 
-5) Stripe / Webhooks (WICHTIG)
+## Stripe / Webhooks (WICHTIG)
 
 - Stripe-Webhooks müssen auf deinen Server zeigen (z. B. `https://yourdomain.com/api/stripe/webhook`).
 - Der Server erwartet rohe JSON-Body (express.raw), deshalb darf die Webhook-Route nicht nach `express.json()` registriert werden.
 
-6) Kurzanleitung: Von lokal zu live (einfach)
+## Kurzanleitung: Von lokal zu live (einfach)
 
 - Baue das Projekt: `pnpm build`
 - Lade das Verzeichnis `dist` auf deinen Server oder nutze einen Host (z. B. Vercel)

@@ -50,7 +50,6 @@ VS Code - Schnellzugriff (Tasks)
 
 In VS Code: `Terminal -> Run Task` und wähle den gewünschten Task.
 
-
 Hinweis: Der Container startet per Default `pnpm dev` (dev server + Vite). Die Quelle wird als Volume gemountet, du kannst also im Host weiter editieren.
 
 Ein-Kommando-Start (falls du lieber nicht mehrere Befehle eintippst)

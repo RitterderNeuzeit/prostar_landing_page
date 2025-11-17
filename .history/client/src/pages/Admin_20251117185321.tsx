@@ -14,8 +14,8 @@ function Header({ onExit }: { onExit: () => void }) {
 export default function Admin() {
   const [key, setKey] = useState<string>(sessionStorage.getItem('admin_key') || '');
   const [loading, setLoading] = useState(false);
+  const [content, setContent] = useState<string>('');
   const [message, setMessage] = useState('');
-  const [data, setData] = useState<any>(null);
   const inactivityTimer = useRef<number | null>(null);
 
   useEffect(() => {
@@ -54,7 +54,7 @@ export default function Admin() {
       const res = await fetch('/api/admin/landing', { headers: { 'x-admin-key': key } });
       if (!res.ok) throw new Error(`Status ${res.status}`);
       const json = await res.json();
-      setData(json);
+      setContent(JSON.stringify(json, null, 2));
       setMessage('Loaded');
     } catch (err: any) {
       setMessage('Load error: ' + (err.message || String(err)));
@@ -67,11 +67,11 @@ export default function Admin() {
     setLoading(true);
     setMessage('');
     try {
-      const payload = data;
+      const parsed = JSON.parse(content);
       const res = await fetch('/api/admin/landing', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'x-admin-key': key },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(parsed),
       });
       if (!res.ok) {
         const body = await res.json().catch(() => ({}));
@@ -103,40 +103,9 @@ export default function Admin() {
           <button onClick={save} className="btn-secondary" disabled={loading}>Save</button>
           <button onClick={onExit} className="btn-outline">Exit</button>
         </div>
-        <div className="mb-6">
-          <label className="block text-sm font-semibold mb-2">Brand</label>
-          <input className="w-full p-2 rounded border mb-2" value={data?.brand?.title || ''} onChange={e => setData({ ...data, brand: { ...(data?.brand || {}), title: e.target.value } })} placeholder="Title" />
-          <input className="w-full p-2 rounded border mb-2" value={data?.brand?.headline || ''} onChange={e => setData({ ...data, brand: { ...(data?.brand || {}), headline: e.target.value } })} placeholder="Headline" />
-          <input className="w-full p-2 rounded border" value={data?.brand?.subheadline || ''} onChange={e => setData({ ...data, brand: { ...(data?.brand || {}), subheadline: e.target.value } })} placeholder="Subheadline" />
-        </div>
-
-        <div className="mb-6">
-          <label className="block text-sm font-semibold mb-2">Primary CTA</label>
-          <input className="w-full p-2 rounded border mb-2" value={data?.ctas?.primary?.label || ''} onChange={e => setData({ ...data, ctas: { ...(data?.ctas || {}), primary: { ...(data?.ctas?.primary || {}), label: e.target.value } } })} placeholder="Primary label" />
-          <input className="w-full p-2 rounded border" value={data?.ctas?.primary?.href || ''} onChange={e => setData({ ...data, ctas: { ...(data?.ctas || {}), primary: { ...(data?.ctas?.primary || {}), href: e.target.value } } })} placeholder="Primary href" />
-        </div>
-
-        <div className="mb-6">
-          <label className="block text-sm font-semibold mb-2">Modules (first 3)</label>
-          {(data?.modules || []).slice(0, 3).map((m: any, idx: number) => (
-            <div key={idx} className="mb-2 p-2 border rounded">
-              <input className="w-full p-2 rounded border mb-2" value={m.title || ''} onChange={e => {
-                const modules = [...(data?.modules || [])];
-                modules[idx] = { ...(modules[idx] || {}), title: e.target.value };
-                setData({ ...data, modules });
-              }} placeholder={`Module ${idx + 1} title`} />
-              <input className="w-full p-2 rounded border" value={m.description || ''} onChange={e => {
-                const modules = [...(data?.modules || [])];
-                modules[idx] = { ...(modules[idx] || {}), description: e.target.value };
-                setData({ ...data, modules });
-              }} placeholder={`Module ${idx + 1} description`} />
-            </div>
-          ))}
-        </div>
-
-        <div className="mb-6">
-          <label className="block text-sm font-semibold mb-2">Raw JSON (preview)</label>
-          <pre className="w-full p-3 rounded border bg-card text-sm overflow-auto" style={{ maxHeight: 320 }}>{JSON.stringify(data, null, 2)}</pre>
+        <div className="mb-4">
+          <label className="block text-sm font-semibold mb-2">Landing JSON</label>
+          <textarea value={content} onChange={e => setContent(e.target.value)} rows={20} className="w-full p-3 font-mono text-sm rounded border bg-card" />
         </div>
         <div className="text-sm text-muted-foreground">{message}</div>
       </div>

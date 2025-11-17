@@ -1,9 +1,11 @@
-## AI-Copilot Anleitung (Deutsch, kompakt)
+# AI-Copilot Anleitung (Deutsch, kompakt)
 
 Kurzüberblick
+
 - Architektur: SPA-Frontend mit Vite (`client/`) + Express-Server mit tRPC (`server/`). DB: Drizzle-ORM (`drizzle/`). Zahlungen: Stripe (`server/routes/stripe`). Paketmanager: `pnpm`.
 
 Wesentliche Orte (schnell)
+
 - Server-Start & Middleware: `server/_core/index.ts` (Port-Fallback, body-parser, Stripe-webhook-Setup).
 - Vite Dev: `server/_core/vite.ts` (Vite-Middleware für Dev, HMR, Index-HTML-Transform).
 - tRPC Router: `server/routers.ts` → exportiert `appRouter` unter `/api/trpc`.
@@ -12,7 +14,8 @@ Wesentliche Orte (schnell)
 - Shared-Types/Konstanten: `shared/` (Alias `@shared/*`).
 
 Unverzichtbare Befehle
-```
+
+```bash
 pnpm install
 pnpm dev         # Development: tsx watch server/_core/index.ts + Vite-Middleware
 pnpm run check   # TypeScript: tsc --noEmit
@@ -23,6 +26,7 @@ pnpm run db:push # drizzle-kit generate && drizzle-kit migrate
 ```
 
 Wichtige Projekthinweise
+
 - Stripe-Webhook: `server/_core/index.ts` registriert `/api/stripe/webhook` mit `express.raw({type: 'application/json'})` *vor* `express.json()` — **Reihenfolge nicht ändern**.
 - API-Pattern: Alle API-Routen beginnen mit `/api/*`. tRPC-Endpunkte unter `/api/trpc`.
 - Dev vs Prod: Dev nutzt Vite-Middleware; Prod dient statische Dateien aus `dist/public`.

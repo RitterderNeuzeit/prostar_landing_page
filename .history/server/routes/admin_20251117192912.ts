@@ -2,10 +2,6 @@ import express from 'express';
 import fs from 'fs/promises';
 import path from 'path';
 import { appendFile } from 'fs/promises';
-import fsSync from 'fs';
-import { promisify } from 'util';
-import { exec as execCb } from 'child_process';
-const exec = promisify(execCb);
 
 const router = express.Router();
 
@@ -50,29 +46,6 @@ router.post('/landing', express.json(), async (req, res) => {
     } catch (e) {
       // non-fatal
     }
-
-    // Optionally create a local git commit of the changed file. Behavior:
-    // - Auto-commit is enabled by default in development for convenience.
-    // - In other environments, set ADMIN_AUTOCOMMIT=true to enable.
-    (async () => {
-      const shouldAutoCommit = process.env.NODE_ENV === 'development' || process.env.ADMIN_AUTOCOMMIT === 'true';
-      if (!shouldAutoCommit) return;
-      try {
-        const repoRoot = process.cwd();
-        const gitDir = path.join(repoRoot, '.git');
-        if (!fsSync.existsSync(gitDir)) return;
-        const ts = new Date().toISOString();
-        const commitMsg = `admin: update landing.json ${ts}`;
-        const author = process.env.ADMIN_COMMIT_AUTHOR; // optional "Name <email>"
-        const authorArg = author ? `--author="${author.replace(/"/g, '\\"')}"` : '';
-        await exec(`git add ${CONTENT_PATH} && git commit -m "${commitMsg}" ${authorArg}`, { cwd: repoRoot });
-        const ck2 = `${new Date().toISOString()} | admin-git-commit | msg: ${commitMsg}\n`;
-        await appendFile(path.resolve(process.cwd(), 'tmp_debug', 'assistant_checkpoints.md'), ck2, { encoding: 'utf-8' }).catch(() => {});
-      } catch (e: any) {
-        const ckErr = `${new Date().toISOString()} | admin-git-error | ${String(e.message || e)}\n`;
-        await appendFile(path.resolve(process.cwd(), 'tmp_debug', 'assistant_checkpoints.md'), ckErr, { encoding: 'utf-8' }).catch(() => {});
-      }
-    })();
     res.json({ ok: true });
   } catch (err: any) {
     res.status(500).json({ error: err.message });

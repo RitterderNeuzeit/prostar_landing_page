@@ -1,80 +1,56 @@
-````instructions
-## AI-Copilot Guide (English, concise)
+# AI-Copilot Guide — English
 
 Quick overview
-- Architecture: SPA frontend with Vite (`client/`) and an Express + tRPC backend (`server/`). DB: Drizzle-ORM (`drizzle/`). Payments: Stripe (`server/routes/stripe`). Package manager: `pnpm`.
+- Architecture: SPA (Vite) in `client/` + Express + tRPC backend in `server/`. DB: Drizzle (`drizzle/`). Stripe routes under `server/routes/stripe`. Package manager: `pnpm`.
 
-Key locations (quick)
-- Server start & middleware: `server/_core/index.ts` (port fallback, body-parser, Stripe webhook setup).
-- Vite Dev integration: `server/_core/vite.ts` (Vite middleware for dev with HMR).
-- tRPC router: `server/routers.ts` → exports `appRouter` at `/api/trpc`.
-- Routes: `server/routes/checkout`, `server/routes/stripe`.
-- DB schema: `drizzle/schema.ts`; migrations in `drizzle/migrations/`.
-- Shared types/constants: `shared/` (path alias `@shared/*`).
+Key files to inspect first:
+- `server/_core/index.ts` — server start, middleware order, Stripe webhook registration.
+- `server/_core/vite.ts` — Vite dev middleware (HMR) integration.
+- `server/routers.ts` — tRPC `appRouter` (exposed at `/api/trpc`).
+- `server/routes/*` — REST endpoints (e.g. `checkout`, `stripe`).
+- `drizzle/schema.ts` and `drizzle/migrations/` — DB schema + migrations.
+- `shared/` — cross-cutting types and constants (`@shared/*`).
 
 Essential commands
-```
+```sh
 pnpm install
-pnpm dev         # development: tsx watch server/_core/index.ts + Vite middleware
-pnpm run check   # TypeScript: tsc --noEmit
-pnpm build       # client: vite build; server: esbuild bundle (see package.json)
-pnpm start       # production start: node dist/index.js
-pnpm test        # runs vitest
-pnpm run db:push # drizzle-kit generate && drizzle-kit migrate
+pnpm dev         # dev: tsx watches server/_core/index.ts + Vite HMR
+pnpm run check   # tsc --noEmit
+pnpm build       # client: vite build; server: esbuild bundle
+pnpm start       # production: node dist/index.js
+pnpm test        # vitest
+pnpm run db:push # drizzle-kit generate && migrate
 ```
 
-Repo-specific gotchas & rules
-- Stripe webhook: `server/_core/index.ts` registers `/api/stripe/webhook` with `express.raw({type: 'application/json'})` *before* `express.json()` — **do not change this order**.
-- API pattern: All API routes start with `/api/*` (important for gateways). tRPC endpoints live under `/api/trpc`.
-- Dev vs Prod: Dev uses Vite middleware (`setupVite`) with HMR; Prod serves static files from `dist/public` (`serveStatic`).
-- Build: `pnpm build` runs `vite build` for the client and then bundles the server with `esbuild` (entry: `server/_core/index.ts`).
-- Ports: The server attempts `process.env.PORT || 3000` and will search for a free port (see `findAvailablePort`). Keep this in mind for tests/CI.
-- Patches: Patched dependencies live in `patches/` (see `pnpm.patchedDependencies` in `package.json`).
+Critical, non-obvious rules (do not change)
+- Stripe webhook: Register `/api/stripe/webhook` with `express.raw({ type: 'application/json' })` *before* `express.json()` in `server/_core/index.ts`. Changing this breaks Stripe signature verification.
+- API URL pattern: All API endpoints live under `/api/*`. tRPC is under `/api/trpc` — follow this when adding routes.
+- Dev vs Prod: Dev uses Vite as middleware (`setupVite`). Production serves `dist/public` statics.
+- Port logic: server prefers `process.env.PORT || 3000` and will search for an available port — tests/CI should account for this (`findAvailablePort`).
+- Patched deps: see `patches/` and `pnpm.patchedDependencies` in `package.json`.
 
-Concrete examples (copy-paste)
-- Add a tRPC router: add `router({ myFeature: router({ ... }) })` in `server/routers.ts` and export it on `appRouter`.
-- Add a REST route: create `server/routes/<name>.ts` and mount it in `server/_core/index.ts` via `app.use('/api/<name>', <route>)`.
-- DB change: update `drizzle/schema.ts` → run `pnpm run db:push` → commit `drizzle/migrations/`.
+Short examples (copy-paste)
+- Add a tRPC router: modify `server/routers.ts`:
+  `router({ myFeature: router({ /* procedures */ }) })` → export via `appRouter` → client: `/api/trpc/myFeature`.
+- Add a REST route: create `server/routes/<name>.ts` and mount in `server/_core/index.ts` with `app.use('/api/<name>', <route>)`.
+- DB change: edit `drizzle/schema.ts` → run `pnpm run db:push` locally → commit generated files in `drizzle/migrations/`.
 
-Debugging / testing notes
-- For HMR issues, check `server/_core/vite.ts` and verify `vite.middlewares` is applied and that `index.html` is reloaded.
-- TypeScript: run `pnpm run check` before PRs; tests: `pnpm test`.
+Helpful automation & tasks
+- VS Code tasks available: `Start Project (start.sh)`, `Start Dev Server`, `Start Dev Server + Open`, `Open Live Preview (External)`, `Automation Assisten`.
+- Automation Assisten: `bash ./scripts/assistant_automate.sh` or run the `Automation Assisten` task. It logs checkpoints to `tmp_debug/assistant_checkpoints.md`.
 
-PR checklist (practical)
-- Avoid changing `@shared` types unless necessary; document breaking changes.
-- For DB changes: run `pnpm run db:push` locally and include migration files in the PR.
-- Stripe: never commit secrets or webhook signing keys; keep webhook middleware order intact.
+Debugging tips
+- HMR stale pages → check `server/_core/vite.ts` that `vite.middlewares` are applied.
+- Stripe webhook failures → confirm middleware order and webhook secret used in local test.
+- Run `pnpm run check` before PRs; run `pnpm test` for unit tests.
 
-If you want
-- I can scaffold templates: `.env.example`, a tRPC router template, or prepare a PR for `server/routes/stripe.ts`. Tell me which.
+PR checklist (important)
+- Do not commit Stripe secrets or webhook signing keys. Use env vars and `.env.example` as template.
+- Document breaking changes to `shared/` types and update consumers.
+- Include migration files from `drizzle/migrations/` when DB schema changes.
 
-VS Code: Tasks & Preview (practical)
-- Available VS Code tasks:
-  - `Start Project (start.sh)` — runs `./scripts/start.sh` (installs and starts pnpm or uses Docker fallback).
-  - `Start Dev Server` — runs `pnpm dev` (HMR via Vite).
-  - `Start Dev Server + Open` — starts the dev server (if needed) and opens the URL detected by the script (checks ports `3000`–`3020`).
-  - `Open Live Preview (External)` — opens the first reachable dev URL or `http://localhost:3000`.
-- Helpful scripts:
-  - `scripts/start.sh` (universal start script)
-  - `scripts/start-dev-and-open.sh` (starts pnpm dev and opens the detected port URL)
-  - `scripts/open-dev-url.sh` (opens running dev server)
-  - `scripts/assistant_automate.sh` (Automation assisten — interactive automation with 10s timeout)
-- Recommendation: install the **Live Preview** (Microsoft) or **Browser Preview** extension in VS Code; start a task and open the preview on the server URL.
+If you need more
+- I can scaffold: `.env.example`, `server/templates/trpc-router-template.ts`, or create a PR for `server/routes/stripe.ts`.
+- See `README_AUTOMATION.md` for a user-focused walkthrough of automation, envs and webhook notes.
 
-Automation assisten
-- **Purpose**: lightweight runner that asks for a semicolon-separated list of tasks, waits 10s for input, and otherwise runs a sensible default sequence. It logs structured checkpoints to `tmp_debug/assistant_checkpoints.md`.
-- **Run**: from the workspace run the VS Code task `Automation Assisten` or execute `bash ./scripts/assistant_automate.sh`.
- - **Run**: from the workspace run the VS Code task `Automation Assisten` or execute `node ./scripts/assistant_automate.js`.
-- **Notes**: long-running `dev` commands are started in background so the assistant can continue with subsequent tasks. Checkpoints include timestamps, task, status and a short output excerpt.
-
-Short & practical
-- `.env.example`: example variables (copy to `.env` before local start).
-- `server/templates/trpc-router-template.ts`: example template for new tRPC routers.
-
-Feedback
-- Tell me if you want a bilingual `.github/copilot-instructions.md` kept, a standalone English file, or additional examples (e.g. DB-backed tRPC example).
-
-Additional docs
-- See `README_AUTOMATION.md` for a beginner-friendly, step-by-step explanation of the Automation assisten, local vs production, domain/DNS basics, SSL, environment variables, and Stripe webhook notes.
-
-````
+- End -
