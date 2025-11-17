@@ -30,38 +30,6 @@ Repo-specific gotchas & rules
 - Ports: The server attempts `process.env.PORT || 3000` and will search for a free port (see `findAvailablePort`). Keep this in mind for tests/CI.
 - Patches: Patched dependencies live in `patches/` (see `pnpm.patchedDependencies` in `package.json`).
 
-## AI-Copilot Guide (English, concise)
-
-Quick overview
-- Architecture: SPA frontend with Vite (`client/`) and an Express + tRPC backend (`server/`). DB: Drizzle-ORM (`drizzle/`). Payments: Stripe (`server/routes/stripe`). Package manager: `pnpm`.
-
-Key locations (quick)
-- Server start & middleware: `server/_core/index.ts` (port fallback, body-parser, Stripe webhook setup).
-- Vite Dev integration: `server/_core/vite.ts` (Vite middleware for dev with HMR).
-- tRPC router: `server/routers.ts` → exports `appRouter` at `/api/trpc`.
-- Routes: `server/routes/checkout`, `server/routes/stripe`.
-- DB schema: `drizzle/schema.ts`; migrations in `drizzle/migrations/`.
-- Shared types/constants: `shared/` (path alias `@shared/*`).
-
-Essential commands
-```
-pnpm install
-pnpm dev         # development: tsx watch server/_core/index.ts + Vite middleware
-pnpm run check   # TypeScript: tsc --noEmit
-pnpm build       # client: vite build; server: esbuild bundle (see package.json)
-pnpm start       # production start: node dist/index.js
-pnpm test        # runs vitest
-pnpm run db:push # drizzle-kit generate && drizzle-kit migrate
-```
-
-Repo-specific gotchas & rules
-- Stripe webhook: `server/_core/index.ts` registers `/api/stripe/webhook` with `express.raw({type: 'application/json'})` *before* `express.json()` — **do not change this order**.
-- API pattern: All API routes start with `/api/*` (important for gateways). tRPC endpoints live under `/api/trpc`.
-- Dev vs Prod: Dev uses Vite middleware (`setupVite`) with HMR; Prod serves static files from `dist/public` (`serveStatic`).
-- Build: `pnpm build` runs `vite build` for the client and then bundles the server with `esbuild` (entry: `server/_core/index.ts`).
-- Ports: The server attempts `process.env.PORT || 3000` and will search for a free port (see `findAvailablePort`). Keep this in mind for tests/CI.
-- Patches: Patched dependencies live in `patches/` (see `pnpm.patchedDependencies` in `package.json`).
-
 Concrete examples (copy-paste)
 - Add a tRPC router: add `router({ myFeature: router({ ... }) })` in `server/routers.ts` and export it on `appRouter`.
 - Add a REST route: create `server/routes/<name>.ts` and mount it in `server/_core/index.ts` via `app.use('/api/<name>', <route>)`.
@@ -99,6 +67,53 @@ Feedback
 - Tell me if you want a bilingual `.github/copilot-instructions.md` kept, a standalone English file, or additional examples (e.g. DB-backed tRPC example).
 
 ````
+
+  - `scripts/start.sh` (universelles Startskript)
+  - `scripts/start-dev-and-open.sh` (startet pnpm dev und öffnet die erkannte Port-URL)
+  - `scripts/open-dev-url.sh` (öffnet laufenden Dev-Server)
+- Empfehlung: Installiere die VS Code-Erweiterung **Live Preview** (Microsoft) oder **Browser Preview**, starte einen Task und öffne die Vorschau auf der vom Server angegebenen URL.
+
+Kurz & praktisch
+- `.env.example`: Beispiel-Variablen (kopieren zu `.env` vor lokalem Start).
+- `server/templates/trpc-router-template.ts`: Beispiel-Template für neue tRPC-Router.
+
+Feedback
+- Sag mir, ob du eine `.env.example` mit zusätzlichen Kommentaren, ein tRPC-Template mit DB-Beispiel oder eine PR-Vorlage möchtest.
+
+````
+## AI-Copilot Anleitung (Deutsch, kompakt)
+
+Kurzüberblick
+- Architektur: SPA-Frontend mit Vite (`client/`) + Express-Server mit tRPC (`server/`). DB: Drizzle-ORM (`drizzle/`). Zahlungen: Stripe (`server/routes/stripe`). Paketmanager: `pnpm`.
+
+Wesentliche Orte (schnell)
+- Server-Start & Middleware: `server/_core/index.ts` (Port-Fallback, body-parser, Stripe-webhook-setup).
+- Vite Dev: `server/_core/vite.ts` (integriert Vite als middleware in Dev).
+- tRPC Router: `server/routers.ts` → exportiert `appRouter` unter `/api/trpc`.
+- Routen: `server/routes/checkout`, `server/routes/stripe`.
+- DB-Schema: `drizzle/schema.ts`; Migrationen: `drizzle/migrations/`.
+- Shared-Types: `shared/` (Alias `@shared/*`).
+
+Unverzichtbare Befehle
+```
+pnpm install
+pnpm dev         # dev: startet server (tsx watch server/_core/index.ts) + Vite middleware
+pnpm run check   # tsc --noEmit
+pnpm build       # client: vite build; server: esbuild bundle (siehe package.json)
+pnpm start       # startet gebundeltes server: node dist/index.js
+pnpm test        # vitest
+pnpm run db:push # drizzle-kit generate && drizzle-kit migrate
+```
+
+Repo-spezifische Gotchas & Regeln
+- Stripe webhook: `server/_core/index.ts` registriert `/api/stripe/webhook` mit `express.raw({type: 'application/json'})` *vor* `express.json()` — **die Reihenfolge darf nicht geändert werden**.
+- API-Pattern: Alle API-Routen beginnen mit `/api/*` (wichtig für Gateways). tRPC-Endpoints leben unter `/api/trpc`.
+- Dev vs Prod: Dev verwendet Vite middleware (HMR) via `setupVite`; Prod dient statische Dateien aus `dist/public` (`serveStatic`).
+- Build: `pnpm build` führt `vite build` für `client/` aus und bundelt anschließend den Server mit `esbuild` (Entry: `server/_core/index.ts`).
+- Ports: Server sucht einen freien Port ab `process.env.PORT || 3000` (siehe `findAvailablePort`). Tests/CI sollten das berücksichtigen.
+- Patches: Gepatchte Pakete liegen in `patches/` (siehe `package.json` `pnpm.patchedDependencies`).
+
+Konkrete Beispiele (Copy-paste tauglich)
 - Neue tRPC-Route: füge in `server/routers.ts` ein `router({ myFeature: router({ ... }) })` und exportiere es in `appRouter`.
 - Neue REST-Route: erstelle `server/routes/<name>.ts` und mount in `server/_core/index.ts` via `app.use('/api/<name>', <route>)`.
 - DB-Änderung: anpassen `drizzle/schema.ts` → `pnpm run db:push` → commit `drizzle/migrations/`.

@@ -30,6 +30,7 @@ Repo-specific gotchas & rules
 - Ports: The server attempts `process.env.PORT || 3000` and will search for a free port (see `findAvailablePort`). Keep this in mind for tests/CI.
 - Patches: Patched dependencies live in `patches/` (see `pnpm.patchedDependencies` in `package.json`).
 
+````instructions
 ## AI-Copilot Guide (English, concise)
 
 Quick overview

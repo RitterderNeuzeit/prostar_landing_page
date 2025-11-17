@@ -1,1 +1,1 @@
-fatal: not a git repository (or any of the parent directories): .git
+e250336 feat: collect debug logs and system information
