@@ -11,6 +11,7 @@ import Course from "./pages/Course";
 import Success from "./pages/Success";
 import MiniCourseSignup from "./pages/MiniCourseSignup";
 import CourseInfo from "./pages/CourseInfo";
+import Admin from "./pages/Admin";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -21,6 +22,7 @@ function Router() {
       <Route path={"/success"} component={Success} />
       <Route path={"/mini-course"} component={MiniCourseSignup} />
       <Route path={"/course-info"} component={CourseInfo} />
+      <Route path={"/admin"} component={Admin} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

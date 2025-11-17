@@ -46,6 +46,16 @@ async function startServer() {
   app.use("/api/checkout", checkoutRoutes);
   // Stripe routes
   app.use("/api/stripe", stripeRoutes);
+  // Admin routes for local CMS editing of landing content
+  // Protected by header `x-admin-key` matching `process.env.ADMIN_KEY` (or allowed in dev when ADMIN_KEY unset)
+  try {
+    // lazy require to avoid circular deps in some environments
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const adminRoutes = require('../routes/admin').default;
+    app.use('/api/admin', adminRoutes);
+  } catch (e) {
+    console.warn('Admin routes not mounted', e);
+  }
   // tRPC API
   app.use(
     "/api/trpc",
