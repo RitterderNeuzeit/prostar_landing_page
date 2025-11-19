@@ -1,15 +1,15 @@
 # Kurz-Problemliste — schnell handlungsfähig
 
-1) `pnpm` fehlt in dieser Umgebung — ohne `pnpm` startet `pnpm dev` nicht.
+1. `pnpm` fehlt in dieser Umgebung — ohne `pnpm` startet `pnpm dev` nicht.
    - Aktion: `pnpm` lokal installieren (Anleitung unten).
 
-2) `.env` fehlt reale Werte — ohne DB/Stripe-Keys startet evtl. die App nicht korrekt.
+2. `.env` fehlt reale Werte — ohne DB/Stripe-Keys startet evtl. die App nicht korrekt.
    - Aktion: `cp .env.example .env` und Werte ergänzen (DB, JWT, Stripe optional).
 
-3) TypeScript-Fehler blockieren Build (wenn vorhanden) — `pnpm run check` ausführen.
+3. TypeScript-Fehler blockieren Build (wenn vorhanden) — `pnpm run check` ausführen.
    - Aktion: `pnpm run check` ausführen und Fehler beheben.
 
-4) Dev-Server: `pnpm dev` startet Express + Vite. Wenn Port belegt, wählt die App einen anderen Port.
+4. Dev-Server: `pnpm dev` startet Express + Vite. Wenn Port belegt, wählt die App einen anderen Port.
    - Aktion: `pnpm dev` starten und die Konsole auf Fehler prüfen.
 
 Kurzanleitung (was du lokal tun musst)

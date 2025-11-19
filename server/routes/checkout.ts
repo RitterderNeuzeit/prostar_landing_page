@@ -1,12 +1,12 @@
-import { Router, Request, Response } from 'express';
-import Stripe from 'stripe';
+import { Router, Request, Response } from "express";
+import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '');
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "");
 const router = Router();
 
 interface CheckoutRequest extends Request {
   body: {
-    tier: 'starter' | 'professional' | 'enterprise';
+    tier: "starter" | "professional" | "enterprise";
     email?: string;
     name?: string;
   };
@@ -18,25 +18,25 @@ interface CheckoutRequest extends Request {
  */
 const PRODUCTS = {
   starter: {
-    priceId: 'price_course_starter_eur',
-    name: 'KI-Prompting Kurs - Starter',
+    priceId: "price_course_starter_eur",
+    name: "KI-Prompting Kurs - Starter",
     amount: 9700,
-    currency: 'eur',
-    tier: 'starter',
+    currency: "eur",
+    tier: "starter",
   },
   professional: {
-    priceId: 'price_course_professional_eur',
-    name: 'KI-Prompting Kurs - Professional',
+    priceId: "price_course_professional_eur",
+    name: "KI-Prompting Kurs - Professional",
     amount: 19700,
-    currency: 'eur',
-    tier: 'professional',
+    currency: "eur",
+    tier: "professional",
   },
   enterprise: {
-    priceId: 'price_course_enterprise_eur',
-    name: 'KI-Prompting Kurs - Enterprise',
+    priceId: "price_course_enterprise_eur",
+    name: "KI-Prompting Kurs - Enterprise",
     amount: 49700,
-    currency: 'eur',
-    tier: 'enterprise',
+    currency: "eur",
+    tier: "enterprise",
   },
 };
 
@@ -44,23 +44,23 @@ const PRODUCTS = {
  * POST /api/checkout/starter
  * Create checkout session for Starter tier
  */
-router.post('/starter', async (req: CheckoutRequest, res: Response) => {
+router.post("/starter", async (req: CheckoutRequest, res: Response) => {
   try {
-    const { email = 'guest@example.com', name = 'Guest' } = req.body;
+    const { email = "guest@example.com", name = "Guest" } = req.body;
     const product = PRODUCTS.starter;
 
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
+      payment_method_types: ["card"],
       line_items: [
         {
           price: product.priceId,
           quantity: 1,
         },
       ],
-      mode: 'payment',
+      mode: "payment",
       customer_email: email,
-      success_url: `${req.headers.origin || 'http://localhost:3000'}/success?session_id={CHECKOUT_SESSION_ID}&tier=starter`,
-      cancel_url: `${req.headers.origin || 'http://localhost:3000'}/?canceled=true`,
+      success_url: `${req.headers.origin || "http://localhost:3000"}/success?session_id={CHECKOUT_SESSION_ID}&tier=starter`,
+      cancel_url: `${req.headers.origin || "http://localhost:3000"}/?canceled=true`,
       allow_promotion_codes: true,
       metadata: {
         tier: product.tier,
@@ -71,8 +71,8 @@ router.post('/starter', async (req: CheckoutRequest, res: Response) => {
 
     res.json({ url: session.url });
   } catch (error) {
-    console.error('Starter checkout error:', error);
-    res.status(500).json({ error: 'Failed to create checkout session' });
+    console.error("Starter checkout error:", error);
+    res.status(500).json({ error: "Failed to create checkout session" });
   }
 });
 
@@ -80,23 +80,23 @@ router.post('/starter', async (req: CheckoutRequest, res: Response) => {
  * POST /api/checkout/professional
  * Create checkout session for Professional tier
  */
-router.post('/professional', async (req: CheckoutRequest, res: Response) => {
+router.post("/professional", async (req: CheckoutRequest, res: Response) => {
   try {
-    const { email = 'guest@example.com', name = 'Guest' } = req.body;
+    const { email = "guest@example.com", name = "Guest" } = req.body;
     const product = PRODUCTS.professional;
 
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
+      payment_method_types: ["card"],
       line_items: [
         {
           price: product.priceId,
           quantity: 1,
         },
       ],
-      mode: 'payment',
+      mode: "payment",
       customer_email: email,
-      success_url: `${req.headers.origin || 'http://localhost:3000'}/success?session_id={CHECKOUT_SESSION_ID}&tier=professional`,
-      cancel_url: `${req.headers.origin || 'http://localhost:3000'}/?canceled=true`,
+      success_url: `${req.headers.origin || "http://localhost:3000"}/success?session_id={CHECKOUT_SESSION_ID}&tier=professional`,
+      cancel_url: `${req.headers.origin || "http://localhost:3000"}/?canceled=true`,
       allow_promotion_codes: true,
       metadata: {
         tier: product.tier,
@@ -107,8 +107,8 @@ router.post('/professional', async (req: CheckoutRequest, res: Response) => {
 
     res.json({ url: session.url });
   } catch (error) {
-    console.error('Professional checkout error:', error);
-    res.status(500).json({ error: 'Failed to create checkout session' });
+    console.error("Professional checkout error:", error);
+    res.status(500).json({ error: "Failed to create checkout session" });
   }
 });
 
@@ -116,23 +116,23 @@ router.post('/professional', async (req: CheckoutRequest, res: Response) => {
  * POST /api/checkout/enterprise
  * Create checkout session for Enterprise tier
  */
-router.post('/enterprise', async (req: CheckoutRequest, res: Response) => {
+router.post("/enterprise", async (req: CheckoutRequest, res: Response) => {
   try {
-    const { email = 'guest@example.com', name = 'Guest' } = req.body;
+    const { email = "guest@example.com", name = "Guest" } = req.body;
     const product = PRODUCTS.enterprise;
 
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
+      payment_method_types: ["card"],
       line_items: [
         {
           price: product.priceId,
           quantity: 1,
         },
       ],
-      mode: 'payment',
+      mode: "payment",
       customer_email: email,
-      success_url: `${req.headers.origin || 'http://localhost:3000'}/success?session_id={CHECKOUT_SESSION_ID}&tier=enterprise`,
-      cancel_url: `${req.headers.origin || 'http://localhost:3000'}/?canceled=true`,
+      success_url: `${req.headers.origin || "http://localhost:3000"}/success?session_id={CHECKOUT_SESSION_ID}&tier=enterprise`,
+      cancel_url: `${req.headers.origin || "http://localhost:3000"}/?canceled=true`,
       allow_promotion_codes: true,
       metadata: {
         tier: product.tier,
@@ -143,8 +143,8 @@ router.post('/enterprise', async (req: CheckoutRequest, res: Response) => {
 
     res.json({ url: session.url });
   } catch (error) {
-    console.error('Enterprise checkout error:', error);
-    res.status(500).json({ error: 'Failed to create checkout session' });
+    console.error("Enterprise checkout error:", error);
+    res.status(500).json({ error: "Failed to create checkout session" });
   }
 });
 
@@ -152,12 +152,12 @@ router.post('/enterprise', async (req: CheckoutRequest, res: Response) => {
  * POST /api/checkout/mini-lesson
  * Create checkout session for free mini-lesson opt-in
  */
-router.post('/mini-lesson', async (req: CheckoutRequest, res: Response) => {
+router.post("/mini-lesson", async (req: CheckoutRequest, res: Response) => {
   try {
-    const { email = '', name = 'Guest' } = req.body;
+    const { email = "", name = "Guest" } = req.body;
 
     if (!email) {
-      res.status(400).json({ error: 'Email is required' });
+      res.status(400).json({ error: "Email is required" });
       return;
     }
 
@@ -167,12 +167,13 @@ router.post('/mini-lesson', async (req: CheckoutRequest, res: Response) => {
 
     res.json({
       success: true,
-      message: 'Vielen Dank! Überprüfen Sie Ihr E-Mail-Postfach für die kostenlose Lektion.',
-      redirectUrl: '/mini-lesson-sent',
+      message:
+        "Vielen Dank! Überprüfen Sie Ihr E-Mail-Postfach für die kostenlose Lektion.",
+      redirectUrl: "/mini-lesson-sent",
     });
   } catch (error) {
-    console.error('Mini-lesson opt-in error:', error);
-    res.status(500).json({ error: 'Failed to process opt-in' });
+    console.error("Mini-lesson opt-in error:", error);
+    res.status(500).json({ error: "Failed to process opt-in" });
   }
 });
 
@@ -180,7 +181,7 @@ router.post('/mini-lesson', async (req: CheckoutRequest, res: Response) => {
  * GET /api/checkout/session/:sessionId
  * Retrieve checkout session details
  */
-router.get('/session/:sessionId', async (req: Request, res: Response) => {
+router.get("/session/:sessionId", async (req: Request, res: Response) => {
   try {
     const { sessionId } = req.params;
 
@@ -195,8 +196,8 @@ router.get('/session/:sessionId', async (req: Request, res: Response) => {
       metadata: session.metadata,
     });
   } catch (error) {
-    console.error('Session retrieval error:', error);
-    res.status(500).json({ error: 'Failed to retrieve session' });
+    console.error("Session retrieval error:", error);
+    res.status(500).json({ error: "Failed to retrieve session" });
   }
 });
 

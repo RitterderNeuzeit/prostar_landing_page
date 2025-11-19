@@ -27,7 +27,7 @@ pnpm run db:push # drizzle-kit generate && drizzle-kit migrate
 
 Wichtige Projekthinweise
 
-- Stripe-Webhook: `server/_core/index.ts` registriert `/api/stripe/webhook` mit `express.raw({type: 'application/json'})` *vor* `express.json()` — **Reihenfolge nicht ändern**.
+- Stripe-Webhook: `server/_core/index.ts` registriert `/api/stripe/webhook` mit `express.raw({type: 'application/json'})` _vor_ `express.json()` — **Reihenfolge nicht ändern**.
 - API-Pattern: Alle API-Routen beginnen mit `/api/*`. tRPC-Endpunkte unter `/api/trpc`.
 - Dev vs Prod: Dev nutzt Vite-Middleware; Prod dient statische Dateien aus `dist/public`.
 - Build: `pnpm build` → `vite build` (Client) + `esbuild` (Server entry: `server/_core/index.ts`).
@@ -35,6 +35,7 @@ Wichtige Projekthinweise
 - Gepatchte Abhängigkeiten: `patches/` und `pnpm.patchedDependencies` in `package.json`.
 
 Kurze Beispiele
+
 - Neue tRPC-Route: `server/routers.ts` erweitern und in `appRouter` exportieren.
 - Neue REST-Route: `server/routes/<name>.ts` erstellen und in `server/_core/index.ts` mounten.
 - DB-Änderung: `drizzle/schema.ts` anpassen → `pnpm run db:push` → Migrationsdateien committen.
@@ -52,7 +53,9 @@ Automation assisten
 - **Hinweis:** Lang laufende `dev`-Befehle werden heuristisch im Hintergrund gestartet (PID-Log) damit die restlichen Schritte weiterlaufen können. Es gibt pro-Befehl Timeouts, um Hänger zu verhindern.
 
 Weitere Hilfe
+
 - Sag mir, ob du eine ausführlichere `.env.example`, ein tRPC-Template mit DB-Beispielen, oder eine PR-Vorlage möchtest.
 
 Weitere Dokumentation
+
 - Siehe `README_AUTOMATION.md` für eine anfängerfreundliche, schrittweise Anleitung zum Automation assisten, lokale vs. Produktion, Domain/DNS-Grundlagen, SSL, Umgebungsvariablen und Hinweise zu Stripe-Webhooks.

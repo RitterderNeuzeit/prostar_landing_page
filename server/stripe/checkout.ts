@@ -1,7 +1,7 @@
-import Stripe from 'stripe';
-import { courseProducts, subscriptionProducts } from './products';
+import Stripe from "stripe";
+import { courseProducts, subscriptionProducts } from "./products";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '');
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "");
 
 export interface CheckoutSessionParams {
   userId: string;
@@ -16,12 +16,22 @@ export interface CheckoutSessionParams {
 /**
  * Create a Stripe Checkout Session
  */
-export async function createCheckoutSession(params: CheckoutSessionParams): Promise<string> {
-  const { userId, userEmail, userName, productId, successUrl, cancelUrl, metadata = {} } = params;
+export async function createCheckoutSession(
+  params: CheckoutSessionParams
+): Promise<string> {
+  const {
+    userId,
+    userEmail,
+    userName,
+    productId,
+    successUrl,
+    cancelUrl,
+    metadata = {},
+  } = params;
 
   // Find the product
   const allProducts = [...courseProducts, ...subscriptionProducts];
-  const product = allProducts.find((p) => p.id === productId);
+  const product = allProducts.find(p => p.id === productId);
 
   if (!product) {
     throw new Error(`Product not found: ${productId}`);
@@ -43,9 +53,9 @@ export async function createCheckoutSession(params: CheckoutSessionParams): Prom
 
   // Create session parameters
   const sessionParams: Stripe.Checkout.SessionCreateParams = {
-    payment_method_types: ['card'],
+    payment_method_types: ["card"],
     line_items: lineItems,
-    mode: product.type === 'subscription' ? 'subscription' : 'payment',
+    mode: product.type === "subscription" ? "subscription" : "payment",
     customer_email: userEmail,
     client_reference_id: userId,
     success_url: successUrl,
@@ -62,11 +72,11 @@ export async function createCheckoutSession(params: CheckoutSessionParams): Prom
   };
 
   // Add trial period for subscriptions if applicable
-  if (product.type === 'subscription' && price.trialDays) {
+  if (product.type === "subscription" && price.trialDays) {
     sessionParams.subscription_data = {
       trial_settings: {
         end_behavior: {
-          missing_payment_method: 'cancel',
+          missing_payment_method: "cancel",
         },
       },
       trial_period_days: price.trialDays,
@@ -75,9 +85,9 @@ export async function createCheckoutSession(params: CheckoutSessionParams): Prom
 
   try {
     const session = await stripe.checkout.sessions.create(sessionParams);
-    return session.url || '';
+    return session.url || "";
   } catch (error) {
-    console.error('Failed to create checkout session:', error);
+    console.error("Failed to create checkout session:", error);
     throw error;
   }
 }
@@ -85,11 +95,13 @@ export async function createCheckoutSession(params: CheckoutSessionParams): Prom
 /**
  * Retrieve checkout session details
  */
-export async function getCheckoutSession(sessionId: string): Promise<Stripe.Checkout.Session> {
+export async function getCheckoutSession(
+  sessionId: string
+): Promise<Stripe.Checkout.Session> {
   try {
     return await stripe.checkout.sessions.retrieve(sessionId);
   } catch (error) {
-    console.error('Failed to retrieve checkout session:', error);
+    console.error("Failed to retrieve checkout session:", error);
     throw error;
   }
 }
@@ -97,15 +109,17 @@ export async function getCheckoutSession(sessionId: string): Promise<Stripe.Chec
 /**
  * List customer's past checkout sessions
  */
-export async function listCustomerSessions(email: string): Promise<Stripe.Checkout.Session[]> {
+export async function listCustomerSessions(
+  email: string
+): Promise<Stripe.Checkout.Session[]> {
   try {
     const sessions = await stripe.checkout.sessions.list({
       limit: 100,
     });
     // Filter by email on the client side since Stripe API doesn't support customer_email filter
-    return sessions.data.filter((s) => s.customer_email === email);
+    return sessions.data.filter(s => s.customer_email === email);
   } catch (error) {
-    console.error('Failed to list customer sessions:', error);
+    console.error("Failed to list customer sessions:", error);
     throw error;
   }
 }

@@ -3,6 +3,7 @@
 ## Das Problem
 
 Du hast:
+
 - 1000 Leads
 - 1 Person (dich)
 - 8 Stunden pro Woche für Qualifizierung
@@ -16,6 +17,7 @@ Du hast:
 ## Das System (3 Prompts)
 
 ### Prompt 1: Lead Research
+
 ```
 Du bist ein B2B Lead Researcher.
 
@@ -34,6 +36,7 @@ Format: CSV
 ```
 
 ### Prompt 2: Lead Qualification (BANT)
+
 ```
 Du bist ein Sales Qualification Expert.
 
@@ -50,6 +53,7 @@ Format: Tabelle mit Priorität 1-20
 ```
 
 ### Prompt 3: Personalized Outreach
+
 ```
 Du bist ein LinkedIn Outreach Specialist mit 50% Connection Accept Rate.
 
@@ -74,12 +78,12 @@ Format: List of 20 messages
 
 ## Ergebnisse
 
-| Metrik | Manual | Automated | Gain |
-|--------|--------|-----------|------|
-| Leads researched | 100/Woche | 50/Tag = 250/Woche | +150% |
-| Qualification time | 5h | 30min | -94% |
-| Accept rate | 15% | 40% | +165% |
-| Qualified meetings | 2-3/Woche | 15-20/Woche | +700% |
+| Metrik             | Manual    | Automated          | Gain  |
+| ------------------ | --------- | ------------------ | ----- |
+| Leads researched   | 100/Woche | 50/Tag = 250/Woche | +150% |
+| Qualification time | 5h        | 30min              | -94%  |
+| Accept rate        | 15%       | 40%                | +165% |
+| Qualified meetings | 2-3/Woche | 15-20/Woche        | +700% |
 
 ---
 

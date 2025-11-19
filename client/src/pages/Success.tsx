@@ -1,34 +1,34 @@
-import { useEffect, useState } from 'react';
-import { useLocation } from 'wouter';
-import { CheckCircle, Download, Share2, ArrowRight } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { useEffect, useState } from "react";
+import { useLocation } from "wouter";
+import { CheckCircle, Download, Share2, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default function Success() {
   const [location] = useLocation();
-  const [sessionId, setSessionId] = useState('');
-  const [tier, setTier] = useState('');
+  const [sessionId, setSessionId] = useState("");
+  const [tier, setTier] = useState("");
   const [loading, setLoading] = useState(true);
   const [sessionData, setSessionData] = useState<any>(null);
 
   useEffect(() => {
     // Extract query parameters
     const params = new URLSearchParams(window.location.search);
-    const sid = params.get('session_id');
-    const t = params.get('tier');
+    const sid = params.get("session_id");
+    const t = params.get("tier");
 
     if (sid) {
       setSessionId(sid);
-      setTier(t || '');
+      setTier(t || "");
 
       // Fetch session details
       fetch(`/api/checkout/session/${sid}`)
-        .then((res) => res.json())
-        .then((data) => {
+        .then(res => res.json())
+        .then(data => {
           setSessionData(data);
           setLoading(false);
         })
-        .catch((err) => {
-          console.error('Failed to fetch session:', err);
+        .catch(err => {
+          console.error("Failed to fetch session:", err);
           setLoading(false);
         });
     } else {
@@ -37,10 +37,25 @@ export default function Success() {
   }, []);
 
   const getTierInfo = (tierName: string) => {
-    const tiers: Record<string, { name: string; modules: number; color: string }> = {
-      starter: { name: 'Starter', modules: 3, color: 'from-cyan-500 to-blue-500' },
-      professional: { name: 'Professional', modules: 8, color: 'from-cyan-400 to-teal-500' },
-      enterprise: { name: 'Enterprise', modules: 9, color: 'from-cyan-300 to-green-500' },
+    const tiers: Record<
+      string,
+      { name: string; modules: number; color: string }
+    > = {
+      starter: {
+        name: "Starter",
+        modules: 3,
+        color: "from-cyan-500 to-blue-500",
+      },
+      professional: {
+        name: "Professional",
+        modules: 8,
+        color: "from-cyan-400 to-teal-500",
+      },
+      enterprise: {
+        name: "Enterprise",
+        modules: 9,
+        color: "from-cyan-300 to-green-500",
+      },
     };
     return tiers[tierName] || tiers.starter;
   };
@@ -73,7 +88,9 @@ export default function Success() {
         {/* Order Details Card */}
         {sessionData && (
           <div className="bg-gradient-to-br from-[#1a1f3a] to-[#0f1535] border border-cyan-500/30 rounded-lg p-8 mb-8">
-            <h2 className="text-2xl font-bold mb-6 text-cyan-400">Bestelldetails</h2>
+            <h2 className="text-2xl font-bold mb-6 text-cyan-400">
+              Bestelldetails
+            </h2>
 
             <div className="space-y-4 mb-6">
               <div className="flex justify-between items-center pb-4 border-b border-cyan-500/20">
@@ -95,7 +112,7 @@ export default function Success() {
                 <span className="text-2xl font-bold text-cyan-400">
                   {sessionData.amount_total
                     ? `€${(sessionData.amount_total / 100).toFixed(2)}`
-                    : 'N/A'}
+                    : "N/A"}
                 </span>
               </div>
 
@@ -109,7 +126,8 @@ export default function Success() {
 
             {sessionData.customer_email && (
               <p className="text-sm text-gray-400 text-center">
-                Bestätigung wurde an <strong>{sessionData.customer_email}</strong> gesendet
+                Bestätigung wurde an{" "}
+                <strong>{sessionData.customer_email}</strong> gesendet
               </p>
             )}
           </div>
@@ -117,7 +135,9 @@ export default function Success() {
 
         {/* What's Next */}
         <div className="bg-gradient-to-br from-[#1a1f3a] to-[#0f1535] border border-cyan-500/30 rounded-lg p-8 mb-8">
-          <h2 className="text-2xl font-bold mb-6 text-cyan-400">Nächste Schritte</h2>
+          <h2 className="text-2xl font-bold mb-6 text-cyan-400">
+            Nächste Schritte
+          </h2>
 
           <div className="space-y-4">
             <div className="flex gap-4">
@@ -127,9 +147,12 @@ export default function Success() {
                 </div>
               </div>
               <div>
-                <h3 className="font-semibold text-white mb-1">Kurszugang aktivieren</h3>
+                <h3 className="font-semibold text-white mb-1">
+                  Kurszugang aktivieren
+                </h3>
                 <p className="text-gray-400 text-sm">
-                  Ihr Kurszugang wurde sofort aktiviert. Sie können jetzt auf alle {tierInfo.modules} Module zugreifen.
+                  Ihr Kurszugang wurde sofort aktiviert. Sie können jetzt auf
+                  alle {tierInfo.modules} Module zugreifen.
                 </p>
               </div>
             </div>
@@ -141,9 +164,12 @@ export default function Success() {
                 </div>
               </div>
               <div>
-                <h3 className="font-semibold text-white mb-1">Willkommens-E-Mail</h3>
+                <h3 className="font-semibold text-white mb-1">
+                  Willkommens-E-Mail
+                </h3>
                 <p className="text-gray-400 text-sm">
-                  Überprüfen Sie Ihr E-Mail-Postfach (auch Spam-Ordner) für die Willkommens-E-Mail mit allen Kursmaterialien.
+                  Überprüfen Sie Ihr E-Mail-Postfach (auch Spam-Ordner) für die
+                  Willkommens-E-Mail mit allen Kursmaterialien.
                 </p>
               </div>
             </div>
@@ -155,9 +181,12 @@ export default function Success() {
                 </div>
               </div>
               <div>
-                <h3 className="font-semibold text-white mb-1">Mit Modul 1 starten</h3>
+                <h3 className="font-semibold text-white mb-1">
+                  Mit Modul 1 starten
+                </h3>
                 <p className="text-gray-400 text-sm">
-                  Beginnen Sie mit Modul 1 und folgen Sie dem strukturierten Lernpfad. Alle Module sind lebenslang verfügbar.
+                  Beginnen Sie mit Modul 1 und folgen Sie dem strukturierten
+                  Lernpfad. Alle Module sind lebenslang verfügbar.
                 </p>
               </div>
             </div>
@@ -167,7 +196,7 @@ export default function Success() {
         {/* Action Buttons */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
           <Button
-            onClick={() => window.location.href = '/course'}
+            onClick={() => (window.location.href = "/course")}
             className="bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white font-bold py-3 px-6 rounded-lg flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/50"
           >
             <ArrowRight className="w-5 h-5" />
@@ -176,9 +205,9 @@ export default function Success() {
 
           <Button
             onClick={() => {
-              const element = document.createElement('a');
-              element.href = '/course-materials.pdf';
-              element.download = 'KI-Prompting-Kurs-Materialien.pdf';
+              const element = document.createElement("a");
+              element.href = "/course-materials.pdf";
+              element.download = "KI-Prompting-Kurs-Materialien.pdf";
               document.body.appendChild(element);
               element.click();
               document.body.removeChild(element);
@@ -193,7 +222,7 @@ export default function Success() {
             onClick={() => {
               const text = `Ich habe gerade den KI-Prompting Kurs (${tierInfo.name} Tier) abgeschlossen! 🚀 Empfehle ich jedem, der seine KI-Fähigkeiten verbessern möchte.`;
               const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
-              window.open(url, '_blank');
+              window.open(url, "_blank");
             }}
             className="bg-gradient-to-r from-slate-700 to-slate-800 hover:from-slate-800 hover:to-slate-900 text-white font-bold py-3 px-6 rounded-lg flex items-center justify-center gap-2"
           >
@@ -210,9 +239,9 @@ export default function Success() {
           <Button
             onClick={() => {
               // Open live chat
-              const chatWidget = document.querySelector('[data-chat-widget]');
+              const chatWidget = document.querySelector("[data-chat-widget]");
               if (chatWidget) {
-                chatWidget.dispatchEvent(new Event('open'));
+                chatWidget.dispatchEvent(new Event("open"));
               }
             }}
             className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-6 rounded-lg"

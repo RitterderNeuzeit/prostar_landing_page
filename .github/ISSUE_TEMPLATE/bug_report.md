@@ -24,8 +24,10 @@ about: Melde ein Problem, das du in der Anwendung gefunden hast
 Füge relevante Ausgaben aus `debug_bundle` oder die Konsole hier ein.
 
 ---
+
 name: Bug report
 about: Melde ein Problem, das du in der Anwendung gefunden hast
+
 ---
 
 **Kurz beschreiben**
@@ -40,9 +42,9 @@ about: Melde ein Problem, das du in der Anwendung gefunden hast
 
 **Umgebung**
 
-- Branch/Commit: 
-- Node-Version: 
-- pnpm-Version: 
+- Branch/Commit:
+- Node-Version:
+- pnpm-Version:
 
 **Logs / Fehlermeldungen**
 

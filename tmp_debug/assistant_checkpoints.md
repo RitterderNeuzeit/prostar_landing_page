@@ -1,6 +1,7 @@
 # Automation assisten - Checkpoints
 
 This file is appended by `scripts/assistant_automate.sh` when the Automation assisten runs.
+
 - time: 2025-11-17T17:34:59.202Z
   status: start
   task: "echo hello"
@@ -52,6 +53,7 @@ This file is appended by `scripts/assistant_automate.sh` when the Automation ass
   note: "detached pid=32549"
 
 2025-11-17T18:21:55.068Z | admin-save | user: ::1
+
 - time: 2025-11-17T22:00:26.993Z
   status: start
   task: "pnpm run check"
@@ -171,4 +173,3 @@ This file is appended by `scripts/assistant_automate.sh` when the Automation ass
   status: done
   task: "bash scripts/open-dev-url.sh"
   note: "detached pid=76511"
-

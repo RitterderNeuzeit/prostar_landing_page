@@ -42,7 +42,10 @@ export function registerOAuthRoutes(app: Express) {
       });
 
       const cookieOptions = getSessionCookieOptions(req);
-      res.cookie(COOKIE_NAME, sessionToken, { ...cookieOptions, maxAge: ONE_YEAR_MS });
+      res.cookie(COOKIE_NAME, sessionToken, {
+        ...cookieOptions,
+        maxAge: ONE_YEAR_MS,
+      });
 
       res.redirect(302, "/");
     } catch (error) {
@@ -54,11 +57,14 @@ export function registerOAuthRoutes(app: Express) {
   // Fallback helper for clients when no external OAuth portal is configured.
   // Redirects to the configured OAuth portal (server env) or returns 400.
   app.get("/api/oauth/redirect-to-provider", (req: Request, res: Response) => {
-    const redirectUri = getQueryParam(req, "redirectUri") || `${req.protocol}://${req.get("host")}/api/oauth/callback`;
+    const redirectUri =
+      getQueryParam(req, "redirectUri") ||
+      `${req.protocol}://${req.get("host")}/api/oauth/callback`;
     const state = getQueryParam(req, "state") || "";
     const appId = getQueryParam(req, "appId") || "";
 
-    const portal = process.env.OAUTH_SERVER_URL || process.env.VITE_OAUTH_PORTAL_URL || "";
+    const portal =
+      process.env.OAUTH_SERVER_URL || process.env.VITE_OAUTH_PORTAL_URL || "";
     if (!portal) {
       res.status(400).json({ error: "No OAuth portal configured on server" });
       return;
@@ -67,7 +73,9 @@ export function registerOAuthRoutes(app: Express) {
     try {
       const base = portal.replace(/\/$/, "");
       const url = new URL(base);
-      url.pathname = (url.pathname === "/" ? "" : url.pathname.replace(/\/$/, "")) + "/app-auth";
+      url.pathname =
+        (url.pathname === "/" ? "" : url.pathname.replace(/\/$/, "")) +
+        "/app-auth";
       if (appId) url.searchParams.set("appId", appId);
       url.searchParams.set("redirectUri", redirectUri);
       if (state) url.searchParams.set("state", state);

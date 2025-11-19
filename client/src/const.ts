@@ -17,7 +17,8 @@ export const getLoginUrl = () => {
     const u = new URL(base);
 
     // Ensure we append the `app-auth` path correctly regardless of trailing slashes
-    u.pathname = (u.pathname === "/" ? "" : u.pathname.replace(/\/$/, "")) + "/app-auth";
+    u.pathname =
+      (u.pathname === "/" ? "" : u.pathname.replace(/\/$/, "")) + "/app-auth";
 
     if (appId) u.searchParams.set("appId", appId);
     u.searchParams.set("redirectUri", redirectUri);
@@ -27,7 +28,10 @@ export const getLoginUrl = () => {
     return u.toString();
   } catch (error) {
     // If URL construction fails, fall back to a safe local endpoint that the server can proxy.
-    const fallback = new URL("/api/oauth/redirect-to-provider", window.location.origin);
+    const fallback = new URL(
+      "/api/oauth/redirect-to-provider",
+      window.location.origin
+    );
     if (appId) fallback.searchParams.set("appId", appId);
     fallback.searchParams.set("redirectUri", redirectUri);
     fallback.searchParams.set("state", state);

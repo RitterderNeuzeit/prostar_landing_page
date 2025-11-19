@@ -16,6 +16,7 @@ Dieser kleine Satz-Wechsel ändert ALLES. Und zwar für immer.
 Stell dir vor:
 
 Dein Chef sagt: "Wir stellen einen neuen Mitarbeiter ein. Er ist:
+
 - **Sehr intelligent:** Weiß fünfmal mehr als du
 - **Sehr schnell:** Macht in 1 Sekunde, was du in 1 Stunde machst
 - **ABER:** Völlig neu in der Firma. Kennt deine Kunden nicht, deine Produkte nicht, deine Ziele nicht
@@ -30,6 +31,7 @@ Dein Chef sagt: "Wir stellen einen neuen Mitarbeiter ein. Er ist:
 Wenn du mit diesem Mitarbeiter arbeiten willst, brauchst du 4 Dinge:
 
 ### Säule 1: KLARE ROLLE
+
 **Du musst SAGEN: Wer bist du?**
 
 Nicht: "Schreib einen Text"
@@ -39,6 +41,7 @@ Sondern: "Du bist ein LinkedIn-Marketing-Experte mit 15 Jahren Erfahrung. Du sch
 Die Rolle schaltet ganze Wissensbasen in der KI frei. Ein "LinkedIn-Experte" antwortet ANDERS als ein "General Writer".
 
 **Beispiel:**
+
 - Rolle: "Du bist ein Buchautor"
   → KI schreibt literarisch, kreativ, emotional
 - Rolle: "Du bist ein Berater"
@@ -48,6 +51,7 @@ Die Rolle schaltet ganze Wissensbasen in der KI frei. Ein "LinkedIn-Experte" ant
 ---
 
 ### Säule 2: VOLLER KONTEXT
+
 **Du musst ERZÄHLEN: Wofür brauchst du das?**
 
 Nicht: "Schreib einen Sales-Text"
@@ -61,6 +65,7 @@ Kontext ist wie das Spielfeld. Mit Kontext weiß die KI, "wie laut" sie sein sol
 ---
 
 ### Säule 3: SPEZIFISCHE AUFGABE
+
 **Du musst BEFEHLEN: Was genau soll gemacht werden?**
 
 Nicht: "Schreib einen Post"
@@ -68,6 +73,7 @@ Sondern: "Schreib einen Instagram Post (max 150 Zeichen) über das Problem 'Zu v
 
 **Warum?**
 Jede VERB sagt der KI, WAS sie tun soll:
+
 - "Schreib" = Text erstellen
 - "Analysiere" = Vergleichen & bewerten
 - "Generiere" = Mehrere Optionen
@@ -76,10 +82,12 @@ Jede VERB sagt der KI, WAS sie tun soll:
 ---
 
 ### Säule 4: GEWÜNSCHTES FORMAT
+
 **Du musst ZEIGEN: Wie soll es aussehen?**
 
 Nicht: "Schreib einen Text"
 Sondern: "Schreib einen Text im Format:
+
 ```
 [Hook - lustig, 1 Satz]
 [Problem - 2-3 Sätze]
@@ -95,13 +103,16 @@ Format ist wie ein Rezept. Mit Rezept weiß der Koch genau, wie viel von was rei
 ## Die 4-Säulen in Aktion: Vorher/Nachher
 
 ### ❌ SCHWACH (alle Säulen fehlen)
+
 ```
 Schreib einen Newsletter
 ```
+
 **KI antwortet:**
 "Sehr geehrte Damen und Herren, ich freue mich, Ihnen mitteilen zu können, dass Newsletter ein essentielles Marketinginstrument sind..."
 
 **Probleme:**
+
 - Roboter-Sprache ❌
 - Zu formell ❌
 - Generisch ❌
@@ -110,6 +121,7 @@ Schreib einen Newsletter
 ---
 
 ### ✅ STARK (alle Säulen present)
+
 ```
 Du bist ein Content-Creator mit YouTube-Erfahrung. Du schreibst Newsletter für Tech-Unternehmer (männlich, 25-35 Jahre).
 
@@ -142,6 +154,7 @@ Letzten Monat sagte mein Freund: 'KI ist nur was für big Tech Companies.' Ein M
 Das ist das Geheimnis: Die meisten Unternehmer denken, KI ist kompliziert. Es ist aber nicht. Es braucht nur die richtigen Tools - und ehrlich gesagt, auch die sind kostenlos..."
 
 **Erfolg:**
+
 - Natürlich ✅
 - Lustig ✅
 - Personalisiert ✅
@@ -166,12 +179,15 @@ Wenn eine dieser Antworten "Nein" ist → Prompts besser machen → Output wird 
 ## Dein Aha-Moment
 
 **Die Wahrheit:**
+
 > "Der beste Prompt ist nicht der längste. Es ist der, der alle 4 Säulen abdeckt.”
 
 **Konsequenz:**
+
 > "Wenn die KI dir schlechte Ergebnisse gibt, ist es 99% nicht die KI's Fehler. Es ist, weil du ihr nicht genug gesagt hast.”
 
 **Power:**
+
 > "Mit diesem Wissen kannst du die KI ab JETZT 10x besser nutzen. Kein Upgrade nötig. Nur bessere Prompts.”
 
 ---
@@ -181,10 +197,13 @@ Wenn eine dieser Antworten "Nein" ist → Prompts besser machen → Output wird 
 **Aufgabe:** Liest du einen "schwachen" Prompt und musst sagen, welche Säule fehlt.
 
 ### Übung 1
+
 ```
 Schreib mir einen Instagram-Post über Produktivität.
 ```
+
 Welche Säulen fehlen?
+
 - Rolle ❓
 - Kontext ❓ (Wer ist Zielgruppe?)
 - Aufgabe ❓ ("Schreib" ist gut, aber: Wie lang? Welcher Ton?)

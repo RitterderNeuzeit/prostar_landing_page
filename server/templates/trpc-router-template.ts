@@ -17,7 +17,6 @@ export const myFeatureRouter = router({
 // export const appRouter = router({ myFeature: myFeatureRouter, ... });
 */
 
-export const myFeatureRouter = {} as any; // placeholder export for easy copy/paste
 import { router, publicProcedure, protectedProcedure } from "../_core/trpc";
 import { z } from "zod";
 

@@ -34,10 +34,14 @@ async function startServer() {
   const server = createServer(app);
   // Configure body parser with larger size limit for file uploads
   // Stripe webhook needs raw body, so register it before JSON parser
-  app.post('/api/stripe/webhook', express.raw({type: 'application/json'}), (req, res, next) => {
-    next();
-  });
-  
+  app.post(
+    "/api/stripe/webhook",
+    express.raw({ type: "application/json" }),
+    (req, res, next) => {
+      next();
+    }
+  );
+
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
   // OAuth callback under /api/oauth/callback
@@ -50,11 +54,11 @@ async function startServer() {
   // Protected by header `x-admin-key` matching `process.env.ADMIN_KEY` (or allowed in dev when ADMIN_KEY unset)
   try {
     // lazy dynamic import to avoid ESM/CJS issues and circular deps
-    const adminModule = await import('../routes/admin');
+    const adminModule = await import("../routes/admin");
     const adminRoutes = adminModule.default;
-    if (adminRoutes) app.use('/api/admin', adminRoutes);
+    if (adminRoutes) app.use("/api/admin", adminRoutes);
   } catch (e) {
-    console.warn('Admin routes not mounted', e);
+    console.warn("Admin routes not mounted", e);
   }
   // tRPC API
   app.use(

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -7,27 +7,28 @@
 /* ProStar Design System - Dark Mode with Neon Cyan Accents */
 :root {
   /* ProStar Brand Colors */
-  --color-dark-bg: #0A0E27;          /* Deep dark navy background */
-  --color-dark-secondary: #1a1f3a;   /* Slightly lighter dark */
-  --color-dark-tertiary: #252d4a;    /* Even lighter for cards */
-  --color-neon-cyan: #00D9FF;        /* Primary neon cyan accent */
-  --color-neon-cyan-light: #00E5FF;  /* Lighter cyan for hover */
-  --color-neon-cyan-dark: #00A8CC;   /* Darker cyan for active */
-  
+  --color-dark-bg: #0a0e27; /* Deep dark navy background */
+  --color-dark-secondary: #1a1f3a; /* Slightly lighter dark */
+  --color-dark-tertiary: #252d4a; /* Even lighter for cards */
+  --color-neon-cyan: #00d9ff; /* Primary neon cyan accent */
+  --color-neon-cyan-light: #00e5ff; /* Lighter cyan for hover */
+  --color-neon-cyan-dark: #00a8cc; /* Darker cyan for active */
+
   /* Text Colors */
-  --color-white: #FFFFFF;
-  --color-light-gray: #E8E8E8;
-  --color-medium-gray: #B0B0B0;
+  --color-white: #ffffff;
+  --color-light-gray: #e8e8e8;
+  --color-medium-gray: #b0b0b0;
   --color-dark-gray: #808080;
-  
+
   /* Accent Colors */
-  --color-neon-pink: #FF006E;        /* Secondary accent */
-  --color-neon-purple: #8338EC;      /* Tertiary accent */
-  --color-neon-green: #3A86FF;       /* Success accent */
-  
+  --color-neon-pink: #ff006e; /* Secondary accent */
+  --color-neon-purple: #8338ec; /* Tertiary accent */
+  --color-neon-green: #3a86ff; /* Success accent */
+
   /* Typography */
-  --font-sans: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-  
+  --font-sans:
+    "Inter", "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+
   /* Spacing */
   --space-xs: 0.25rem;
   --space-sm: 0.5rem;
@@ -37,81 +38,81 @@
   --space-2xl: 3rem;
   --space-3xl: 4rem;
   --space-4xl: 6rem;
-  
+
   /* Transitions */
   --transition-fast: 150ms ease-in-out;
   --transition-base: 200ms ease-in-out;
   --transition-slow: 300ms ease-in-out;
-  
+
   /* Tailwind Theme - ProStar Dark */
-  --primary: #00D9FF;
-  --primary-foreground: #0A0E27;
-  --sidebar-primary: #00D9FF;
-  --sidebar-primary-foreground: #0A0E27;
-  --chart-1: #00D9FF;
-  --chart-2: #FF006E;
-  --chart-3: #8338EC;
-  --chart-4: #3A86FF;
-  --chart-5: #00D9FF;
+  --primary: #00d9ff;
+  --primary-foreground: #0a0e27;
+  --sidebar-primary: #00d9ff;
+  --sidebar-primary-foreground: #0a0e27;
+  --chart-1: #00d9ff;
+  --chart-2: #ff006e;
+  --chart-3: #8338ec;
+  --chart-4: #3a86ff;
+  --chart-5: #00d9ff;
   --radius: 0.5rem;
-  --background: #0A0E27;
-  --foreground: #FFFFFF;
+  --background: #0a0e27;
+  --foreground: #ffffff;
   --card: #1a1f3a;
-  --card-foreground: #FFFFFF;
+  --card-foreground: #ffffff;
   --popover: #1a1f3a;
-  --popover-foreground: #FFFFFF;
+  --popover-foreground: #ffffff;
   --secondary: #252d4a;
-  --secondary-foreground: #E8E8E8;
+  --secondary-foreground: #e8e8e8;
   --muted: #3a4460;
-  --muted-foreground: #B0B0B0;
-  --accent: #00D9FF;
-  --accent-foreground: #0A0E27;
-  --destructive: #FF006E;
-  --destructive-foreground: #FFFFFF;
+  --muted-foreground: #b0b0b0;
+  --accent: #00d9ff;
+  --accent-foreground: #0a0e27;
+  --destructive: #ff006e;
+  --destructive-foreground: #ffffff;
   --border: #3a4460;
   --input: #1a1f3a;
-  --ring: #00D9FF;
-  --sidebar: #0A0E27;
-  --sidebar-foreground: #FFFFFF;
+  --ring: #00d9ff;
+  --sidebar: #0a0e27;
+  --sidebar-foreground: #ffffff;
   --sidebar-accent: #252d4a;
-  --sidebar-accent-foreground: #00D9FF;
+  --sidebar-accent-foreground: #00d9ff;
   --sidebar-border: #3a4460;
-  --sidebar-ring: #00D9FF;
+  --sidebar-ring: #00d9ff;
 }
 
 .dark {
-  --primary: #00D9FF;
-  --primary-foreground: #0A0E27;
-  --sidebar-primary: #00D9FF;
-  --sidebar-primary-foreground: #0A0E27;
-  --background: #0A0E27;
-  --foreground: #FFFFFF;
+  --primary: #00d9ff;
+  --primary-foreground: #0a0e27;
+  --sidebar-primary: #00d9ff;
+  --sidebar-primary-foreground: #0a0e27;
+  --background: #0a0e27;
+  --foreground: #ffffff;
   --card: #1a1f3a;
-  --card-foreground: #FFFFFF;
+  --card-foreground: #ffffff;
   --popover: #1a1f3a;
-  --popover-foreground: #FFFFFF;
+  --popover-foreground: #ffffff;
   --secondary: #252d4a;
-  --secondary-foreground: #E8E8E8;
+  --secondary-foreground: #e8e8e8;
   --muted: #3a4460;
-  --muted-foreground: #B0B0B0;
-  --accent: #00D9FF;
-  --accent-foreground: #0A0E27;
-  --destructive: #FF006E;
-  --destructive-foreground: #FFFFFF;
+  --muted-foreground: #b0b0b0;
+  --accent: #00d9ff;
+  --accent-foreground: #0a0e27;
+  --destructive: #ff006e;
+  --destructive-foreground: #ffffff;
   --border: #3a4460;
   --input: #1a1f3a;
-  --ring: #00D9FF;
-  --chart-1: #00D9FF;
-  --chart-2: #FF006E;
-  --chart-3: #8338EC;
-  --chart-4: #3A86FF;
-  --chart-5: #00D9FF;
-  --sidebar: #0A0E27;
-  --sidebar-foreground: #FFFFFF;
+  --ring: #00d9ff;
+  --chart-1: #00d9ff;
+  --chart-2: #ff006e;
+  --chart-3: #8338ec;
+  --chart-4: #3a86ff;
+  --chart-5: #00d9ff;
+  --sidebar: #0a0e27;
+  --sidebar-foreground: #ffffff;
   --sidebar-accent: #252d4a;
-  --sidebar-accent-foreground: #00D9FF;
+  --sidebar-accent-foreground: #00d9ff;
   --sidebar-border: #3a4460;
-  --sidebar-ring: #00D9FF;
+  --sidebar-ring: #00d9ff;
 }
 
 @theme inline {
@@ -157,14 +158,14 @@
   * {
     @apply border-border outline-ring/50;
   }
-  
+
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-sans);
-    background-color: #0A0E27;
-    color: #FFFFFF;
+    background-color: #0a0e27;
+    color: #ffffff;
   }
-  
+
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
   [type="button"]:not(:disabled),
@@ -238,25 +239,25 @@
   /* ProStar Custom Components */
   .btn-primary {
     @apply inline-flex items-center justify-center px-6 py-3 rounded-lg bg-accent text-accent-foreground font-semibold hover:opacity-90 transition-opacity duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent;
-    background-color: #00D9FF;
-    color: #0A0E27;
+    background-color: #00d9ff;
+    color: #0a0e27;
     box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
   }
 
   .btn-primary:hover {
-    background-color: #00E5FF;
+    background-color: #00e5ff;
     box-shadow: 0 0 30px rgba(0, 217, 255, 0.5);
   }
 
   .btn-secondary {
     @apply inline-flex items-center justify-center px-6 py-3 rounded-lg border-2 border-accent text-accent font-semibold hover:bg-accent/10 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent;
-    border-color: #00D9FF;
-    color: #00D9FF;
+    border-color: #00d9ff;
+    color: #00d9ff;
   }
 
   .btn-tertiary {
     @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-semibold transition-colors duration-200;
-    color: #00D9FF;
+    color: #00d9ff;
   }
 
   .btn-tertiary:hover {
@@ -283,7 +284,7 @@
 
   .text-accent {
     @apply text-accent;
-    color: #00D9FF;
+    color: #00d9ff;
   }
 
   .text-muted {
@@ -301,16 +302,20 @@
 
   /* Border Utilities */
   .border-accent-secondary {
-    border-color: #00D9FF;
+    border-color: #00d9ff;
   }
 
   /* Glow Effects */
   .glow-cyan {
-    box-shadow: 0 0 20px rgba(0, 217, 255, 0.3), inset 0 0 20px rgba(0, 217, 255, 0.1);
+    box-shadow:
+      0 0 20px rgba(0, 217, 255, 0.3),
+      inset 0 0 20px rgba(0, 217, 255, 0.1);
   }
 
   .glow-cyan-lg {
-    box-shadow: 0 0 40px rgba(0, 217, 255, 0.4), inset 0 0 40px rgba(0, 217, 255, 0.15);
+    box-shadow:
+      0 0 40px rgba(0, 217, 255, 0.4),
+      inset 0 0 40px rgba(0, 217, 255, 0.15);
   }
 }
 
@@ -348,7 +353,8 @@
   }
 
   @keyframes glow-pulse {
-    0%, 100% {
+    0%,
+    100% {
       box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
     }
     50% {
@@ -377,7 +383,7 @@
 @layer utilities {
   :focus-visible {
     @apply outline-none ring-2 ring-offset-2 ring-accent;
-    ring-offset-color: #0A0E27;
+    ring-offset-color: #0a0e27;
   }
 }
 
@@ -405,24 +411,24 @@
 
 /* ProStar Dark Mode Hero Background with Gradient */
 .hero-bg {
-  background: linear-gradient(135deg, #0A0E27 0%, #1a1f3a 50%, #0A0E27 100%);
+  background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0a0e27 100%);
   position: relative;
   overflow: hidden;
 }
 
 .hero-bg::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: 
-    radial-gradient(2px 2px at 20px 30px, #00D9FF, rgba(0, 217, 255, 0)),
-    radial-gradient(2px 2px at 60px 70px, #00D9FF, rgba(0, 217, 255, 0)),
-    radial-gradient(1px 1px at 50px 50px, #FFFFFF, rgba(255, 255, 255, 0)),
-    radial-gradient(1px 1px at 130px 80px, #FFFFFF, rgba(255, 255, 255, 0)),
-    radial-gradient(2px 2px at 90px 10px, #00D9FF, rgba(0, 217, 255, 0));
+  background-image:
+    radial-gradient(2px 2px at 20px 30px, #00d9ff, rgba(0, 217, 255, 0)),
+    radial-gradient(2px 2px at 60px 70px, #00d9ff, rgba(0, 217, 255, 0)),
+    radial-gradient(1px 1px at 50px 50px, #ffffff, rgba(255, 255, 255, 0)),
+    radial-gradient(1px 1px at 130px 80px, #ffffff, rgba(255, 255, 255, 0)),
+    radial-gradient(2px 2px at 90px 10px, #00d9ff, rgba(0, 217, 255, 0));
   background-repeat: repeat;
   background-size: 200px 200px;
   animation: twinkle 5s ease-in-out infinite;
@@ -430,7 +436,8 @@
 }
 
 @keyframes twinkle {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 0.5;
   }
   50% {

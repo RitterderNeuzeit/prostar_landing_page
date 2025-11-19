@@ -36,6 +36,7 @@ Eine präzise Rolle ist der größte Hebel für qualitativ hochwertigen Output. 
 - **Ziel:** Was ist das übergeordnete Ziel der KI in dieser Rolle? (z.B. "...ihr Ziel ist es, komplexe Themen einfach zu erklären.")
 
 **Beispiel für eine starke Rolle:**
+
 > "Du bist ein erfahrener Wirtschaftsjournalist mit über 20 Jahren Erfahrung bei einer großen deutschen Tageszeitung. Du bist darauf spezialisiert, komplexe technologische Themen für ein nicht-technisches Publikum verständlich aufzubereiten. Dein Stil ist analytisch, aber zugänglich und du verwendest gerne Metaphern, um deine Punkte zu verdeutlichen."
 
 ### Kontext-Absatz-Vorlage
@@ -75,6 +76,7 @@ Nutzen Sie diese Vorlage, um die KI bei logischen oder analytischen Aufgaben zu 
 Denke Schritt für Schritt nach, um die Lösung zu finden. Lege deinen Denkprozess offen, bevor du die endgültige Antwort gibst.
 
 **Erwarteter Output-Stil:**
+
 1.  **Schritt 1:** [Erster logischer Schritt zur Lösung]
 2.  **Schritt 2:** [Zweiter logischer Schritt]
 3.  **Schritt n:** [Weitere Schritte...]
@@ -91,6 +93,7 @@ Verwenden Sie diese Struktur für strategische oder kreative Aufgaben, bei denen
 
 **Anweisung:**
 Nutze den Tree-of-Thought-Ansatz, um dieses Problem zu lösen.
+
 1.  **Generiere 3 verschiedene Lösungsansätze (Äste).** Beschreibe jeden Ansatz klar.
 2.  **Bewerte jeden Ansatz.** Analysiere die jeweiligen Vor- und Nachteile.
 3.  **Triff eine Entscheidung.** Wähle den besten Ansatz aus und begründe deine Wahl.
@@ -131,6 +134,7 @@ Du bist ein B2B Sales Development Representative mit 10 Jahren Erfahrung in der 
 Dein Ziel ist es, den folgenden Lead zu qualifizieren, um festzustellen, ob er gut zu unserem CRM-Produkt passt. Nutze dafür das BANT-Framework (Budget, Authority, Need, Timeline).
 
 **Daten des Leads:**
+
 - **Name:** [Name des Kontakts]
 - **Firma:** [Firmenname]
 - **Website:** [URL der Website]
@@ -138,6 +142,7 @@ Dein Ziel ist es, den folgenden Lead zu qualifizieren, um festzustellen, ob er g
 - **Nachricht:** [Original-Nachricht des Leads]
 
 **Aufgabe:**
+
 1.  Besuche die Website des Leads, um das Geschäftsmodell und die Größe des Unternehmens zu verstehen.
 2.  Analysiere die Position des Kontakts, um seine wahrscheinliche Entscheidungskompetenz (Authority) einzuschätzen.
 3.  Bewerte die Nachricht des Leads, um den Bedarf (Need) und die Dringlichkeit (Timeline) zu identifizieren.
@@ -145,6 +150,7 @@ Dein Ziel ist es, den folgenden Lead zu qualifizieren, um festzustellen, ob er g
 5.  Gib eine abschließende Empfehlung ab, ob dieser Lead mit hoher, mittlerer oder niedriger Priorität weiterverfolgt werden sollte.
 
 **Output-Format:**
+
 - **Budget:** [Score 1-10] - [Begründung]
 - **Authority:** [Score 1-10] - [Begründung]
 - **Need:** [Score 1-10] - [Begründung]
@@ -162,6 +168,7 @@ Ein Master-Prompt, um aus einer Idee viele verschiedene Content-Varianten zu ers
 Du bist eine Content-Creation-Maschine. Deine Aufgabe ist es, aus einer zentralen Idee eine Vielzahl von Content-Formaten für verschiedene Kanäle zu erstellen. Du hältst dich dabei strikt an unsere Markenstimme.
 
 **Kontext (Unsere Brand Voice):**
+
 - **Stil:** [z.B. informativ, unterhaltsam, inspirierend]
 - **Ton:** [z.B. professionell, locker, humorvoll]
 - **Zielgruppe:** [Beschreibung der Zielgruppe]
@@ -174,6 +181,7 @@ Nimm die folgende Kernidee und generiere daraus die unten spezifizierten Content
 "Die Anwendung von Chain-of-Thought-Prompting kann die Genauigkeit von KI-Antworten bei logischen Problemen um über 40% steigern."
 
 **Zu erstellende Assets:**
+
 1.  **LinkedIn Post:** Ein kurzer, prägnanter Post (ca. 300 Wörter) mit einem starken Hook, der das Problem und die Lösung beschreibt.
 2.  **Twitter Thread:** Ein Thread mit 5 Tweets, der das Konzept Schritt für Schritt erklärt.
 3.  **Video-Skript (30s):** Ein kurzes Skript für ein TikTok/Reel, das den Unterschied mit einem einfachen Beispiel zeigt.
@@ -195,6 +203,7 @@ Du bist ein Experte für personalisiertes E-Mail-Marketing. Deine Stärke ist es
 Ich möchte die folgende Standard-Willkommens-E-Mail für einen neuen Newsletter-Abonnenten personalisieren. Nutze die bereitgestellten Informationen, um die Einleitung und den Call-to-Action besonders relevant zu machen.
 
 **Informationen über den Empfänger:**
+
 - **Name:** [Name des Empfängers]
 - **Firma:** [Firmenname]
 - **Branche:** [Branche]

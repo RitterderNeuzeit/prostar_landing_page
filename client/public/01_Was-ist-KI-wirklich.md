@@ -13,16 +13,19 @@ Die meisten Menschen denken: **"KI ist wie Google.”** Man fragt etwas, man bek
 Stell dir vor:
 
 **Szenario 1: Google-Suche**
+
 - Du: "Pizza Restaurants in München"
 - Google: Findet die besten Pizza Restaurants in München
 - Grund: Google HAT das Wissen schon organisiert
 
 **Szenario 2: KI ohne gutes Prompting**
+
 - Du: "Schreib mir einen Post"
 - KI: "Ich freue mich, Ihnen mitteilen zu können, dass dieser Post bahnbrechend ist...” (Roboter-Sprech!)
 - Grund: KI wusste NICHT, was du genau willst
 
 **Szenario 3: KI mit gutem Prompting**
+
 - Du: "Schreib einen Post für LinkedIn, Ton locker & lustig, für 25-Jährige, über KI-Automation. Mach 3 Varianten."
 - KI: [3 geniale, perfekte Posts] ✅
 - Grund: KI VERSTAND, was du wirklich brauchst
@@ -31,12 +34,12 @@ Stell dir vor:
 
 ## Das Vergleich-Modell
 
-| Aspekt | Google | KI (schlecht) | KI (gut) |
-|--------|--------|---------------|----------|
-| **Input** | Suchbegriff | Vage Anweisung | Detaillierte Anweisung |
-| **Prozess** | Sucht organisierte Infos | Rät, was du willst | Versteht exakt deine Anforderung |
-| **Output** | Gefunden / Nicht gefunden | Generischer Roboter-Text | Genau das, was du brauchst |
-| **Emotion** | "Das ist korrekt" | "Das kann keine KI sein" | "Das war ein Mensch!" |
+| Aspekt      | Google                    | KI (schlecht)            | KI (gut)                         |
+| ----------- | ------------------------- | ------------------------ | -------------------------------- |
+| **Input**   | Suchbegriff               | Vage Anweisung           | Detaillierte Anweisung           |
+| **Prozess** | Sucht organisierte Infos  | Rät, was du willst       | Versteht exakt deine Anforderung |
+| **Output**  | Gefunden / Nicht gefunden | Generischer Roboter-Text | Genau das, was du brauchst       |
+| **Emotion** | "Das ist korrekt"         | "Das kann keine KI sein" | "Das war ein Mensch!"            |
 
 ---
 
@@ -45,6 +48,7 @@ Stell dir vor:
 ### KI ist nicht intelligent in dem, was sie "weiß"
 
 KI kennt ALLES. Sie hat Zugang zu:
+
 - Alle Bücher der Welt
 - Alle Websites
 - Alle wissenschaftlichen Papers
@@ -53,6 +57,7 @@ KI kennt ALLES. Sie hat Zugang zu:
 ### KI ist intelligent nur in dem, wie sie auf deine BEFEHLE REAGIERT
 
 Was KI NICHT weiß:
+
 - Wer bist DU?
 - Was ist DEIN Kontext?
 - Was willst DU wirklich?
@@ -68,6 +73,7 @@ Was KI NICHT weiß:
 Stell dir vor, du einstellst einen brillanten Praktikanten:
 
 **Praktikant mit VAGEN Anweisungen:**
+
 - Du: "Schreib eine E-Mail."
 - Praktikant: "An wen?"
 - Du: "Keine Ahnung, einfach eine E-Mail."
@@ -76,6 +82,7 @@ Stell dir vor, du einstellst einen brillanten Praktikanten:
 - Praktikant: "Entschuldigung, aber du hast mir ja nichts gesagt!"
 
 **Praktikant mit KLAREN Anweisungen:**
+
 - Du: "Schreib eine E-Mail an einen B2B-Käufer. Der Kontakt hat gerade unsere Website besucht. Er ist Chief Technology Officer. Die E-Mail soll kurz sein (max 150 Worte), mit Humor, und ein Demo-Gespräch vorschlagen. Schreib 3 Varianten."
 - Praktikant: [Schreibt 3 geniale, perfekte E-Mails]
 - Du: "Perfekt! Genau das brauche ich!"
@@ -85,6 +92,7 @@ Stell dir vor, du einstellst einen brillanten Praktikanten:
 ## Praktische Übung: Schwach vs. Stark
 
 ### ❌ SCHWACHER PROMPT
+
 ```
 Schreib mir einen Newsletter-Text.
 ```
@@ -97,6 +105,7 @@ Schreib mir einen Newsletter-Text.
 ---
 
 ### ✅ STARKER PROMPT
+
 ```
 Du bist ein Marketing-Guru, der Newsletter für 25-35 jährige Tech-Enthusiasten schreibt.
 
@@ -119,12 +128,15 @@ Schreib einen Newsletter (max 300 Worte):
 ## Dein Aha-Moment
 
 **Die Wahrheit:**
+
 > "Der Unterschied zwischen schlechter und guter KI ist nicht die Technologie. Es ist die Qualität deiner Anfrage.”
 
 **Konsequenz:**
+
 > "Wenn KI dir Roboter-Texte gibt, ist nicht die KI schuld. DU hast ihr nicht gesagt, was du willst.”
 
 **Lösung:**
+
 > "Du musst lernen, KI wie einen Manager einen Mitarbeiter führt: Mit klaren Rollen, Kontext, und spezifischen Aufgaben.”
 
 ---
