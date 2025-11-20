@@ -3,7 +3,8 @@
     "ritwickdey.LiveServer",
     "ms-vscode.live-server-preview",
     "ms-vscode.vscode-typescript-next",
-    "esbenp.prettier-vscode"
+    "esbenp.prettier-vscode",
+    "ms-vscode.live-server"
   ],
   "unwantedRecommendations": []
 }

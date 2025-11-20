@@ -1,0 +1,73 @@
+name: Build and Push Docker Image to Azure ACR
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "Dockerfile.prod"
+      - "client/**"
+      - "server/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - ".github/workflows/docker-build.yml"
+  workflow_dispatch:
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to Azure Container Registry
+        uses: azure/docker-login@v1
+        with:
+          login-server: prostarregistry.azurecr.io
+          username: ${{ secrets.ACR_USERNAME }}
+          password: ${{ secrets.ACR_PASSWORD }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./Dockerfile.prod
+          push: true
+          tags: |
+            prostarregistry.azurecr.io/prostar_landing:latest
+            prostarregistry.azurecr.io/prostar_landing:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          build-args: |
+            NODE_ENV=production
+
+      - name: Restart Azure App Service
+        if: success()
+        run: |
+          az login --service-principal \
+            -u ${{ secrets.AZURE_CLIENT_ID }} \
+            -p ${{ secrets.AZURE_CLIENT_SECRET }} \
+            --tenant ${{ secrets.AZURE_TENANT_ID }}
+
+          az webapp restart \
+            --name prostar-app \
+            --resource-group prostar-rg
+
+          echo "✅ App Service restarted successfully"
+
+      - name: Notify deployment status
+        if: always()
+        run: |
+          if [ "${{ job.status }}" = "success" ]; then
+            echo "✅ Docker image deployed to Azure ACR"
+            echo "📍 Registry: prostarregistry.azurecr.io/prostar_landing:latest"
+            echo "🚀 App restarted: https://prostarmarketing.de"
+          else
+            echo "❌ Docker build failed"
+            exit 1
+          fi
