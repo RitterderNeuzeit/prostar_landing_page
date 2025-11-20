@@ -98,25 +98,27 @@ export const appRouter = router({
             };
           }
           
-          // FALLBACK: Wenn DB nicht erreichbar, gebe erfolgreiche Response zurück
-          // (für Production: würde hier echte User-Daten aus DB kommen)
-          console.warn("⚠️ DEV MODE: Akzeptiere Key (DB nicht verfügbar)");
+          // FALLBACK: Wenn DB nicht erreichbar, akzeptiere jeden Key (Test Mode)
+          if (result.error && result.error.includes("Verification failed")) {
+            console.warn("⚠️ TEST MODE: Akzeptiere Key ohne DB Verifizierung");
+            return {
+              valid: true,
+              name: "Test User",
+              email: "test@example.com",
+              courseName: "free-mini-course",
+              expiresAt: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
+            };
+          }
+          
           return {
-            valid: true,
-            name: "Lieber Kursteilnehmer",
-            email: "user@example.com",
-            courseName: "free-mini-course",
-            expiresAt: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
+            valid: false,
+            error: result.error,
           };
         } catch (error) {
           console.error("Verification error:", error);
-          // Auch bei Error: akzeptiere (DEV MODE)
           return {
-            valid: true,
-            name: "Willkommen",
-            email: "user@example.com",
-            courseName: "free-mini-course",
-            expiresAt: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
+            valid: false,
+            error: "Verification failed",
           };
         }
       }),

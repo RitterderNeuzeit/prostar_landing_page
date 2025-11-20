@@ -37,7 +37,7 @@ export function CourseAccessPage() {
             expiresAt: result.expiresAt ? new Date(result.expiresAt) : new Date(),
           });
         } else {
-          setError(`❌ Ungültiger Zugriffsschlüssel`);
+          setError(`❌ ${result.error || "Ungültiger Zugriffsschlüssel"}`);
         }
       } catch (err) {
         console.error("Verification error:", err);
