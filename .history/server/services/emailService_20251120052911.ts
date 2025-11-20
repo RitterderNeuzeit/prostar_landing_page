@@ -13,15 +13,7 @@ export interface CourseEmailData {
  * Sends personalized course access email with unique key
  */
 export async function sendCourseAccessEmail(data: CourseEmailData) {
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: ENV.emailUser,
-      pass: ENV.emailPassword,
-    },
-  });
-
-  const accessUrl = `${ENV.siteUrl}/course/access?key=${data.accessKey}`;
+  const accessUrl = `${process.env.SITE_URL}/course/access/${data.accessKey}`;
   const expiryDate = new Date(data.expiresAt).toLocaleDateString("de-DE");
 
   const htmlContent = `
@@ -135,5 +127,5 @@ ProStar Marketing Team
  * Verifies email service is configured
  */
 export function isEmailServiceConfigured(): boolean {
-  return !!(ENV.emailUser && ENV.emailPassword);
+  return !!(process.env.EMAIL_USER && process.env.EMAIL_PASSWORD);
 }

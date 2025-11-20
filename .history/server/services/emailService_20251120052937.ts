@@ -1,14 +1,6 @@
 import nodemailer from "nodemailer";
 import { ENV } from "../_core/env";
 
-export interface CourseEmailData {
-  name: string;
-  email: string;
-  accessKey: string;
-  courseName: string;
-  expiresAt: Date;
-}
-
 /**
  * Sends personalized course access email with unique key
  */

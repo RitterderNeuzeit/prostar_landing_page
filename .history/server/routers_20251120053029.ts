@@ -3,7 +3,7 @@ import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
 import { z } from "zod";
-import { registerForCourse, verifyAccessKey, generateAccessKey } from "./services/courseService";
+import { registerForCourse, verifyAccessKey } from "./services/courseService";
 import { sendCourseAccessEmail, isEmailServiceConfigured } from "./services/emailService";
 
 export const appRouter = router({

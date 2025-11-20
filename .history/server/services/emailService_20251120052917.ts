@@ -1,14 +1,6 @@
 import nodemailer from "nodemailer";
 import { ENV } from "../_core/env";
 
-export interface CourseEmailData {
-  name: string;
-  email: string;
-  accessKey: string;
-  courseName: string;
-  expiresAt: Date;
-}
-
 /**
  * Sends personalized course access email with unique key
  */
@@ -135,5 +127,5 @@ ProStar Marketing Team
  * Verifies email service is configured
  */
 export function isEmailServiceConfigured(): boolean {
-  return !!(ENV.emailUser && ENV.emailPassword);
+  return !!(process.env.EMAIL_USER && process.env.EMAIL_PASSWORD);
 }
