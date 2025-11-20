@@ -9,7 +9,9 @@
 ## 📋 Integrationsorte
 
 ### 1. Landing Page (React Component) ✅ FERTIG
+
 **Datei:** `client/src/components/ChatWidget.tsx`
+
 - Vollständig mit React integriert
 - Real-time API Connection
 - Responsive Design
@@ -20,7 +22,9 @@
 ---
 
 ### 2. Squarespace Hauptseite (HTML/JavaScript) ✅ FERTIG
+
 **Datei:** `docs/SQUARESPACE_CHAT_EMBED.html`
+
 - Vanilla JavaScript (keine Dependencies)
 - Vollständig eigenständig
 - API-Verbindung aktiv
@@ -45,13 +49,13 @@
 
 ## 🔧 API Configuration
 
-| Parameter | Wert |
-|-----------|------|
-| **API URL** | `https://ai-sales-agent-for-prostar-marketing-1013733494627.us-west1.run.app` |
-| **API Key** | `AIzaSyDpxE_NS-6pmYrSuUvsv4D_NODVJ8CrjwQ` |
-| **Endpoint** | `/chat` |
-| **Method** | `POST` |
-| **Content-Type** | `application/json` |
+| Parameter        | Wert                                                                          |
+| ---------------- | ----------------------------------------------------------------------------- |
+| **API URL**      | `https://ai-sales-agent-for-prostar-marketing-1013733494627.us-west1.run.app` |
+| **API Key**      | `AIzaSyDpxE_NS-6pmYrSuUvsv4D_NODVJ8CrjwQ`                                     |
+| **Endpoint**     | `/chat`                                                                       |
+| **Method**       | `POST`                                                                        |
+| **Content-Type** | `application/json`                                                            |
 
 ---
 
@@ -66,6 +70,7 @@
 ```
 
 **Response:**
+
 ```json
 {
   "response": "Hallo! Wir bieten AI-gesteuerte Marketing-Lösungen...",
@@ -81,9 +86,10 @@
 ### React Component (Landing Page)
 
 **Theme ändern:**
+
 ```tsx
 // In ChatWidget.tsx - Header Farbe
-className="bg-gradient-to-r from-cyan-500 to-cyan-400"
+className = "bg-gradient-to-r from-cyan-500 to-cyan-400";
 
 // Mögliche Farben:
 // from-blue-500 to-blue-600
@@ -92,9 +98,10 @@ className="bg-gradient-to-r from-cyan-500 to-cyan-400"
 ```
 
 **Position ändern:**
+
 ```tsx
 // Fixed Position anpassen
-className="fixed bottom-6 right-6"  // bottom-X right-X
+className = "fixed bottom-6 right-6"; // bottom-X right-X
 
 // Beispiele:
 // bottom-10 right-10  → Weiter unten/rechts
@@ -104,6 +111,7 @@ className="fixed bottom-6 right-6"  // bottom-X right-X
 ### Squarespace HTML/JS
 
 **Farben anpassen:**
+
 ```javascript
 // Header Gradient
 background: linear-gradient(135deg, #0EA5E9 0%, #00D9FF 100%);
@@ -115,6 +123,7 @@ background: linear-gradient(135deg, #0EA5E9 0%, #00D9FF 100%);
 ```
 
 **Position anpassen:**
+
 ```javascript
 // Bottom Right (aktuell)
 bottom: 24px;
@@ -165,24 +174,26 @@ right: 24px;
 
 ## 🚀 Deployment Status
 
-| Komponente | Status | Ort |
-|-----------|--------|-----|
-| **React Component** | ✅ READY | `client/src/components/ChatWidget.tsx` |
-| **Squarespace Widget** | ✅ READY | `docs/SQUARESPACE_CHAT_EMBED.html` |
-| **API Integration** | ✅ CONNECTED | Live zu AI Server |
-| **Landing Page Build** | ✅ READY | `pnpm build` |
-| **DNS Propagation** | ⏳ IN PROGRESS | Google → Squarespace (24-48h) |
+| Komponente             | Status         | Ort                                    |
+| ---------------------- | -------------- | -------------------------------------- |
+| **React Component**    | ✅ READY       | `client/src/components/ChatWidget.tsx` |
+| **Squarespace Widget** | ✅ READY       | `docs/SQUARESPACE_CHAT_EMBED.html`     |
+| **API Integration**    | ✅ CONNECTED   | Live zu AI Server                      |
+| **Landing Page Build** | ✅ READY       | `pnpm build`                           |
+| **DNS Propagation**    | ⏳ IN PROGRESS | Google → Squarespace (24-48h)          |
 
 ---
 
 ## 🔐 Security
 
 **API Key Handling:**
+
 - ✅ Nur in vertrauenswürdigen Umgebungen genutzt
 - ✅ Nicht in Git committed (Environment Variables)
 - ⚠️ In Squarespace/Public JS sichtbar (akzeptiert für Public API)
 
 **Empfehlungen:**
+
 1. Implementiere Backend-Proxy für zusätzliche Sicherheit (optional)
 2. Rate Limiting auf API Server
 3. Monitor API Usage in Google Cloud Console
@@ -192,6 +203,7 @@ right: 24px;
 ## 📊 Monitoring
 
 **Logs prüfen:**
+
 ```bash
 # Landing Page Console
 F12 → Console → Prüfe auf Fehler
@@ -208,6 +220,7 @@ F12 → Console → Prüfe auf Fehler
 ### Problem: Chat Widget nicht sichtbar
 
 **Lösung:**
+
 1. Warte 5 Sekunden (Script lädt asynchron)
 2. Refresh Page (Ctrl+F5 oder Cmd+Shift+R)
 3. Prüfe Browser Console (F12 → Console)
@@ -216,6 +229,7 @@ F12 → Console → Prüfe auf Fehler
 ### Problem: Bot antwortet nicht
 
 **Lösung:**
+
 1. Prüfe API URL: Richtig geschrieben?
 2. Prüfe API Key: Nicht geändert?
 3. Prüfe Netzwerk: Hat dein Computer Internet?
@@ -225,6 +239,7 @@ F12 → Console → Prüfe auf Fehler
 ### Problem: CORS Fehler
 
 **Lösung:**
+
 - CORS ist auf API Server konfiguriert
 - Falls Fehler: API Server muss Updates bekommen
 - Kontaktiere API Team für Support
@@ -232,6 +247,7 @@ F12 → Console → Prüfe auf Fehler
 ### Problem: Timeout beim Senden
 
 **Lösung:**
+
 1. Versuche später erneut
 2. Prüfe Internetverbindung
 3. API Server könnte überlastet sein
@@ -242,24 +258,27 @@ F12 → Console → Prüfe auf Fehler
 
 **Responsive Breakpoints:**
 
-| Gerät | Breite | Widget Anpassung |
-|-------|--------|------------------|
-| iPhone 12 | 390px | 100% angepasst |
-| iPad | 768px | 100% angepasst |
-| Desktop | 1920px | 384px (fixed) |
+| Gerät     | Breite | Widget Anpassung |
+| --------- | ------ | ---------------- |
+| iPhone 12 | 390px  | 100% angepasst   |
+| iPad      | 768px  | 100% angepasst   |
+| Desktop   | 1920px | 384px (fixed)    |
 
 ---
 
 ## 📝 Configuration Files
 
 **React Version:**
+
 ```tsx
 // API Credentials (hardcoded - akzeptiert für Public API)
-const API_URL = 'https://ai-sales-agent-for-prostar-marketing-1013733494627.us-west1.run.app';
-const API_KEY = 'AIzaSyDpxE_NS-6pmYrSuUvsv4D_NODVJ8CrjwQ';
+const API_URL =
+  "https://ai-sales-agent-for-prostar-marketing-1013733494627.us-west1.run.app";
+const API_KEY = "AIzaSyDpxE_NS-6pmYrSuUvsv4D_NODVJ8CrjwQ";
 ```
 
 **Squarespace Version:**
+
 ```html
 <!-- Gleiche Credentials eingebettet in HTML/JS -->
 <!-- Vanille JavaScript - keine Dependencies -->
@@ -280,11 +299,13 @@ const API_KEY = 'AIzaSyDpxE_NS-6pmYrSuUvsv4D_NODVJ8CrjwQ';
 ## 📞 Support
 
 **Fragen zum Chat Widget?**
+
 - Dokumentation: `docs/SQUARESPACE_CHAT_EMBED.html`
 - React Component: `client/src/components/ChatWidget.tsx`
 - API Docs: Kontaktiere AI Team
 
 **Technische Issues?**
+
 - Browser Console prüfen (F12 → Console)
 - Network Tab prüfen (F12 → Network)
 - API Server Status prüfen

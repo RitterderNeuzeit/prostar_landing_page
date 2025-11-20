@@ -1,29 +1,9 @@
 import { createTRPCReact } from "@trpc/react-query";
 import { httpBatchLink } from "@trpc/client";
-import { createTRPCProxyClient } from "@trpc/client";
-import superjson from "superjson";
+import { QueryClient } from "@tanstack/react-query";
 import type { AppRouter } from "../../../server/routers";
 
 export const trpc = createTRPCReact<AppRouter>();
-
-/**
- * tRPC Client für Direct Usage (ohne React Query)
- * Z.B. für Course Registration Forms
- */
-export const trpcClient = createTRPCProxyClient<AppRouter>({
-  links: [
-    httpBatchLink({
-      url: getTrpcUrl(),
-      transformer: superjson,
-      fetch(input, init) {
-        return globalThis.fetch(input, {
-          ...(init ?? {}),
-          credentials: "include",
-        });
-      },
-    }),
-  ],
-});
 
 /**
  * Bestimme die tRPC API-URL basierend auf Umgebung
@@ -44,3 +24,32 @@ export function getTrpcUrl(): string {
   // Development Mode: localhost
   return "http://localhost:3000/api/trpc";
 }
+
+/**
+ * Create tRPC client with query client
+ */
+export function createTrpcClient() {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 1000 * 60 * 5, // 5 minutes
+      },
+    },
+  });
+
+  const trpcClient = trpc.createClient({
+    links: [
+      httpBatchLink({
+        url: getTrpcUrl(),
+        credentials: "include",
+      }),
+    ],
+  });
+
+  return { trpcClient, queryClient };
+}
+
+/**
+ * Export a pre-configured trpc client for direct usage
+ */
+export const { trpcClient, queryClient } = createTrpcClient();

@@ -1,1 +1,0 @@
-tools/collect-debug.sh: line 40: npm: command not found

@@ -24,7 +24,6 @@ function Router() {
       <Route path={"/mini-course"} component={MiniCourseSignup} />
       <Route path={"/course-info"} component={CourseInfo} />
       <Route path={"/admin"} component={Admin} />
-      <Route path={"/course/access"} component={CourseAccessPage} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

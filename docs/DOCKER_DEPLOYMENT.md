@@ -7,6 +7,7 @@
 ## 📋 Übersicht
 
 Docker ermöglicht:
+
 - ✅ **Konsistente Umgebung** (Dev ≈ Prod)
 - ✅ **Einfache Skalierung** (mehrere Container)
 - ✅ **Schnelle Deployments** (Image wird gepusht)
@@ -31,6 +32,7 @@ docker-compose up
 ```
 
 **Was passiert:**
+
 - `app` service: Vite Dev Server + Server Watch (HMR aktiv!)
 - `mysql` service: Lokale MySQL DB (Password: `password`)
 - Network: Beide Services können sich untereinander erreichen
@@ -216,6 +218,7 @@ mysql:
 ```
 
 **Wichtig:** In `.env` nutze:
+
 ```env
 DATABASE_URL=mysql://root:password@mysql:3306/prostar_db
 # 👆 "mysql" = Service-Name (nicht localhost!)
@@ -247,11 +250,13 @@ docker-compose exec app pnpm run db:push
 ### 6.1 Secrets Management
 
 **Nicht:**
+
 ```dockerfile
 ENV DATABASE_URL=mysql://root:password@localhost
 ```
 
 **Stattdessen:**
+
 ```yaml
 # docker-compose.yml
 environment:
@@ -264,6 +269,7 @@ DATABASE_URL=mysql://root:password@mysql:3306/prostar_db
 ### 6.2 Non-root User
 
 Dockerfile hat bereits:
+
 ```dockerfile
 RUN useradd -m appuser
 USER appuser
@@ -293,8 +299,8 @@ Production hat Log Rotation konfiguriert:
 logging:
   driver: "json-file"
   options:
-    max-size: "10m"      # Max 10MB pro Datei
-    max-file: "3"        # Max 3 Dateien
+    max-size: "10m" # Max 10MB pro Datei
+    max-file: "3" # Max 3 Dateien
 ```
 
 ✅ Verhindert, dass Logs Speicher überlasten!
@@ -408,13 +414,13 @@ docker-compose -f docker-compose.prod.yml up
 
 ## 🎯 Kosten mit Docker
 
-| Szenario | Kosten | Details |
-|----------|--------|---------|
-| **Dev lokal** | €0 | Kostenlos |
-| **Prod on Azure** | €10-15/Mo | App Service B1 |
-| **Azure Container Registry** | €5-25/Mo | Abhängig von Speicher |
-| **Alternative: Docker Hub** | €0-5/Mo | Free oder Pro |
-| **TOTAL mit Docker** | ~€15-25/Mo | Noch kostengünstiger! |
+| Szenario                     | Kosten     | Details               |
+| ---------------------------- | ---------- | --------------------- |
+| **Dev lokal**                | €0         | Kostenlos             |
+| **Prod on Azure**            | €10-15/Mo  | App Service B1        |
+| **Azure Container Registry** | €5-25/Mo   | Abhängig von Speicher |
+| **Alternative: Docker Hub**  | €0-5/Mo    | Free oder Pro         |
+| **TOTAL mit Docker**         | ~€15-25/Mo | Noch kostengünstiger! |
 
 ---
 

@@ -24,8 +24,9 @@ const ChatWidget: React.FC = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // API Configuration
-  const API_URL = 'https://ai-sales-agent-for-prostar-marketing-1013733494627.us-west1.run.app';
-  const API_KEY = 'AIzaSyDpxE_NS-6pmYrSuUvsv4D_NODVJ8CrjwQ';
+  const API_URL =
+    "https://ai-sales-agent-for-prostar-marketing-1013733494627.us-west1.run.app";
+  const API_KEY = "AIzaSyDpxE_NS-6pmYrSuUvsv4D_NODVJ8CrjwQ";
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -39,28 +40,30 @@ const ChatWidget: React.FC = () => {
   const getBotResponse = async (userMessage: string): Promise<string> => {
     try {
       const response = await fetch(`${API_URL}/chat`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${API_KEY}`,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${API_KEY}`,
         },
         body: JSON.stringify({
           message: userMessage,
-          sessionId: 'prostar-landing-page',
-          context: 'ProStar Marketing Landing Page Chat',
+          sessionId: "prostar-landing-page",
+          context: "ProStar Marketing Landing Page Chat",
         }),
       });
 
       if (!response.ok) {
-        console.error('API Error:', response.status);
-        return 'Entschuldigung, ich konnte deine Anfrage nicht verarbeiten. Bitte versuche es später erneut.';
+        console.error("API Error:", response.status);
+        return "Entschuldigung, ich konnte deine Anfrage nicht verarbeiten. Bitte versuche es später erneut.";
       }
 
       const data = await response.json();
-      return data.response || data.message || 'Ich konnte keine Antwort generieren.';
+      return (
+        data.response || data.message || "Ich konnte keine Antwort generieren."
+      );
     } catch (error) {
-      console.error('Chat API Error:', error);
-      return 'Es tut mir leid, es gab einen Fehler. Bitte versuche es später erneut oder kontaktiere unser Support-Team.';
+      console.error("Chat API Error:", error);
+      return "Es tut mir leid, es gab einen Fehler. Bitte versuche es später erneut oder kontaktiere unser Support-Team.";
     }
   };
 
@@ -82,14 +85,14 @@ const ChatWidget: React.FC = () => {
 
     // Get response from ProStar AI API
     const botResponse = await getBotResponse(userInput);
-    
+
     const botMessage: Message = {
       id: (Date.now() + 1).toString(),
       text: botResponse,
       sender: "bot",
       timestamp: new Date(),
     };
-    
+
     setMessages(prev => [...prev, botMessage]);
     setIsTyping(false);
   };

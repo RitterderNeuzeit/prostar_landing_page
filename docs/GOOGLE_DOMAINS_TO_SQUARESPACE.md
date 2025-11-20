@@ -1,6 +1,7 @@
 # Google Domains → Squarespace Nameserver Setup
 
 ## 🎯 Ziel
+
 Deine Domain `prostarmarketing.de` von Google Domains zu Squarespace verbinden
 
 ## ⏱️ Zeit: 5 Minuten
@@ -63,6 +64,7 @@ DNS braucht Zeit zum Propagieren:
 - **24-48 Stunden**: Vollständig propagiert
 
 **Währenddessen:**
+
 - Deine alte Website ist noch sichtbar (das ist normal)
 - Nach 24h sollte Squarespace erscheinen
 
@@ -83,6 +85,7 @@ Nach 24 Stunden:
 ### Fehler: "Custom nameservers können nicht gesetzt werden"
 
 **Lösung:**
+
 1. Gehe zu: domains.google.com
 2. Wähle Domain
 3. Klick: Settings (oben rechts) → Domain settings
@@ -92,6 +95,7 @@ Nach 24 Stunden:
 ### Fehler: "Domain zeigt immer noch auf alte Website"
 
 **Lösung:**
+
 1. Warte weitere 12-24 Stunden (DNS Propagation)
 2. Leere Browser Cache: Ctrl+Shift+Del
 3. Nutze anderen Browser (Firefox, Safari, etc.)
@@ -102,6 +106,7 @@ Nach 24 Stunden:
 ### Fehler: "Squarespace erkennt Domain nicht"
 
 **Lösung:**
+
 1. In Squarespace: Settings → Domains
 2. Klick: "+ Connect domain"
 3. Gib ein: prostarmarketing.de
@@ -113,10 +118,12 @@ Nach 24 Stunden:
 ## 📞 Support
 
 **Google Domains Support:**
+
 - https://support.google.com/domains
 - Suchbegriff: "Custom nameservers"
 
 **Squarespace Support (24/7, Deutsch):**
+
 - https://support.squarespace.com
 - Chat oder Email
 

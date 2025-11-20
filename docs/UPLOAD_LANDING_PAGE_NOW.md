@@ -12,6 +12,7 @@ Jetzt laden wir die Landing Page hoch.
 ### SCHRITT 1: HTML für Upload vorbereiten (1 Min)
 
 1. Öffne Text Editor: `/dist/public/index.html`
+
    ```bash
    # Terminal:
    cat "/Users/user/Downloads/prostar_landing_page (1)/dist/public/index.html" | head -100
@@ -97,16 +98,19 @@ Jetzt laden wir die Landing Page hoch.
 ## 🔗 WICHTIGE LINKS FÜR DICH
 
 - **Deine Landing Page Datei:**
+
   ```
   /dist/public/index.html
   ```
 
 - **Assets Ordner:**
+
   ```
   /dist/public/assets/
   ```
 
 - **Squarespace Editor:**
+
   ```
   https://www.squarespace.com (login)
   ```
@@ -121,17 +125,20 @@ Jetzt laden wir die Landing Page hoch.
 ## 💡 TIPPS
 
 ### Wenn Seite nicht lädt:
+
 1. Warte 2-3 Minuten
 2. Refresh Browser (F5)
 3. Leere Cache (Ctrl+Shift+Del)
 4. Öffne incognito Mode
 
 ### Wenn Assets fehlen:
+
 1. Prüfe Asset Library
 2. Alle `.js` und `.css` Dateien vorhanden?
 3. Re-upload falls nötig
 
 ### Wenn Design falsch aussieht:
+
 1. Prüfe dass CSS geladen wurde
 2. F12 → Console auf Fehler prüfen
 3. Alle Dateien vollständig hochgeladen?
@@ -165,6 +172,7 @@ Wenn alles funktioniert:
 ## 📞 HILFE
 
 **Problem mit Upload?**
+
 - Kontaktiere: Squarespace Support (24/7, Deutsch)
 - Link: https://support.squarespace.com
 

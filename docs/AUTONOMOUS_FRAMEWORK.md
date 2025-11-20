@@ -21,48 +21,48 @@
 
 ### 1.1 DNS/Domain Entscheidungen
 
-| Situation | Entscheidung | Aktion | Timeout |
-|-----------|------------|--------|---------|
-| DNS nicht propagiert | Warte passiv | Auto-Monitor starten | 48h |
-| DNS propagiert ✅ | Deployment vorbereiten | Deploy Trigger aktivieren | - |
-| DNS Error | Troubleshoot automatisch | Diagnostic Script starten | 1h |
-| Domain Lock | Retry mit Exponential Backoff | Alle 6h retry | 72h |
+| Situation            | Entscheidung                  | Aktion                    | Timeout |
+| -------------------- | ----------------------------- | ------------------------- | ------- |
+| DNS nicht propagiert | Warte passiv                  | Auto-Monitor starten      | 48h     |
+| DNS propagiert ✅    | Deployment vorbereiten        | Deploy Trigger aktivieren | -       |
+| DNS Error            | Troubleshoot automatisch      | Diagnostic Script starten | 1h      |
+| Domain Lock          | Retry mit Exponential Backoff | Alle 6h retry             | 72h     |
 
 ### 1.2 Build Entscheidungen
 
-| Situation | Entscheidung | Aktion | Threshold |
-|-----------|------------|--------|-----------|
-| Build erfolgreich | Weitermachen | Push zu Deployment | - |
-| Build failed | Rollback | Revert letzte Änderung | - |
-| Build > 50 MB | Optimieren | Code-Splitting aktivieren | 50 MB |
-| Build Warnings | Log nur | Keine Aktion | - |
+| Situation         | Entscheidung | Aktion                    | Threshold |
+| ----------------- | ------------ | ------------------------- | --------- |
+| Build erfolgreich | Weitermachen | Push zu Deployment        | -         |
+| Build failed      | Rollback     | Revert letzte Änderung    | -         |
+| Build > 50 MB     | Optimieren   | Code-Splitting aktivieren | 50 MB     |
+| Build Warnings    | Log nur      | Keine Aktion              | -         |
 
 ### 1.3 Git/Commit Entscheidungen
 
-| Situation | Entscheidung | Aktion | Bedingung |
-|-----------|------------|--------|-----------|
-| Nicht committed | Auto-Commit | `git add . && git commit` | Nach Major Change |
-| Konflikte | Manueller Review | Pause & Log | Merge Conflict |
-| Sensitive Data | Reject | Blocken & Alert | .env, secrets |
-| Large Files | Warn | Log aber committed | > 100 MB |
+| Situation       | Entscheidung     | Aktion                    | Bedingung         |
+| --------------- | ---------------- | ------------------------- | ----------------- |
+| Nicht committed | Auto-Commit      | `git add . && git commit` | Nach Major Change |
+| Konflikte       | Manueller Review | Pause & Log               | Merge Conflict    |
+| Sensitive Data  | Reject           | Blocken & Alert           | .env, secrets     |
+| Large Files     | Warn             | Log aber committed        | > 100 MB          |
 
 ### 1.4 Deployment Entscheidungen
 
-| Situation | Entscheidung | Aktion | Trigger |
-|-----------|------------|--------|---------|
-| DNS Ready | Deploy starten | Full Pipeline | Verified ✅ |
-| Tests OK | Production Push | Automated Deploy | All Green |
-| Analytics OK | Go Live | Public facing | Tracking ID set |
-| Errors detected | Abort | Rollback | Error > 0 |
+| Situation       | Entscheidung    | Aktion           | Trigger         |
+| --------------- | --------------- | ---------------- | --------------- |
+| DNS Ready       | Deploy starten  | Full Pipeline    | Verified ✅     |
+| Tests OK        | Production Push | Automated Deploy | All Green       |
+| Analytics OK    | Go Live         | Public facing    | Tracking ID set |
+| Errors detected | Abort           | Rollback         | Error > 0       |
 
 ### 1.5 Monitoring Entscheidungen
 
-| Situation | Entscheidung | Aktion | Frequency |
-|-----------|------------|--------|-----------|
-| Status unknown | Check | Prüfe aktuelle State | 1h |
-| Issues detected | Alert | Log & Flag | Immediate |
-| Performance slow | Optimize | Auto-Cache-Clear | If > 3s |
-| Quota exceeded | Throttle | Rate Limit aktivieren | If > 80% |
+| Situation        | Entscheidung | Aktion                | Frequency |
+| ---------------- | ------------ | --------------------- | --------- |
+| Status unknown   | Check        | Prüfe aktuelle State  | 1h        |
+| Issues detected  | Alert        | Log & Flag            | Immediate |
+| Performance slow | Optimize     | Auto-Cache-Clear      | If > 3s   |
+| Quota exceeded   | Throttle     | Rate Limit aktivieren | If > 80%  |
 
 ---
 
@@ -463,6 +463,7 @@ System Uptime:                  99.9%
 **Status:** 🟢 **ACTIVE**
 
 Ab sofort:
+
 - ✅ Autonome Entscheidungen getroffen
 - ✅ Keine Bestätigung für Routine-Aufgaben nötig
 - ✅ Nur bei Escalation (P0) werde ich dich benachrichtigen

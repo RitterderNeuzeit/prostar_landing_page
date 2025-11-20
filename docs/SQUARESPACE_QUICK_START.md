@@ -78,10 +78,10 @@ Läuft jetzt!
 
 ```html
 <script>
-  (function() {
+  (function () {
     function initChat() {
-      const chatContainer = document.createElement('div');
-      chatContainer.id = 'prostar-chat-widget';
+      const chatContainer = document.createElement("div");
+      chatContainer.id = "prostar-chat-widget";
       chatContainer.style.cssText = `
         position: fixed;
         bottom: 20px;
@@ -89,15 +89,15 @@ Läuft jetzt!
         z-index: 9999;
       `;
       document.body.appendChild(chatContainer);
-      
-      const script = document.createElement('script');
-      script.src = 'https://your-api-url.com/chat-widget.js';
+
+      const script = document.createElement("script");
+      script.src = "https://your-api-url.com/chat-widget.js";
       script.async = true;
       document.head.appendChild(script);
     }
-    
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initChat);
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initChat);
     } else {
       initChat();
     }
@@ -144,13 +144,13 @@ Schnelle Hilfe:
 
 ## Kosten
 
-| Was | Kosten |
-|-----|--------|
+| Was              | Kosten        |
+| ---------------- | ------------- |
 | Squarespace Plan | 15-30 Euro/Mo |
-| Domain (.de) | 1 Euro/Mo |
-| SSL Zertifikat | 0 Euro |
-| Email Support | 0 Euro |
-| TOTAL | 16-31 Euro/Mo |
+| Domain (.de)     | 1 Euro/Mo     |
+| SSL Zertifikat   | 0 Euro        |
+| Email Support    | 0 Euro        |
+| TOTAL            | 16-31 Euro/Mo |
 
 ---
 

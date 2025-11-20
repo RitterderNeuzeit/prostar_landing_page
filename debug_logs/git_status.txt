@@ -1,6 +1,0 @@
-A  .history/server/_core/vite_20251117134648.ts
- M debug_logs/env_redacted.txt
- M debug_logs/git_status.txt
- M debug_logs/system_info.txt
-M  server/_core/vite.ts
-?? .history/server/_core/vite_20251117134754.ts
