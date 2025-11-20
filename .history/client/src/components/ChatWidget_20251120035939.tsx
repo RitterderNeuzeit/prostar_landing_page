@@ -75,23 +75,21 @@ const ChatWidget: React.FC = () => {
       timestamp: new Date(),
     };
 
-    const userInput = inputValue;
     setMessages(prev => [...prev, userMessage]);
     setInputValue("");
     setIsTyping(true);
 
-    // Get response from ProStar AI API
-    const botResponse = await getBotResponse(userInput);
-    
-    const botMessage: Message = {
-      id: (Date.now() + 1).toString(),
-      text: botResponse,
-      sender: "bot",
-      timestamp: new Date(),
-    };
-    
-    setMessages(prev => [...prev, botMessage]);
-    setIsTyping(false);
+    // Simulate bot response delay
+    setTimeout(() => {
+      const botMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        text: getBotResponse(inputValue),
+        sender: "bot",
+        timestamp: new Date(),
+      };
+      setMessages(prev => [...prev, botMessage]);
+      setIsTyping(false);
+    }, 800);
   };
 
   const handleKeyPress = (event: React.KeyboardEvent) => {

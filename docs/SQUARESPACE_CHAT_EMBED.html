@@ -1,0 +1,345 @@
+<!-- ProStar AI Chat Widget für Squarespace -->
+<!-- Integriere diesen Code in einen Code Block auf deiner Squarespace Seite -->
+
+<script>
+  (function() {
+    const API_URL = 'https://ai-sales-agent-for-prostar-marketing-1013733494627.us-west1.run.app';
+    const API_KEY = 'AIzaSyDpxE_NS-6pmYrSuUvsv4D_NODVJ8CrjwQ';
+
+    // Chat State
+    let isOpen = false;
+    let messages = [];
+    let isLoading = false;
+
+    // Create Chat Widget DOM
+    function createChatWidget() {
+      // Check if already exists
+      if (document.getElementById('prostar-chat-widget')) {
+        return;
+      }
+
+      // Chat Button
+      const chatButton = document.createElement('button');
+      chatButton.id = 'prostar-chat-button';
+      chatButton.innerHTML = `
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+      `;
+      chatButton.style.cssText = `
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #0EA5E9 0%, #00D9FF 100%);
+        color: white;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 12px rgba(0, 217, 255, 0.4);
+        z-index: 9999;
+        font-size: 0;
+        transition: all 0.3s ease;
+      `;
+
+      chatButton.addEventListener('mouseenter', function() {
+        this.style.transform = 'scale(1.1)';
+        this.style.boxShadow = '0 6px 16px rgba(0, 217, 255, 0.6)';
+      });
+
+      chatButton.addEventListener('mouseleave', function() {
+        this.style.transform = 'scale(1)';
+        this.style.boxShadow = '0 4px 12px rgba(0, 217, 255, 0.4)';
+      });
+
+      chatButton.addEventListener('click', function() {
+        isOpen = !isOpen;
+        toggleChatWindow();
+      });
+
+      // Chat Window Container
+      const chatWindow = document.createElement('div');
+      chatWindow.id = 'prostar-chat-widget';
+      chatWindow.style.cssText = `
+        position: fixed;
+        bottom: 88px;
+        right: 24px;
+        width: 384px;
+        max-width: calc(100vw - 32px);
+        max-height: 600px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 5px 40px rgba(0, 0, 0, 0.16);
+        display: none;
+        flex-direction: column;
+        z-index: 9998;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      `;
+
+      // Header
+      const header = document.createElement('div');
+      header.style.cssText = `
+        background: linear-gradient(135deg, #0EA5E9 0%, #00D9FF 100%);
+        color: white;
+        padding: 16px;
+        border-radius: 12px 12px 0 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      `;
+      header.innerHTML = `
+        <div>
+          <h3 style="margin: 0; font-size: 14px; font-weight: 600;">ProStar AI Assistant</h3>
+          <p style="margin: 4px 0 0 0; font-size: 12px; opacity: 0.9;">Wir antworten sofort</p>
+        </div>
+        <button id="close-chat" style="background: none; border: none; color: white; cursor: pointer; font-size: 20px;">×</button>
+      `;
+
+      // Messages Container
+      const messagesContainer = document.createElement('div');
+      messagesContainer.id = 'prostar-messages';
+      messagesContainer.style.cssText = `
+        flex: 1;
+        overflow-y: auto;
+        padding: 16px;
+        background: #f9fafb;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      `;
+
+      // Welcome Message
+      const welcomeMsg = document.createElement('div');
+      welcomeMsg.style.cssText = `
+        display: flex;
+        justify-content: flex-start;
+        margin-bottom: 8px;
+      `;
+      welcomeMsg.innerHTML = `
+        <div style="max-width: 80%; background: white; border: 1px solid #e5e7eb; padding: 12px; border-radius: 8px; border-bottom-left-radius: 0;">
+          <p style="margin: 0; font-size: 13px; color: #1f2937; line-height: 1.4;">
+            Hallo! 👋 Ich bin der ProStar AI Assistant. Wie kann ich dir heute helfen?
+          </p>
+        </div>
+      `;
+      messagesContainer.appendChild(welcomeMsg);
+      messages.push({ text: 'Hallo! 👋 Ich bin der ProStar AI Assistant. Wie kann ich dir heute helfen?', sender: 'bot' });
+
+      // Input Container
+      const inputContainer = document.createElement('div');
+      inputContainer.style.cssText = `
+        padding: 16px;
+        border-top: 1px solid #e5e7eb;
+        background: white;
+        border-radius: 0 0 12px 12px;
+        display: flex;
+        gap: 8px;
+      `;
+
+      const input = document.createElement('textarea');
+      input.id = 'prostar-input';
+      input.placeholder = 'Schreib deine Frage...';
+      input.style.cssText = `
+        flex: 1;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        padding: 10px 12px;
+        font-size: 13px;
+        font-family: inherit;
+        resize: none;
+        outline: none;
+        transition: border-color 0.2s;
+      `;
+      input.rows = 2;
+
+      input.addEventListener('focus', function() {
+        this.style.borderColor = '#0EA5E9';
+      });
+
+      input.addEventListener('blur', function() {
+        this.style.borderColor = '#d1d5db';
+      });
+
+      const sendButton = document.createElement('button');
+      sendButton.innerHTML = '📤';
+      sendButton.style.cssText = `
+        background: linear-gradient(135deg, #0EA5E9 0%, #00D9FF 100%);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 10px 14px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: opacity 0.2s;
+        height: fit-content;
+      `;
+
+      sendButton.addEventListener('click', sendMessage);
+      input.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          sendMessage();
+        }
+      });
+
+      inputContainer.appendChild(input);
+      inputContainer.appendChild(sendButton);
+
+      // Assemble Chat Window
+      chatWindow.appendChild(header);
+      chatWindow.appendChild(messagesContainer);
+      chatWindow.appendChild(inputContainer);
+
+      // Close button handler
+      header.querySelector('#close-chat').addEventListener('click', function() {
+        isOpen = false;
+        toggleChatWindow();
+      });
+
+      // Add to document
+      document.body.appendChild(chatButton);
+      document.body.appendChild(chatWindow);
+    }
+
+    // Toggle Chat Window
+    function toggleChatWindow() {
+      const chatWindow = document.getElementById('prostar-chat-widget');
+      const chatButton = document.getElementById('prostar-chat-button');
+      
+      if (isOpen) {
+        chatWindow.style.display = 'flex';
+        chatButton.style.transform = 'scale(0.9)';
+        setTimeout(() => {
+          document.getElementById('prostar-input').focus();
+        }, 100);
+      } else {
+        chatWindow.style.display = 'none';
+        chatButton.style.transform = 'scale(1)';
+      }
+    }
+
+    // Send Message
+    async function sendMessage() {
+      const input = document.getElementById('prostar-input');
+      const userText = input.value.trim();
+
+      if (!userText || isLoading) return;
+
+      // Add user message
+      const messagesContainer = document.getElementById('prostar-messages');
+      const userMsg = document.createElement('div');
+      userMsg.style.cssText = `
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 8px;
+      `;
+      userMsg.innerHTML = `
+        <div style="max-width: 80%; background: linear-gradient(135deg, #0EA5E9 0%, #00D9FF 100%); color: white; padding: 12px; border-radius: 8px; border-bottom-right-radius: 0;">
+          <p style="margin: 0; font-size: 13px; line-height: 1.4;">${userText}</p>
+        </div>
+      `;
+      messagesContainer.appendChild(userMsg);
+      input.value = '';
+      isLoading = true;
+
+      // Add loading indicator
+      const loadingMsg = document.createElement('div');
+      loadingMsg.style.cssText = `
+        display: flex;
+        justify-content: flex-start;
+        margin-bottom: 8px;
+      `;
+      loadingMsg.innerHTML = `
+        <div style="background: white; border: 1px solid #e5e7eb; padding: 12px; border-radius: 8px; border-bottom-left-radius: 0;">
+          <div style="display: flex; gap: 6px;">
+            <div style="width: 8px; height: 8px; background: #0EA5E9; border-radius: 50%; animation: bounce 1.4s infinite;"></div>
+            <div style="width: 8px; height: 8px; background: #0EA5E9; border-radius: 50%; animation: bounce 1.4s infinite 0.2s;"></div>
+            <div style="width: 8px; height: 8px; background: #0EA5E9; border-radius: 50%; animation: bounce 1.4s infinite 0.4s;"></div>
+          </div>
+        </div>
+      `;
+      messagesContainer.appendChild(loadingMsg);
+
+      try {
+        const response = await fetch(`${API_URL}/chat`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${API_KEY}`,
+          },
+          body: JSON.stringify({
+            message: userText,
+            sessionId: 'prostar-squarespace',
+            context: 'ProStar Marketing Squarespace',
+          }),
+        });
+
+        let botResponse = 'Entschuldigung, es gab einen Fehler. Bitte versuche es später erneut.';
+        
+        if (response.ok) {
+          const data = await response.json();
+          botResponse = data.response || data.message || botResponse;
+        }
+
+        // Remove loading indicator
+        messagesContainer.removeChild(loadingMsg);
+
+        // Add bot response
+        const botMsg = document.createElement('div');
+        botMsg.style.cssText = `
+          display: flex;
+          justify-content: flex-start;
+          margin-bottom: 8px;
+        `;
+        botMsg.innerHTML = `
+          <div style="max-width: 80%; background: white; border: 1px solid #e5e7eb; padding: 12px; border-radius: 8px; border-bottom-left-radius: 0;">
+            <p style="margin: 0; font-size: 13px; color: #1f2937; line-height: 1.4;">${botResponse}</p>
+          </div>
+        `;
+        messagesContainer.appendChild(botMsg);
+        messages.push({ text: botResponse, sender: 'bot' });
+
+      } catch (error) {
+        console.error('Chat Error:', error);
+        messagesContainer.removeChild(loadingMsg);
+        
+        const errorMsg = document.createElement('div');
+        errorMsg.style.cssText = `
+          display: flex;
+          justify-content: flex-start;
+          margin-bottom: 8px;
+        `;
+        errorMsg.innerHTML = `
+          <div style="max-width: 80%; background: white; border: 1px solid #e5e7eb; padding: 12px; border-radius: 8px; border-bottom-left-radius: 0;">
+            <p style="margin: 0; font-size: 13px; color: #dc2626; line-height: 1.4;">Es tut mir leid, es gab einen Fehler. Bitte versuche es später erneut.</p>
+          </div>
+        `;
+        messagesContainer.appendChild(errorMsg);
+      } finally {
+        isLoading = false;
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      }
+    }
+
+    // Add bounce animation
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes bounce {
+        0%, 80%, 100% { transform: translateY(0); opacity: 1; }
+        40% { transform: translateY(-8px); }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', createChatWidget);
+    } else {
+      createChatWidget();
+    }
+  })();
+</script>
