@@ -1,0 +1,18 @@
+⏳ DEPLOYMENT AUSSTEHEND
+
+Domain: prostarmarketing.de
+Status: DNS wird propagiert
+Grund: Nameserver bei Google Domains geändert
+
+Aktueller Status:
+- Nameserver: Google Domains (ns-cloud-a*.googledomains.com)
+- Erwartet: Squarespace (ns1-4.squarespace.com)
+- Propagation: 24-48 Stunden normal
+
+Was du inzwischen tun kannst:
+1. Prüfe regelmäßig: https://dns.google
+2. Query: prostarmarketing.de
+3. Sollte Squarespace IPs zeigen
+4. Browser Cache leeren (Ctrl+Shift+Del)
+
+Automatische Prüfung läuft alle 1 Stunde
