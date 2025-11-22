@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { trpcClient } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, Download, Share2, BookOpen } from "lucide-react";
@@ -27,6 +28,52 @@ export default function Course() {
   >(null);
 
   useEffect(() => {
+    let mounted = true;
+    async function tryVerifyFromQuery() {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const key = params.get("key");
+        const emailParam = params.get("email");
+        if (key && emailParam) {
+          // call verify endpoint to ensure access is registered
+          try {
+            const result = await trpcClient.course.verify.query({
+              email: emailParam,
+              accessKey: key,
+            });
+            if (result.valid) {
+              // persist minimal info for course access
+              try {
+                localStorage.setItem("userEmail", result.email || emailParam);
+                localStorage.setItem(
+                  `userTier_${result.email || emailParam}`,
+                  "starter"
+                );
+                localStorage.setItem("lastAccessKey", key);
+                localStorage.setItem(
+                  "lastAccessEmail",
+                  result.email || emailParam
+                );
+              } catch (e) {
+                console.warn("Could not persist access info from query", e);
+              }
+              // reflect in UI
+              if (mounted) setUserTier("starter");
+              // remove query params from URL to keep it clean
+              const url = new URL(window.location.href);
+              url.searchParams.delete("key");
+              url.searchParams.delete("email");
+              window.history.replaceState({}, document.title, url.toString());
+            }
+          } catch (err) {
+            console.warn("Query verify failed", err);
+          }
+        }
+      } catch (err) {
+        console.warn("Failed to parse query for verification", err);
+      }
+    }
+    tryVerifyFromQuery();
     // Check for order data in localStorage
     const urlParams = new URLSearchParams(window.location.search);
     const orderId = urlParams.get("orderId");
@@ -45,17 +92,34 @@ export default function Course() {
       }
     } else if (userEmail) {
       // Check if user has purchased before
-      const tier = localStorage.getItem(`userTier_${userEmail}`);
+      let tier = localStorage.getItem(`userTier_${userEmail}`);
       if (
         tier === "starter" ||
         tier === "professional" ||
         tier === "enterprise"
       ) {
-        setUserTier(tier);
+        setUserTier(tier as any);
+      } else {
+        // Fallback: check recently stored accessKey/email from the access flow
+        const lastKey = localStorage.getItem("lastAccessKey");
+        const lastEmail = localStorage.getItem("lastAccessEmail");
+        if (lastKey && lastEmail && lastEmail === userEmail) {
+          // grant starter access for the mini-course when recent access key exists
+          setUserTier("starter");
+          // persist the tier for future visits
+          try {
+            localStorage.setItem(`userTier_${userEmail}`, "starter");
+          } catch (e) {
+            console.warn("Could not persist user tier", e);
+          }
+        }
       }
     }
 
     setIsLoading(false);
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   const handleDownloadCourse = () => {
@@ -130,11 +194,11 @@ export default function Course() {
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-gradient-to-br from-cyan-50 to-blue-100 flex flex-col items-center justify-center px-2 sm:px-4">
       {/* Header */}
-      <header className="sticky top-0 z-40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border">
-        <div className="container flex items-center justify-between h-16">
-          <div className="flex items-center gap-4">
+      <header className="sticky top-0 z-40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border w-full">
+        <div className="flex flex-col sm:flex-row items-center justify-between h-auto sm:h-16 px-2 sm:px-4">
+          <div className="flex items-center gap-2 sm:gap-4 w-full sm:w-auto mb-2 sm:mb-0">
             <a
               href="/"
               className="flex items-center gap-2 text-accent hover:text-accent/80 transition-colors"
@@ -143,14 +207,16 @@ export default function Course() {
               <span>Zurück</span>
             </a>
             <div>
-              <h1 className="text-xl font-bold">KI-Prompting Kurs</h1>
+              <h1 className="text-xl sm:text-2xl font-bold">
+                KI-Prompting Kurs
+              </h1>
               <p className="text-sm text-muted-foreground">
                 Tier: {userTier.toUpperCase()}
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
             <Button
               variant="outline"
               size="sm"
@@ -175,8 +241,8 @@ export default function Course() {
 
       {/* Order Confirmation Banner */}
       {orderData && (
-        <div className="bg-green-900/20 border-b border-green-500/50 text-green-100 px-4 py-3">
-          <div className="container flex items-center justify-between">
+        <div className="bg-green-900/20 border-b border-green-500/50 text-green-100 px-2 sm:px-4 py-3">
+          <div className="flex flex-col sm:flex-row items-center justify-between">
             <div>
               <p className="font-semibold">✓ Zahlung erfolgreich!</p>
               <p className="text-sm opacity-90">
@@ -184,36 +250,40 @@ export default function Course() {
                 {orderData.email}
               </p>
             </div>
-            <BookOpen size={24} className="text-green-400" />
+            <BookOpen size={24} className="text-green-400 mt-2 sm:mt-0" />
           </div>
         </div>
       )}
 
-      <div className="container py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+      <div className="w-full max-w-5xl py-4 sm:py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 sm:gap-8">
           {/* Sidebar - Module Navigation */}
-          <aside className="lg:col-span-1">
-            <div className="sticky top-24 bg-card rounded-lg border border-border p-4">
+          <aside className="lg:col-span-1 mb-4 lg:mb-0">
+            <div className="sticky top-24 bg-card rounded-lg border border-border p-2 sm:p-4">
               <CourseModulesPreview tier={userTier} userTier={userTier} />
             </div>
           </aside>
 
           {/* Main Content */}
           <main className="lg:col-span-3">
-            <article className="bg-card rounded-lg border border-border p-8 prose prose-invert max-w-none">
-              <h1>Willkommen zum KI-Prompting Kurs!</h1>
+            <article className="bg-card rounded-lg border border-border p-4 sm:p-8 prose prose-invert max-w-none">
+              <h1 className="text-lg sm:text-2xl">
+                Willkommen zum KI-Prompting Kurs!
+              </h1>
               <p>
                 Wählen Sie ein Modul aus der Seitenleiste, um zu beginnen. Alle
                 Module sind für Ihren Tier verfügbar.
               </p>
 
-              <h2>Ihr Kurs-Tier: {userTier.toUpperCase()}</h2>
+              <h2 className="text-base sm:text-xl">
+                Ihr Kurs-Tier: {userTier.toUpperCase()}
+              </h2>
               <p>
                 Sie haben Zugriff auf alle Module, die in Ihrem Tier enthalten
                 sind. Nutzen Sie die Seitenleiste, um die Module zu erkunden.
               </p>
 
-              <div className="bg-blue-900/20 border border-blue-500/50 rounded-lg p-6 mt-8">
+              <div className="bg-blue-900/20 border border-blue-500/50 rounded-lg p-4 sm:p-6 mt-4 sm:mt-8">
                 <h3>💡 Tipp</h3>
                 <p>
                   Klicken Sie auf ein Modul in der Seitenleiste, um den

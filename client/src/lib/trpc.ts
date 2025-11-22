@@ -41,6 +41,7 @@ export function getTrpcUrl(): string {
     const origin = window.location.origin;
     return `${origin}/api/trpc`;
   }
-  // Development Mode: localhost
-  return "http://localhost:3000/api/trpc";
+  // Development Mode: localhost (Port dynamisch aus .env oder Fallback 3001)
+  const devPort = import.meta.env.VITE_DEV_PORT || "3001";
+  return `http://localhost:${devPort}/api/trpc`;
 }

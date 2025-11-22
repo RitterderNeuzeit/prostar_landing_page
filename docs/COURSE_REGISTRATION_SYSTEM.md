@@ -7,6 +7,7 @@ description: Automatisiertes Email-System für Kurs-Registrierungen mit eindeuti
 ## 🎯 Übersicht
 
 Automatisiertes Email-System für kostenlose Kurs-Registrierungen mit:
+
 - ✅ Eindeutige Zugriffsschlüssel pro Person
 - ✅ Automatischer Email-Versand
 - ✅ Personalisierte HTML-Emails
@@ -18,6 +19,7 @@ Automatisiertes Email-System für kostenlose Kurs-Registrierungen mit:
 ## 📋 System-Komponenten
 
 ### 1. Datenbank (`drizzle/schema.ts`)
+
 ```typescript
 courseRegistrations table:
 - accessKey: Eindeutiger Token (32 Zeichen)
@@ -32,25 +34,29 @@ courseRegistrations table:
 ```
 
 ### 2. Email-Service (`server/services/emailService.ts`)
+
 - **Provider**: Gmail (SMTP)
 - **Authentication**: App-Passwort
 - **Template**: HTML + Text-Fallback
 - **Features**: Personalisierung, Access-Links, Expiry-Info
 
 ### 3. Kurs-Service (`server/services/courseService.ts`)
+
 - **generateAccessKey()**: 32-Zeichen UUID
 - **registerForCourse()**: Speichert Registration + generiert Key
 - **verifyAccessKey()**: Validiert + Zugriff tracken
 
 ### 4. tRPC Endpoints (`server/routers.ts`)
+
 ```typescript
-course.register   // POST: Name + Email → Email + Key
-course.verify     // GET: Validate Access Key
+course.register; // POST: Name + Email → Email + Key
+course.verify; // GET: Validate Access Key
 ```
 
 ### 5. Frontend-Komponenten
 
 #### `CourseRegistrationForm.tsx`
+
 - Name + Email Input
 - Validierung
 - Loading State
@@ -58,6 +64,7 @@ course.verify     // GET: Validate Access Key
 - Auto-Reset nach Erfolg
 
 #### `CourseAccessPage.tsx`
+
 - URL Parameter: `?key=<accessKey>`
 - Verifikation + Anzeige
 - User-Daten Display
@@ -80,6 +87,7 @@ SITE_URL=https://prostarmarketing.de  # Production
 ```
 
 #### Gmail App-Passwort erstellen:
+
 1. Google Account → Sicherheit
 2. 2-Faktor aktivieren (falls nicht)
 3. App-Passwörter → Google Mail wählen
@@ -115,15 +123,15 @@ export function HomePage() {
   return (
     <div>
       {/* ... other content ... */}
-      
+
       <section className="py-16 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-8">
             Kostenlos Starten
           </h2>
-          <CourseRegistrationForm 
+          <CourseRegistrationForm
             courseName="Gratis Mini-Kurs"
-            onSuccess={(accessKey) => {
+            onSuccess={accessKey => {
               console.log("Registriert mit Key:", accessKey);
             }}
           />
@@ -176,6 +184,7 @@ import { CourseAccessPage } from "@/pages/CourseAccessPage";
 ```
 
 ### Template-Variablen
+
 - `${data.name}` → Benutzer-Name
 - `${data.accessKey}` → Eindeutiger Code
 - `${accessUrl}` → `SITE_URL/course/access/[key]`
@@ -186,6 +195,7 @@ import { CourseAccessPage } from "@/pages/CourseAccessPage";
 ## 🚀 Workflow
 
 ### 1. Registrierung
+
 ```
 User füllt Form aus
         ↓
@@ -203,6 +213,7 @@ Frontend: "✅ Email gesendet"
 ```
 
 ### 2. Zugriff
+
 ```
 User klickt Email-Link
         ↓
@@ -266,6 +277,7 @@ curl http://localhost:3000/api/trpc/course.verify \
 ### Test 3: Email-Versand
 
 Emails in Development laufen gegen:
+
 - Gmail SMTP (live)
 - Oder: Mailtrap/Ethereal für Sandbox
 
@@ -286,22 +298,26 @@ http://localhost:3000/course/access?key=abc123def456
 ### Best Practices
 
 ✅ **Access Keys**
+
 - Eindeutig: `uuid().replace(/-/g, '').substring(0, 32)`
 - Nicht sequenziell (nicht ratbar)
 - Speichert nur gehashed in Production (TODO)
 - Pro Person nur 1 Key zur Zeit
 
 ✅ **Emails**
+
 - Versendet nur an bestätigte Email
 - Link enthält Key als URL-Parameter
 - Keine Secrets in Emails
 
 ✅ **Ablauf**
+
 - 90 Tage Gültigkeitsdauer
 - Automatic Expiry Status
 - Tracking von Zugriff (accessedAt)
 
 ✅ **Database**
+
 - courseRegistrations als separate Tabelle
 - Eindeutiger Index auf accessKey
 - Status-Enum (keine Free-Text)
@@ -310,11 +326,11 @@ http://localhost:3000/course/access?key=abc123def456
 
 ```typescript
 // 1. Key Hashing (prevent DB compromise)
-import bcrypt from 'bcrypt';
+import bcrypt from "bcrypt";
 const hashedKey = await bcrypt.hash(accessKey, 10);
 
 // 2. Rate Limiting (prevent spam)
-import rateLimit from 'express-rate-limit';
+import rateLimit from "express-rate-limit";
 
 // 3. Email Verification (double opt-in)
 // 4. Webhook for Payment Integration
@@ -326,17 +342,20 @@ import rateLimit from 'express-rate-limit';
 ## 🎯 Nächste Schritte
 
 ### Direkt einsatzbereit:
+
 - ✅ Registrierungsform auf Landing Page
 - ✅ Email-Versand aktiv
 - ✅ Kurs-Zugangsseite
 
 ### Später (Payment Integration):
+
 - [ ] Stripe Integration
 - [ ] Bezahlte Kurse
 - [ ] Admin Dashboard
 - [ ] Email Vorlagen Customizer
 
 ### Optional:
+
 - [ ] SMS Backup für Code
 - [ ] QR-Code in Email
 - [ ] WhatsApp Integration
@@ -351,6 +370,7 @@ import rateLimit from 'express-rate-limit';
 **Fehler**: `"Email service is not configured"`
 
 **Lösung**:
+
 ```bash
 # Prüfe .env
 cat .env | grep EMAIL_
@@ -368,6 +388,7 @@ EMAIL_PASSWORD=16-zeichen-app-passwort
 **Fehler**: `ECONNREFUSED 127.0.0.1:3306`
 
 **Lösung**:
+
 ```bash
 # MySQL läuft nicht lokal:
 docker-compose up -d mysql
@@ -384,6 +405,7 @@ pnpm run db:push
 **Fehler**: `course.register is not a function`
 
 **Lösung**:
+
 ```bash
 # Routers.ts wurde nicht richtig aktualisiert
 # Prüfe: server/routers.ts hat course: router({...})
@@ -400,6 +422,7 @@ pnpm dev
 **Fehler**: Email enthält `${data.name}` statt "Max"
 
 **Lösung**:
+
 ```typescript
 // server/services/emailService.ts
 // Backticks verwenden, nicht normale Quotes!
@@ -417,22 +440,22 @@ const htmlContent = `
 
 ```sql
 -- Wie viele Registrierungen heute?
-SELECT COUNT(*) FROM courseRegistrations 
+SELECT COUNT(*) FROM courseRegistrations
 WHERE DATE(createdAt) = CURDATE();
 
 -- Wie viele Emails versendet?
-SELECT COUNT(*) FROM courseRegistrations 
-WHERE emailSent IS NOT NULL 
+SELECT COUNT(*) FROM courseRegistrations
+WHERE emailSent IS NOT NULL
 AND DATE(emailSent) = CURDATE();
 
 -- Wer hat zugegriffen?
-SELECT name, email, accessedAt FROM courseRegistrations 
-WHERE accessedAt IS NOT NULL 
+SELECT name, email, accessedAt FROM courseRegistrations
+WHERE accessedAt IS NOT NULL
 ORDER BY accessedAt DESC;
 
 -- Abgelaufene Kurse?
-SELECT name, email, expiresAt FROM courseRegistrations 
-WHERE expiresAt < NOW() 
+SELECT name, email, expiresAt FROM courseRegistrations
+WHERE expiresAt < NOW()
 AND status = 'active';
 ```
 

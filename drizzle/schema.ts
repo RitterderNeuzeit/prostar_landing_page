@@ -41,8 +41,12 @@ export const courseRegistrations = mysqlTable("courseRegistrations", {
   accessKey: varchar("accessKey", { length: 64 }).notNull().unique(), // Unique access token
   name: varchar("name", { length: 255 }).notNull(),
   email: varchar("email", { length: 320 }).notNull(),
-  courseName: varchar("courseName", { length: 255 }).notNull().default("free-mini-course"),
-  status: mysqlEnum("status", ["pending", "active", "expired", "cancelled"]).default("active").notNull(),
+  courseName: varchar("courseName", { length: 255 })
+    .notNull()
+    .default("free-mini-course"),
+  status: mysqlEnum("status", ["pending", "active", "expired", "cancelled"])
+    .default("active")
+    .notNull(),
   emailSent: timestamp("emailSent"),
   accessedAt: timestamp("accessedAt"),
   expiresAt: timestamp("expiresAt"),

@@ -1,6 +1,12 @@
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users, courseRegistrations, InsertCourseRegistration, CourseRegistration } from "../drizzle/schema";
+import {
+  InsertUser,
+  users,
+  courseRegistrations,
+  InsertCourseRegistration,
+  CourseRegistration,
+} from "../drizzle/schema";
 import { ENV } from "./_core/env";
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -94,10 +100,14 @@ export async function getUserByOpenId(openId: string) {
 }
 
 // Course registration queries
-export async function createCourseRegistration(data: InsertCourseRegistration): Promise<CourseRegistration | null> {
+export async function createCourseRegistration(
+  data: InsertCourseRegistration
+): Promise<CourseRegistration | null> {
   const db = await getDb();
   if (!db) {
-    console.warn("[Database] Cannot create registration: database not available");
+    console.warn(
+      "[Database] Cannot create registration: database not available"
+    );
     return null;
   }
 
@@ -116,7 +126,9 @@ export async function createCourseRegistration(data: InsertCourseRegistration): 
   }
 }
 
-export async function getCourseRegistrationByAccessKey(accessKey: string): Promise<CourseRegistration | null> {
+export async function getCourseRegistrationByAccessKey(
+  accessKey: string
+): Promise<CourseRegistration | null> {
   const db = await getDb();
   if (!db) {
     console.warn("[Database] Cannot get registration: database not available");
@@ -132,15 +144,34 @@ export async function getCourseRegistrationByAccessKey(accessKey: string): Promi
   return result.length > 0 ? result[0] : null;
 }
 
-export async function updateCourseRegistrationAccessed(accessKey: string): Promise<void> {
+export async function updateCourseRegistrationAccessed(
+  accessKey: string
+): Promise<void> {
   const db = await getDb();
   if (!db) {
-    console.warn("[Database] Cannot update registration: database not available");
+    console.warn(
+      "[Database] Cannot update registration: database not available"
+    );
     return;
   }
 
   await db
     .update(courseRegistrations)
     .set({ accessedAt: new Date() })
+    .where(eq(courseRegistrations.accessKey, accessKey));
+}
+
+export async function updateCourseRegistrationEmailSent(
+  accessKey: string
+): Promise<void> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot update emailSent: database not available");
+    return;
+  }
+
+  await db
+    .update(courseRegistrations)
+    .set({ emailSent: new Date() })
     .where(eq(courseRegistrations.accessKey, accessKey));
 }

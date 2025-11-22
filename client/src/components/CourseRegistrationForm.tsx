@@ -25,7 +25,7 @@ export function CourseRegistrationForm({
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -66,16 +66,17 @@ export function CourseRegistrationForm({
 
   return (
     <div className="w-full max-w-md mx-auto p-6 bg-white rounded-lg border border-cyan-200 shadow-lg">
-      <h2 className="text-2xl font-bold mb-2 text-gray-800">
-        🎓 {courseName}
-      </h2>
+      <h2 className="text-2xl font-bold mb-2 text-gray-800">🎓 {courseName}</h2>
       <p className="text-gray-600 mb-6 text-sm">
         Kostenloser Zugang mit persönlichem Zugriffsschlüssel
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+          <label
+            htmlFor="name"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
             Dein Name
           </label>
           <input
@@ -91,7 +92,10 @@ export function CourseRegistrationForm({
         </div>
 
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
             E-Mail Adresse
           </label>
           <input
@@ -128,7 +132,8 @@ export function CourseRegistrationForm({
       </form>
 
       <p className="text-xs text-gray-500 text-center mt-4">
-        💌 Du erhältst sofort eine E-Mail mit deinem persönlichen Zugriffsschlüssel
+        💌 Du erhältst sofort eine E-Mail mit deinem persönlichen
+        Zugriffsschlüssel
       </p>
     </div>
   );

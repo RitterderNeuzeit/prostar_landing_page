@@ -1,60 +1,50 @@
-# Prostar Landing Page
+# ProStar Landing Page – Projektstruktur & Nutzung
 
-Kurz: Kleines Vite + Express/tRPC Projekt mit Drizzle-DB und Stripe-Integration.
+## Schnellstart
 
-Entwicklerhinweis (kurz)
-
-- Lesen: `.github/copilot-instructions.md` — Repo-spezifische Hinweise für Entwicklung und AI-Copiloten.
-- Lokale Env-Beispiele: `.env.example` (kopieren zu `.env` und Werte ergänzen).
-
-Wichtige Befehle (Makefile-Shortcuts verfügbar):
-
-```bash
-make install-pnpm   # versucht pnpm via corepack oder npm zu aktivieren
-make install        # wie oben
-make dev            # startet pnpm dev
-make check          # TypeScript-Check
-make build
-make start
-make test
-make debug-collect  # führt tools/collect-debug.sh aus und erzeugt debug_bundle.tar.gz
+```sh
+pnpm install
+pnpm dev
+# Öffne http://localhost:3000
 ```
 
-CI: Ein GitHub Actions-Workflow (`.github/workflows/ci.yml`) führt `pnpm install`, `pnpm run check`, `pnpm test` und `pnpm build` bei Push/PR aus.
+## Struktur
 
-Weitere Informationen zur Beitragserstellung und PR-Checkliste: `CONTRIBUTING.md`.
+- `client/` – Frontend (Vite + React + Tailwind)
+- `server/` – Backend (Express.js + tRPC + TypeScript)
+- `drizzle/` – Datenbank (Drizzle ORM + MySQL)
+- `shared/` – Gemeinsame Typen/Konstanten
+- `docs/` – Dokumentation & Guides
 
-Docker (schneller Weg, falls du Node/pnpm lokal nicht installieren willst)
+## Wichtige Befehle
 
-```bash
-# Build + Start im Container (erstmalig)
-docker compose build --progress=plain
-docker compose up
+- `pnpm dev` – Dev-Server mit HMR
+- `pnpm test` – Tests ausführen (Vitest)
+- `pnpm run format:check` – Prettier-Check
+- `pnpm run lint` – ESLint-Check
+- `pnpm duplication:check` – Duplikate prüfen
 
-# Oder nur im Hintergrund
-docker compose up -d
+## Automatisierte Checks
 
-# Logs ansehen
-docker compose logs -f
+Siehe `docs/AUTOMATISIERTE_CHECKS.md` für Details zu Formatierung, Linting und Tests.
 
-# Stopp
-docker compose down
-```
+## Weitere Infos
 
-VS Code - Schnellzugriff (Tasks)
+- Stripe-Integration: `docs/STRIPE_INTEGRATION_GUIDE.md`
+- Deployment: `docs/README_AUTOMATION.md`
+- Fehlerbehebung: `docs/AUTOMATISIERTE_CHECKS.md`
 
-- `Start Project (start.sh)` — führt `./scripts/start.sh` aus (installiert ggf. und startet `pnpm dev` oder Docker-Fallback).
-- `Start Dev Server` — startet `pnpm dev` (HMR via Vite); entspricht `pnpm dev`.
-- `Start Dev Server + Open` — startet den Dev-Server falls nötig und öffnet die URL im Browser (prüft Ports `3000`–`3020`).
-- `Open Live Preview (External)` — öffnet die erste erreichbare Dev-URL oder `http://localhost:3000`.
+---
 
-In VS Code: `Terminal -> Run Task` und wähle den gewünschten Task.
+**Stand:** 20.11.2025
 
-Hinweis: Der Container startet per Default `pnpm dev` (dev server + Vite). Die Quelle wird als Volume gemountet, du kannst also im Host weiter editieren.
+## Automatisierte E2E-Tests & E-Mail-Flow
 
-Ein-Kommando-Start (falls du lieber nicht mehrere Befehle eintippst)
+- End-to-End-Test: `npx tsx scripts/e2e-customer-flow.ts --email info.loco@gmx.de --name "Auto Tester"`
+- CI: E2E-Job ist durch Secrets und Feature-Flag geschützt (`ALLOW_E2E_EMAILS`)
+- Format- und Type-Checks: `pnpm run format:check`, `pnpm run check`
+- Datenbank: MySQL-Container via Docker, Migrationen mit `pnpm run db:push`
+- Dev-Server: `pnpm dev` (Port wird automatisch gewählt)
+- Cleanup: `.history`-YAMLs entfernt, Format-Check läuft
 
-```bash
-# Skript erkennt pnpm automatisch oder fällt auf Docker Compose zurück
-./scripts/start.sh
-```
+Letzter Test: Zugangscode `infoloco_7262c310dfee4511bc61`, E-Mail versendet, Kurszugang erfolgreich.

@@ -95,17 +95,13 @@
       "compositePrimaryKeys": {
         "courseRegistrations_id": {
           "name": "courseRegistrations_id",
-          "columns": [
-            "id"
-          ]
+          "columns": ["id"]
         }
       },
       "uniqueConstraints": {
         "courseRegistrations_accessKey_unique": {
           "name": "courseRegistrations_accessKey_unique",
-          "columns": [
-            "accessKey"
-          ]
+          "columns": ["accessKey"]
         }
       },
       "checkConstraint": {}
@@ -187,17 +183,13 @@
       "compositePrimaryKeys": {
         "users_id": {
           "name": "users_id",
-          "columns": [
-            "id"
-          ]
+          "columns": ["id"]
         }
       },
       "uniqueConstraints": {
         "users_openId_unique": {
           "name": "users_openId_unique",
-          "columns": [
-            "openId"
-          ]
+          "columns": ["openId"]
         }
       },
       "checkConstraint": {}

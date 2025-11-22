@@ -94,6 +94,14 @@ async function startServer() {
   } catch (e) {
     console.warn("Admin routes not mounted", e);
   }
+  // Email routes (open tracking)
+  try {
+    const emailModule = await import("../routes/email");
+    const emailRoutes = emailModule.default;
+    if (emailRoutes) app.use("/api/email", emailRoutes);
+  } catch (e) {
+    console.warn("Email routes not mounted", e);
+  }
   // tRPC API
   app.use(
     "/api/trpc",
@@ -108,6 +116,31 @@ async function startServer() {
   } else {
     serveStatic(app);
   }
+
+  // === ERROR HANDLER: Malformed URL protection ===
+  // Catches decodeURIComponent errors and other request parsing errors
+  app.use(
+    (
+      err: any,
+      req: express.Request,
+      res: express.Response,
+      next: express.NextFunction
+    ) => {
+      if (err instanceof URIError || err instanceof SyntaxError) {
+        console.warn(`[SafeError] ${err.message} on ${req.method} ${req.url}`);
+        res.status(400).json({ error: "Bad Request", details: err.message });
+        return;
+      }
+
+      console.error("[Error]", err);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  );
+
+  // === 404 Handler ===
+  app.use((req, res) => {
+    res.status(404).json({ error: "Not Found", path: req.path });
+  });
 
   const preferredPort = parseInt(process.env.PORT || "3000");
   const port = await findAvailablePort(preferredPort);
