@@ -39,10 +39,9 @@ export const appRouter = router({
         })
       )
       .mutation(async ({ input }) => {
-        console.log("📋 course.register called:", {
-          name: input.name,
-          email: input.email,
-        });
+        console.log("\n📋 [REGISTRATION START] Email:", input.email);
+        const startTime = Date.now();
+        
         try {
           // Check email service
           const emailConfigured = isEmailServiceConfigured();
@@ -81,11 +80,12 @@ export const appRouter = router({
 
           // Send email with access key (catch and report email errors explicitly)
           try {
-            console.log("📧 Sending email to", input.email);
+            console.log("📧 [EMAIL SEND START] Sending to:", input.email);
             const courseNameForEmail =
               (registration as any)?.registration?.courseName ||
               input.courseName ||
               "free-mini-course";
+            
             const emailResult = await sendCourseAccessEmail({
               name: input.name,
               email: input.email,
@@ -94,7 +94,9 @@ export const appRouter = router({
               expiresAt: registration.expiresAt,
             });
 
-            console.log("✅ Email sent:", emailResult.messageId);
+            const emailTime = Date.now() - startTime;
+            console.log(`✅ Email sent in ${emailTime}ms:`, emailResult.messageId);
+            
             // Update DB: mark email as sent (if DB available)
             try {
               // If the registration record was not created previously (DB was offline), try to create it now
@@ -125,6 +127,10 @@ export const appRouter = router({
             } catch (upErr) {
               console.warn("Failed to update emailSent in DB:", upErr);
             }
+            
+            const totalTime = Date.now() - startTime;
+            console.log(`✅ [REGISTRATION COMPLETE] Total time: ${totalTime}ms\n`);
+            
             return {
               success: true,
               message: `Access email sent to ${input.email}`,
@@ -141,7 +147,7 @@ export const appRouter = router({
             };
           }
         } catch (error) {
-          console.error("Course registration error:", error);
+          console.error("❌ Course registration error:", error);
           return {
             success: false,
             error: "Registration failed",

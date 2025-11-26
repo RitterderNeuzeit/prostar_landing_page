@@ -34,31 +34,64 @@ export function CourseRegistrationForm({
     setStatus({ type: null, message: "" });
 
     try {
+      console.log("📍 Sende Registrierung ab...", {
+        name: formData.name,
+        email: formData.email,
+      });
+
+      // Registrierung mit Timeout
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 Sekunden Timeout
+
       const result = await trpcClient.course.register.mutate({
         name: formData.name,
         email: formData.email,
         courseName: "free-mini-course",
       });
 
+      clearTimeout(timeoutId);
+      console.log("✅ Response erhalten:", result);
+
       if (result.success) {
+        console.log("✅ Registrierung erfolgreich!");
         setStatus({
           type: "success",
-          message: `✅ ${result.message}. Bitte überprüfe dein Postfach!`,
+          message: `✅ ${result.message}. Bitte überprüfe dein Postfach (auch Spam-Ordner)!`,
         });
         setFormData({ name: "", email: "" });
         onSuccess?.(result.accessKey || "");
+        
+        // Zeige Erfolgsmeldung länger
+        setTimeout(() => {
+          setStatus({ type: null, message: "" });
+        }, 8000);
       } else {
+        console.error("❌ Registrierung fehlgeschlagen:", result);
         setStatus({
           type: "error",
           message: `❌ ${result.message || result.error}`,
         });
       }
-    } catch (error) {
-      console.error("Registration error:", error);
-      setStatus({
-        type: "error",
-        message: "❌ Ein Fehler ist aufgetreten. Bitte versuche es später.",
-      });
+    } catch (error: any) {
+      console.error("❌ Registration error:", error.message || error);
+      
+      // Spezifische Fehlermeldungen
+      if (error.name === "AbortError") {
+        setStatus({
+          type: "error",
+          message: "❌ Anfrage dauerte zu lange. Bitte versuche es erneut.",
+        });
+      } else if (error.message?.includes("email")) {
+        setStatus({
+          type: "error",
+          message: "❌ E-Mail konnte nicht versendet werden. Bitte versuche es später.",
+        });
+      } else {
+        setStatus({
+          type: "error",
+          message: "❌ Ein Fehler ist aufgetreten. Bitte versuche es später.",
+        });
+      }
     } finally {
       setLoading(false);
     }
