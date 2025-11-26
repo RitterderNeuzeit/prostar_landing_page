@@ -87,17 +87,8 @@ export async function registerForCourse(data: {
 }
 
 /**
- * Verify access key and email, then update access timestamp.
- * 
- * Security checks:
- * - Email format validation
- * - Email tag extraction and matching
- * - Cache lookup
- * - Expiration check
- * - Status check
- * 
- * Dev mode: Accepts any code if email tag matches
- * Returns: { valid, name?, email?, courseName?, expiresAt? } or { valid: false, error }
+ * Verify access key and email, then update access tracking
+ * Key format: <email_tag>_<code>
  */
 export async function verifyAccessKey(email: string, accessKey: string) {
   try {

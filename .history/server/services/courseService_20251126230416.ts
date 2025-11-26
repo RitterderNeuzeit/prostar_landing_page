@@ -1,14 +1,14 @@
 import { v4 as uuidv4 } from "uuid";
-import { registrationCache } from "./registrationCache";
+import {
+  createCourseRegistration,
+  getCourseRegistrationByAccessKey,
+  updateCourseRegistrationAccessed,
+} from "../db";
 
 /**
- * Generate unique access key for course with email tag.
- * 
- * Format: <email_tag>_<random_code>
- * - email_tag: First 8 alphanumeric chars from local part of email
- * - random_code: 20-char random string from UUID
- * 
- * This ensures the code is tied to a specific email (security feature).
+ * Generate unique access key for course with email tag
+ * Format: <email_hash>_<random_code>
+ * This ensures the code is tied to a specific email
  */
 export function generateAccessKey(email: string): string {
   // Tag: Nur Buchstaben/Zahlen, max 8 Zeichen
@@ -22,12 +22,7 @@ export function generateAccessKey(email: string): string {
 }
 
 /**
- * Create a course registration record in cache.
- * 
- * Returns: { success, accessKey, expiresAt, registration }
- * - Sets 90-day expiration
- * - Stores in in-memory cache
- * - Dev mode: returns key even if cache fails
+ * Create course registration record
  */
 export async function registerForCourse(data: {
   name: string;
@@ -38,24 +33,14 @@ export async function registerForCourse(data: {
   const expiresAt = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000); // 90 days
 
   try {
-    // Store in in-memory cache
-    const registration = {
-      id: `reg_${uuidv4()}`,
+    const registration = await createCourseRegistration({
       accessKey,
       name: data.name,
       email: data.email,
       courseName: data.courseName || "free-mini-course",
-      status: "active" as const,
-      emailSent: null,
-      accessedAt: null,
+      status: "active",
       expiresAt,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
-
-    registrationCache.set(accessKey, registration);
-
-    console.log(`✅ [Register] Created registration for ${data.email}`);
+    });
 
     return {
       success: true,
@@ -87,17 +72,8 @@ export async function registerForCourse(data: {
 }
 
 /**
- * Verify access key and email, then update access timestamp.
- * 
- * Security checks:
- * - Email format validation
- * - Email tag extraction and matching
- * - Cache lookup
- * - Expiration check
- * - Status check
- * 
- * Dev mode: Accepts any code if email tag matches
- * Returns: { valid, name?, email?, courseName?, expiresAt? } or { valid: false, error }
+ * Verify access key and email, then update access tracking
+ * Key format: <email_tag>_<code>
  */
 export async function verifyAccessKey(email: string, accessKey: string) {
   try {
@@ -139,15 +115,21 @@ export async function verifyAccessKey(email: string, accessKey: string) {
       };
     }
 
-    // Look up registration from cache
-    let registration = registrationCache.get(accessKey);
-    
-    console.log("🔍 [Verify] Cache lookup result:", {
-      found: !!registration,
-      accessKey,
-      emailTag,
-      expectedTag,
-    });
+    // Look up registration by email and code
+    let registration;
+    let dbErrorFlag = false;
+    try {
+      registration = await getCourseRegistrationByAccessKey(accessKey);
+      console.log("🔍 [Verify] DB lookup result:", {
+        found: !!registration,
+        accessKey,
+        emailTag,
+        expectedTag,
+      });
+    } catch (dbError) {
+      console.warn("⚠️ Database lookup failed:", dbError);
+      dbErrorFlag = true;
+    }
 
     // DEV MODE: Akzeptiere jeden Code mit passendem Tag
     if (process.env.NODE_ENV === "development" && emailTag === expectedTag) {
@@ -160,18 +142,9 @@ export async function verifyAccessKey(email: string, accessKey: string) {
         expiresAt: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
       };
     }
-
     if (!registration) {
-      console.error(
-        "❌ [Verify] Registration not found. Email:",
-        normalizedEmail,
-        "Code:",
-        accessKey
-      );
-      return {
-        valid: false,
-        error: "Code nicht gefunden oder abgelaufen",
-      };
+      console.error("❌ [Verify] Registration not found. Email:", normalizedEmail, "Code:", accessKey);
+      return { valid: false, error: "Code nicht gefunden oder abgelaufen" };
     }
 
     // Verify email matches (case-insensitive)
@@ -195,18 +168,16 @@ export async function verifyAccessKey(email: string, accessKey: string) {
 
     // Check status
     if (registration.status !== "active") {
-      return {
-        valid: false,
-        error: `Zugang ist ${registration.status}`,
-      };
+      return { valid: false, error: `Zugang ist ${registration.status}` };
     }
 
-    // Update accessed timestamp in cache
-    registrationCache.update(accessKey, {
-      accessedAt: new Date(),
-    } as any);
-
-    console.log(`✅ [Verify] Code accepted for ${normalizedEmail}`);
+    // Update accessed timestamp
+    try {
+      await updateCourseRegistrationAccessed(accessKey);
+    } catch (updateError) {
+      console.warn("⚠️ Failed to update access timestamp:", updateError);
+      // Don't fail verification just because we can't update tracking
+    }
 
     return {
       valid: true,

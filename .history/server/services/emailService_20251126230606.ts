@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 
-// Configure email transporter (cached singleton)
+// Configure email transporter
 let transporter: nodemailer.Transporter | null = null;
 
 /**
@@ -11,6 +11,7 @@ function initializeTransporter() {
 
   const emailUser = process.env.EMAIL_USER;
   const emailPassword = process.env.EMAIL_PASSWORD;
+  const emailFrom = process.env.EMAIL_FROM || emailUser;
 
   if (!emailUser || !emailPassword) {
     console.warn(
@@ -37,8 +38,7 @@ function initializeTransporter() {
 }
 
 /**
- * Check if email service is properly configured.
- * Returns true if both EMAIL_USER and EMAIL_PASSWORD env vars are set.
+ * Check if email service is properly configured
  */
 export function isEmailServiceConfigured(): boolean {
   const emailUser = process.env.EMAIL_USER;
@@ -47,14 +47,7 @@ export function isEmailServiceConfigured(): boolean {
 }
 
 /**
- * Generate HTML email template with tracking pixel.
- * 
- * Includes:
- * - Professional responsive design
- * - Access code and direct link
- * - Expiration date (90 days)
- * - Tracking pixel for open rate monitoring
- * - Email-specific headers for debugging
+ * Generate HTML email template
  */
 function generateEmailTemplate(data: {
   name: string;
@@ -175,15 +168,7 @@ function generateEmailTemplate(data: {
 }
 
 /**
- * Send course access email with retry logic.
- * 
- * Flow:
- * 1. Check if email service configured
- * 2. Generate HTML template
- * 3. Try to send (3 attempts with exponential backoff)
- * 4. Include custom headers for debugging
- * 
- * Returns: { success, messageId? } or { success: false, error }
+ * Send course access email
  */
 export async function sendCourseAccessEmail(data: {
   name: string;
@@ -291,10 +276,7 @@ Das ProStar Team
 }
 
 /**
- * Send generic email with retry logic (for other notifications).
- * 
- * Uses same retry logic as sendCourseAccessEmail for consistency.
- * Returns: { success, messageId? } or { success: false, error }
+ * Send generic email (used for other notifications)
  */
 export async function sendEmail(data: {
   to: string;
@@ -324,36 +306,17 @@ export async function sendEmail(data: {
 
     const emailFrom = process.env.EMAIL_FROM || process.env.EMAIL_USER;
 
-    // Send email with retry logic for consistency
-    let lastError: Error | null = null;
-    for (let attempt = 1; attempt <= 3; attempt++) {
-      try {
-        const info = await emailTransporter.sendMail({
-          from: emailFrom,
-          to: data.to,
-          subject: data.subject,
-          html: data.html,
-          text: data.text,
-        });
+    const info = await emailTransporter.sendMail({
+      from: emailFrom,
+      to: data.to,
+      subject: data.subject,
+      html: data.html,
+      text: data.text,
+    });
 
-        console.log(`✅ Generic email sent successfully. Message ID: ${info.messageId}`);
-        return {
-          success: true,
-          messageId: info.messageId,
-        };
-      } catch (error) {
-        lastError = error instanceof Error ? error : new Error(String(error));
-        if (attempt < 3) {
-          const waitTime = Math.min(1000 * Math.pow(2, attempt - 1), 5000);
-          await new Promise(resolve => setTimeout(resolve, waitTime));
-        }
-      }
-    }
-
-    console.error(`❌ Generic email send failed after 3 attempts: ${lastError?.message}`);
     return {
-      success: false,
-      error: lastError?.message || "Email send failed after multiple attempts",
+      success: true,
+      messageId: info.messageId,
     };
   } catch (error) {
     const errorMessage =

@@ -291,10 +291,7 @@ Das ProStar Team
 }
 
 /**
- * Send generic email with retry logic (for other notifications).
- * 
- * Uses same retry logic as sendCourseAccessEmail for consistency.
- * Returns: { success, messageId? } or { success: false, error }
+ * Send generic email (used for other notifications)
  */
 export async function sendEmail(data: {
   to: string;

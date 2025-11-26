@@ -5,17 +5,7 @@
  * - Speichert Registrierungen im RAM (werden bei Server-Restart gelöscht)
  * - Verhindert, dass E-Mails gesendet werden ohne DB-Record
  * - Ermöglicht vollständige E2E-Tests auch ohne DB
- * 
- * WICHTIG: NUR für Development/Testing!
- * Produktion MUSS eine persistente DB haben!
- * 
- * Methoden:
- * - set(accessKey, registration): Speichern + Email-Index aktualisieren
- * - get(accessKey): Nach Key suchen
- * - getByEmail(email): Alle Keys für Email
- * - update(accessKey, partial): Teilweise Update
- * - clear(): Alle Einträge löschen
- * - stats(): Statistiken (total, emails, expired)
+ * - WICHTIG: NUR für Development/Testing! Produktion MUSS DB haben!
  */
 
 interface CachedRegistration {

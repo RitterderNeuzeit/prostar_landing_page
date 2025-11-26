@@ -22,12 +22,7 @@ export function generateAccessKey(email: string): string {
 }
 
 /**
- * Create a course registration record in cache.
- * 
- * Returns: { success, accessKey, expiresAt, registration }
- * - Sets 90-day expiration
- * - Stores in in-memory cache
- * - Dev mode: returns key even if cache fails
+ * Create course registration record
  */
 export async function registerForCourse(data: {
   name: string;
@@ -87,17 +82,8 @@ export async function registerForCourse(data: {
 }
 
 /**
- * Verify access key and email, then update access timestamp.
- * 
- * Security checks:
- * - Email format validation
- * - Email tag extraction and matching
- * - Cache lookup
- * - Expiration check
- * - Status check
- * 
- * Dev mode: Accepts any code if email tag matches
- * Returns: { valid, name?, email?, courseName?, expiresAt? } or { valid: false, error }
+ * Verify access key and email, then update access tracking
+ * Key format: <email_tag>_<code>
  */
 export async function verifyAccessKey(email: string, accessKey: string) {
   try {

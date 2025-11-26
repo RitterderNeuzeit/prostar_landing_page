@@ -47,14 +47,7 @@ export function isEmailServiceConfigured(): boolean {
 }
 
 /**
- * Generate HTML email template with tracking pixel.
- * 
- * Includes:
- * - Professional responsive design
- * - Access code and direct link
- * - Expiration date (90 days)
- * - Tracking pixel for open rate monitoring
- * - Email-specific headers for debugging
+ * Generate HTML email template
  */
 function generateEmailTemplate(data: {
   name: string;
@@ -175,15 +168,7 @@ function generateEmailTemplate(data: {
 }
 
 /**
- * Send course access email with retry logic.
- * 
- * Flow:
- * 1. Check if email service configured
- * 2. Generate HTML template
- * 3. Try to send (3 attempts with exponential backoff)
- * 4. Include custom headers for debugging
- * 
- * Returns: { success, messageId? } or { success: false, error }
+ * Send course access email
  */
 export async function sendCourseAccessEmail(data: {
   name: string;
@@ -291,10 +276,7 @@ Das ProStar Team
 }
 
 /**
- * Send generic email with retry logic (for other notifications).
- * 
- * Uses same retry logic as sendCourseAccessEmail for consistency.
- * Returns: { success, messageId? } or { success: false, error }
+ * Send generic email (used for other notifications)
  */
 export async function sendEmail(data: {
   to: string;
