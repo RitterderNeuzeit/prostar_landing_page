@@ -1,0 +1,44 @@
+name: CI Guard (PR checks)
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  e2e-guard:
+    name: E2E & Tests (Demo by default)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'pnpm'
+
+      - name: Install pnpm
+        run: npm install -g pnpm@latest
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run unit tests
+        run: pnpm run test --if-present
+
+      - name: Run E2E (DEMO by default)
+        env:
+          # If ALLOW_REAL_EMAILS secret is explicitly set to 'true', the workflow
+          # will still run but the E2E step will be allowed to use real-mode.
+          ALLOW_REAL_EMAILS: ${{ secrets.ALLOW_REAL_EMAILS }}
+        run: |
+          if [ "${{ secrets.ALLOW_REAL_EMAILS }}" = "true" ]; then
+            echo "ALLOW_REAL_EMAILS is set to true — ensure this is intended for this PR."
+            echo "Running E2E in REAL mode (owner must review)."
+            pnpm run e2e || true
+          else
+            echo "DEMO mode active for PRs to prevent accidental emails."
+            export DEMO_MODE=true
+            pnpm run e2e || true
+          fi

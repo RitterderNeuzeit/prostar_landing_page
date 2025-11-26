@@ -1,0 +1,45 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Start Project (start.sh)",
+      "type": "shell",
+      "command": "bash ./scripts/start.sh",
+      "isBackground": false,
+      "presentation": { "reveal": "always", "panel": "shared" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Start Dev Server",
+      "type": "shell",
+      "command": "pnpm dev",
+      "isBackground": true,
+      "presentation": { "reveal": "always", "panel": "dedicated" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Start Dev Server + Open",
+      "type": "shell",
+      "command": "bash ./scripts/start-dev-and-open.sh",
+      "isBackground": false,
+      "presentation": { "reveal": "always", "panel": "shared" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Open Live Preview (External)",
+      "type": "shell",
+      "command": "bash ./scripts/open-dev-url.sh || open http://localhost:3000",
+      "presentation": { "reveal": "silent", "panel": "shared" },
+      "problemMatcher": []
+    }
+    ,
+    {
+      "label": "Automation Assisten",
+      "type": "shell",
+      "command": "node ./scripts/assistant_automate.cjs",
+      "isBackground": false,
+      "presentation": { "reveal": "always", "panel": "shared" },
+      "problemMatcher": []
+    }
+  ]
+}
