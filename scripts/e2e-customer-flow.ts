@@ -4,10 +4,16 @@ import {
   verifyAccessKey,
 } from "../server/services/courseService";
 import { sendCourseAccessEmail } from "../server/services/emailService";
+import { registrationCache, logRegistrationCache } from "../server/services/registrationCache";
+
 const DEMO_MODE =
   !process.env.DATABASE_URL ||
   !process.env.EMAIL_USER ||
   !process.env.EMAIL_PASSWORD;
+
+// Allow manual override
+const FORCE_REAL_MODE = process.env.DEMO_MODE === "false";
+const EFFECTIVE_DEMO_MODE = DEMO_MODE && !FORCE_REAL_MODE;
 
 function randomString(len: number) {
   return Math.random()
@@ -76,7 +82,13 @@ async function runE2ETest() {
     console.log("✅ End-to-End-Test erfolgreich!");
   } else {
     console.error("❌ End-to-End-Test fehlgeschlagen:", verifyResult.error);
-  }
-}
+      // VERBOSE: Check cache state AFTER registration
+      console.log("\n📊 [Cache Check] Nach Registrierung:");
+      const reg = registrationCache.get(regResult.accessKey);
+      if (reg) {
+        console.log(`   ✅ Im Cache gespeichert: ${reg.email}`);
+      } else {
+        console.log(`   ⚠️ NICHT im Cache: Könnte in DB sein`);
+      }
 
 runE2ETest();

@@ -60,6 +60,22 @@ export async function registerForCourse(data: {
       };
     }
     throw new Error("Failed to create course registration");
+  } catch (error) {
+    console.error("❌ Failed to create course registration:", error);
+    
+    // WICHTIG: Auch im Development müssen wir das DB-Fehler loggen!
+    // Aber trotzdem E-Mail senden, da Registrierung wichtiger ist
+    console.warn("⚠️ Falling back: Email wird trotzdem gesendet (DB fehlt)");
+    
+    // Fallback: Return key without DB storage
+    // (Email wird gesendet, DB kann später gelesen oder gefüllt werden)
+    return {
+      success: true,
+      accessKey,
+      expiresAt,
+      registration: null,
+      dbError: true,
+    };
   }
 }
 

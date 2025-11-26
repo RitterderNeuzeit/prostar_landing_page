@@ -8,6 +8,7 @@ import {
   CourseRegistration,
 } from "../drizzle/schema";
 import { ENV } from "./_core/env";
+import { registrationCache } from "./services/registrationCache";
 
 let _db: ReturnType<typeof drizzle> | null = null;
 
@@ -19,8 +20,38 @@ export async function getDb() {
     } catch (error) {
       console.warn("[Database] Failed to connect:", error);
       _db = null;
-    }
-  }
+        // Fallback: Check in-memory cache if DB is offline
+        const cached = registrationCache.get(accessKey);
+        if (cached) {
+          console.log("[Database] DB offline, returning cached registration:", accessKey);
+          return cached as CourseRegistration;
+        }
+        return null;
+      }
+
+      // Try DB first
+      try {
+        const result = await db
+          .select()
+          .from(courseRegistrations)
+          .where(eq(courseRegistrations.accessKey, accessKey))
+          .limit(1);
+    
+        if (result.length > 0) {
+          return result[0];
+        }
+      } catch (error) {
+        console.warn("[Database] Query failed, checking cache:", error);
+      }
+
+      // Fallback to cache
+      const cached = registrationCache.get(accessKey);
+      if (cached) {
+        console.log("[Database] Returning cached registration:", accessKey);
+        return cached as CourseRegistration;
+      }
+  
+      return null;
   return _db;
 }
 
@@ -123,8 +154,23 @@ export async function createCourseRegistration(
   } catch (error) {
     console.error("[Database] Failed to create registration:", error);
     throw error;
-  }
-}
+      // Fallback: Store in in-memory cache (für Offline-Betrieb)
+      console.warn("[Database] DB failed, using in-memory cache fallback");
+      registrationCache.set(data.accessKey!, {
+        id: String(Math.random()),
+        accessKey: data.accessKey!,
+        name: data.name,
+        email: data.email,
+        courseName: data.courseName || "free-mini-course",
+        status: data.status || "active",
+        emailSent: data.emailSent || null,
+        accessedAt: null,
+        expiresAt: data.expiresAt || new Date(),
+        createdAt: data.createdAt || new Date(),
+        updatedAt: data.updatedAt || new Date(),
+      } as any);
+      return null;
+    }
 
 export async function getCourseRegistrationByAccessKey(
   accessKey: string
