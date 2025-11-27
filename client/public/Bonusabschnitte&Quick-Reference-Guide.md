@@ -117,6 +117,7 @@ Du bist ein [Beruf/Rolle] mit [X] Jahren Erfahrung in [Spezialisierung]. Dein St
 ```
 
 **Beispiel:**
+
 ```
 Du bist ein Senior Content Strategist mit 12 Jahren Erfahrung im B2B-SaaS-Marketing. Dein Stil ist datengestützt, aber zugänglich, und dein Ziel ist es, komplexe Themen für Entscheider verständlich aufzubereiten.
 ```
@@ -166,6 +167,7 @@ Folge bei dieser Aufgabe strikt den folgenden Regeln:
 ```
 
 **Beispiel:**
+
 ```
 Folge bei dieser Aufgabe strikt den folgenden Regeln:
 - Du darfst NICHT medizinischen oder rechtlichen Rat geben.
@@ -225,8 +227,8 @@ Eine KI "denkt" nicht im menschlichen Sinne. Sie hat kein Bewusstsein und kein e
 
 ### Was ist "Training" und "Fine-Tuning"?
 
-*   **Training:** In der Trainingsphase wird das Modell mit Milliarden von Textbeispielen gefüttert. Es lernt die grundlegenden Muster der Sprache.
-*   **Fine-Tuning:** Nach dem grundlegenden Training wird das Modell auf spezifischere Aufgaben oder Verhaltensweisen "feinabgestimmt". Zum Beispiel wird es darauf trainiert, hilfreiche, harmlose und ehrliche Antworten zu geben.
+- **Training:** In der Trainingsphase wird das Modell mit Milliarden von Textbeispielen gefüttert. Es lernt die grundlegenden Muster der Sprache.
+- **Fine-Tuning:** Nach dem grundlegenden Training wird das Modell auf spezifischere Aufgaben oder Verhaltensweisen "feinabgestimmt". Zum Beispiel wird es darauf trainiert, hilfreiche, harmlose und ehrliche Antworten zu geben.
 
 ### Was ist "In-Context Learning"?
 
@@ -238,10 +240,10 @@ Eine KI "halluziniert", wenn sie Informationen generiert, die plausibel klingen,
 
 ### Wie kann man Halluzinationen minimieren?
 
-*   Geben Sie der KI spezifisches Kontextwissen (z.B. eigene Dokumente).
-*   Fordern Sie die KI auf, ihre Quellen zu nennen.
-*   Nutzen Sie Chain-of-Thought, um den Denkprozess nachvollziehbar zu machen.
-*   Überprüfen Sie immer kritische Fakten selbst.
+- Geben Sie der KI spezifisches Kontextwissen (z.B. eigene Dokumente).
+- Fordern Sie die KI auf, ihre Quellen zu nennen.
+- Nutzen Sie Chain-of-Thought, um den Denkprozess nachvollziehbar zu machen.
+- Überprüfen Sie immer kritische Fakten selbst.
 
 ---
 
@@ -249,13 +251,13 @@ Eine KI "halluziniert", wenn sie Informationen generiert, die plausibel klingen,
 
 Es gibt viele verschiedene KI-Modelle und Plattformen. Hier ist ein kurzer Überblick über die drei beliebtesten für Anfänger.
 
-| Kriterium | ChatGPT (OpenAI) | Claude (Anthropic) | Gemini (Google) |
-| :--- | :--- | :--- | :--- |
-| **Stärken** | Sehr vielseitig, große Community, viele Integrationen | Sehr gut in langen Kontexten, sicherer Output, präzise bei komplexen Anweisungen | Starke Integration mit Google-Diensten, gut in Recherche |
-| **Schwächen** | Kann bei sehr langen Texten den Überblick verlieren | Weniger bekannt, weniger Integrationen | Manchmal weniger kreativ als die Konkurrenz |
-| **Kontextfenster** | Groß (bis zu 128k Tokens bei GPT-4 Turbo) | Sehr groß (bis zu 200k Tokens) | Groß (bis zu 1 Million Tokens bei Gemini 1.5 Pro) |
-| **Preis (Stand 2024)** | Kostenlose Version verfügbar, Plus-Abo $20/Monat | Kostenlose Version verfügbar, Pro-Abo $20/Monat | Kostenlose Version verfügbar, Advanced-Abo $20/Monat |
-| **Beste Anwendung** | Allgemeine Aufgaben, kreatives Schreiben, Brainstorming | Analyse langer Dokumente, präzise Anweisungen, ethisch sensible Themen | Recherche, Datenanalyse, Integration mit Google Workspace |
+| Kriterium              | ChatGPT (OpenAI)                                        | Claude (Anthropic)                                                               | Gemini (Google)                                           |
+| :--------------------- | :------------------------------------------------------ | :------------------------------------------------------------------------------- | :-------------------------------------------------------- |
+| **Stärken**            | Sehr vielseitig, große Community, viele Integrationen   | Sehr gut in langen Kontexten, sicherer Output, präzise bei komplexen Anweisungen | Starke Integration mit Google-Diensten, gut in Recherche  |
+| **Schwächen**          | Kann bei sehr langen Texten den Überblick verlieren     | Weniger bekannt, weniger Integrationen                                           | Manchmal weniger kreativ als die Konkurrenz               |
+| **Kontextfenster**     | Groß (bis zu 128k Tokens bei GPT-4 Turbo)               | Sehr groß (bis zu 200k Tokens)                                                   | Groß (bis zu 1 Million Tokens bei Gemini 1.5 Pro)         |
+| **Preis (Stand 2024)** | Kostenlose Version verfügbar, Plus-Abo $20/Monat        | Kostenlose Version verfügbar, Pro-Abo $20/Monat                                  | Kostenlose Version verfügbar, Advanced-Abo $20/Monat      |
+| **Beste Anwendung**    | Allgemeine Aufgaben, kreatives Schreiben, Brainstorming | Analyse langer Dokumente, präzise Anweisungen, ethisch sensible Themen           | Recherche, Datenanalyse, Integration mit Google Workspace |
 
 **Empfehlung für Anfänger:**
 Beginnen Sie mit der kostenlosen Version von ChatGPT oder Claude. Beide sind exzellent für die Techniken, die in diesem Kurs vermittelt werden. Wenn Sie regelmäßig mit sehr langen Dokumenten arbeiten, ist Claude eine gute Wahl. Wenn Sie stark in das Google-Ökosystem eingebunden sind, probieren Sie Gemini aus.
@@ -266,25 +268,25 @@ Beginnen Sie mit der kostenlosen Version von ChatGPT oder Claude. Beide sind exz
 
 ### Blogs & Newsletter
 
-*   **OpenAI Blog:** Offizielle Updates und Forschungsergebnisse von OpenAI
-*   **Anthropic Blog:** Einblicke in die Entwicklung von Claude und KI-Sicherheit
-*   **The Batch (DeepLearning.AI):** Wöchentlicher Newsletter über KI-News und -Trends
-*   **Prompt Engineering Daily:** Tägliche Tipps und Tricks für besseres Prompting
+- **OpenAI Blog:** Offizielle Updates und Forschungsergebnisse von OpenAI
+- **Anthropic Blog:** Einblicke in die Entwicklung von Claude und KI-Sicherheit
+- **The Batch (DeepLearning.AI):** Wöchentlicher Newsletter über KI-News und -Trends
+- **Prompt Engineering Daily:** Tägliche Tipps und Tricks für besseres Prompting
 
 ### Bücher
 
-*   "The Prompt Engineering Handbook" von verschiedenen Autoren (kostenlos online verfügbar)
-*   "Co-Intelligence: Living and Working with AI" von Ethan Mollick
+- "The Prompt Engineering Handbook" von verschiedenen Autoren (kostenlos online verfügbar)
+- "Co-Intelligence: Living and Working with AI" von Ethan Mollick
 
 ### Communities
 
-*   **r/PromptEngineering (Reddit):** Aktive Community zum Austausch von Prompts und Techniken
-*   **Discord-Server der großen KI-Anbieter:** Direkter Austausch mit anderen Nutzern und manchmal auch mit den Entwicklern
+- **r/PromptEngineering (Reddit):** Aktive Community zum Austausch von Prompts und Techniken
+- **Discord-Server der großen KI-Anbieter:** Direkter Austausch mit anderen Nutzern und manchmal auch mit den Entwicklern
 
 ### Online-Kurse
 
-*   **DeepLearning.AI:** Verschiedene Kurse zu KI und Prompt Engineering (teilweise kostenlos)
-*   **Coursera:** "Prompt Engineering for ChatGPT" von Vanderbilt University
+- **DeepLearning.AI:** Verschiedene Kurse zu KI und Prompt Engineering (teilweise kostenlos)
+- **Coursera:** "Prompt Engineering for ChatGPT" von Vanderbilt University
 
 ---
 

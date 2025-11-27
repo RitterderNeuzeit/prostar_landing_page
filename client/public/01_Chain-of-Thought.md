@@ -5,8 +5,9 @@
 When you ask KI to solve complex problems, sie macht oft Fehler.
 
 **Beispiel:**
+
 ```
-Problem: "Meine Marketing-Kampagne kostet 1000 Euro pro Monat. 
+Problem: "Meine Marketing-Kampagne kostet 1000 Euro pro Monat.
 Mein ROI ist 300%. Was ist mein Profit pro Monat?"
 
 Normale KI-Antwort: "Dein Profit ist 2000 Euro."
@@ -21,6 +22,7 @@ Why? Because KI tried to answer too fast.
 ## Die Lösung: Chain of Thought
 
 **Mit COT:**
+
 ```
 Problem: "Meine Marketing-Kampagne kostet 1000 Euro pro Monat.
 Mein ROI ist 300%. Was ist mein Profit pro Monat?"
@@ -43,11 +45,13 @@ Das ist RICHTIG!
 ## Wie COT funktioniert
 
 **Ohne COT:**
+
 - KI springt direkt zur Antwort
 - Keine Transparenz im Denken
 - Häufig Fehler
 
 **Mit COT:**
+
 - KI expliziert ihre Gedankenschritte
 - Du kannst Fehler sehen
 - +40% Genauigkeit bei komplexen Aufgaben
@@ -57,6 +61,7 @@ Das ist RICHTIG!
 ## Praktische Anwendung
 
 ### Use Case 1: Mathe/Analytik
+
 ```
 Problem: "Wir haben 10.000 Kunden. 5% churn pro Monat. Wie viele haben wir in 6 Monaten?"
 
@@ -80,6 +85,7 @@ Schritt 3: Calculation
 ```
 
 ### Use Case 2: Strategie/Business
+
 ```
 Problem: "Soll ich in Paid Ads oder Content Marketing investieren?"
 
@@ -124,11 +130,11 @@ Sei transparent bei jedem Schritt."
 
 ## Key Metrics
 
-| Szenario | Ohne COT | Mit COT | Improvement |
-|----------|----------|---------|-------------|
-| Mathe-Probleme | 58% Correct | 98% Correct | +40% |
-| Logische Aufgaben | 65% Correct | 92% Correct | +27% |
-| Strategie-Fragen | 70% Correct | 88% Correct | +18% |
+| Szenario          | Ohne COT    | Mit COT     | Improvement |
+| ----------------- | ----------- | ----------- | ----------- |
+| Mathe-Probleme    | 58% Correct | 98% Correct | +40%        |
+| Logische Aufgaben | 65% Correct | 92% Correct | +27%        |
+| Strategie-Fragen  | 70% Correct | 88% Correct | +18%        |
 
 ---
 

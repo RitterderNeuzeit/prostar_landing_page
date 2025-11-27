@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { X, Download, Share2, Lock } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Streamdown } from 'streamdown';
-import { CourseModule } from '@/data/courseData';
+import React, { useState, useEffect } from "react";
+import { X, Download, Share2, Lock } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Streamdown } from "streamdown";
+import { CourseModule } from "@/data/courseData";
 
 interface CourseModuleModalProps {
   isOpen: boolean;
   onClose: () => void;
   module: CourseModule | null;
   canAccess: boolean;
-  userTier?: 'starter' | 'professional' | 'enterprise' | null;
+  userTier?: "starter" | "professional" | "enterprise" | null;
 }
 
 const CourseModuleModal: React.FC<CourseModuleModalProps> = ({
@@ -19,7 +19,7 @@ const CourseModuleModal: React.FC<CourseModuleModalProps> = ({
   canAccess,
   userTier,
 }) => {
-  const [content, setContent] = useState<string>('');
+  const [content, setContent] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -37,11 +37,15 @@ const CourseModuleModal: React.FC<CourseModuleModalProps> = ({
         const text = await response.text();
         setContent(text);
       } else {
-        setContent('# Fehler beim Laden\n\nDer Modulinhalt konnte nicht geladen werden.');
+        setContent(
+          "# Fehler beim Laden\n\nDer Modulinhalt konnte nicht geladen werden."
+        );
       }
     } catch (error) {
-      console.error('Failed to load module content:', error);
-      setContent('# Fehler beim Laden\n\nEs gab ein Problem beim Laden des Inhalts.');
+      console.error("Failed to load module content:", error);
+      setContent(
+        "# Fehler beim Laden\n\nEs gab ein Problem beim Laden des Inhalts."
+      );
     } finally {
       setIsLoading(false);
     }
@@ -72,10 +76,13 @@ const CourseModuleModal: React.FC<CourseModuleModalProps> = ({
           {!canAccess ? (
             <div className="flex flex-col items-center justify-center h-full text-center py-12">
               <Lock size={48} className="text-cyan-400 mb-4" />
-              <h3 className="text-2xl font-bold text-white mb-2">Modul gesperrt</h3>
+              <h3 className="text-2xl font-bold text-white mb-2">
+                Modul gesperrt
+              </h3>
               <p className="text-gray-300 mb-6 max-w-md">
-                Dieses Modul ist im Tier <strong>{module.tier.toUpperCase()}</strong> enthalten.
-                Bitte upgraden Sie Ihren Kurs, um Zugriff zu erhalten.
+                Dieses Modul ist im Tier{" "}
+                <strong>{module.tier.toUpperCase()}</strong> enthalten. Bitte
+                upgraden Sie Ihren Kurs, um Zugriff zu erhalten.
               </p>
               <Button className="bg-cyan-500 hover:bg-cyan-400 text-white">
                 Zum Kurs upgraden
@@ -104,8 +111,8 @@ const CourseModuleModal: React.FC<CourseModuleModalProps> = ({
                 variant="outline"
                 size="sm"
                 onClick={() => {
-                  const element = document.createElement('a');
-                  const file = new Blob([content], { type: 'text/markdown' });
+                  const element = document.createElement("a");
+                  const file = new Blob([content], { type: "text/markdown" });
                   element.href = URL.createObjectURL(file);
                   element.download = `${module.title}.md`;
                   document.body.appendChild(element);

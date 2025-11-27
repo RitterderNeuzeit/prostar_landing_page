@@ -1,11 +1,11 @@
 /**
  * ProStar AI Chat Bubble - Optimized for Squarespace
  * Lightweight, non-intrusive chat agent for prostarmarketing.de
- * 
+ *
  * Usage in Squarespace:
  * 1. Settings → Advanced → Code Injection → Footer
  * 2. Paste this code:
- * 
+ *
  * <script src="https://prostarai.manus.space/prostar-chat-bubble.js"></script>
  * <script>
  *   ProstarChatBubble.init({
@@ -16,23 +16,23 @@
  * </script>
  */
 
-(function() {
-  'use strict';
+(function () {
+  "use strict";
 
   const ProstarChatBubble = {
     config: {
-      apiUrl: 'https://prostarai.manus.space/api',
-      position: 'bottom-right',
-      theme: 'dark',
+      apiUrl: "https://prostarai.manus.space/api",
+      position: "bottom-right",
+      theme: "dark",
       bubbleSize: 60, // pixels
-      bubbleColor: '#00D9FF',
-      bubbleGlow: '0 0 20px rgba(0, 217, 255, 0.6)'
+      bubbleColor: "#00D9FF",
+      bubbleGlow: "0 0 20px rgba(0, 217, 255, 0.6)",
     },
 
     state: {
       isOpen: false,
       messages: [],
-      isLoading: false
+      isLoading: false,
     },
 
     init(options = {}) {
@@ -40,8 +40,8 @@
       this.config = { ...this.config, ...options };
 
       // Wait for DOM to be ready
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => this.create());
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", () => this.create());
       } else {
         this.create();
       }
@@ -49,8 +49,8 @@
 
     create() {
       // Create bubble container
-      const bubble = document.createElement('div');
-      bubble.id = 'prostar-chat-bubble';
+      const bubble = document.createElement("div");
+      bubble.id = "prostar-chat-bubble";
       bubble.innerHTML = this.getHTML();
       bubble.style.cssText = this.getBubbleStyles();
 
@@ -454,29 +454,29 @@
     },
 
     attachListeners() {
-      const bubbleBtn = document.getElementById('prostar-bubble-btn');
-      const closeBtn = document.getElementById('prostar-close-btn');
-      const sendBtn = document.getElementById('prostar-send-btn');
-      const input = document.getElementById('prostar-input');
-      const chatWindow = document.getElementById('prostar-chat-window');
+      const bubbleBtn = document.getElementById("prostar-bubble-btn");
+      const closeBtn = document.getElementById("prostar-close-btn");
+      const sendBtn = document.getElementById("prostar-send-btn");
+      const input = document.getElementById("prostar-input");
+      const chatWindow = document.getElementById("prostar-chat-window");
 
       // Toggle chat window
-      bubbleBtn?.addEventListener('click', () => this.toggleChat());
-      closeBtn?.addEventListener('click', () => this.closeChat());
+      bubbleBtn?.addEventListener("click", () => this.toggleChat());
+      closeBtn?.addEventListener("click", () => this.closeChat());
 
       // Send message
-      sendBtn?.addEventListener('click', () => this.sendMessage());
-      input?.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter' && !e.shiftKey) {
-          e.preventDefault();
+      sendBtn?.addEventListener("click", () => this.sendMessage());
+      input?.addEventListener("keypress", event => {
+        if (event.key === "Enter" && !event.shiftKey) {
+          event.preventDefault();
           this.sendMessage();
         }
       });
 
       // Close on outside click
-      document.addEventListener('click', (e) => {
-        const bubble = document.getElementById('prostar-chat-bubble');
-        if (bubble && !bubble.contains(e.target) && this.state.isOpen) {
+      document.addEventListener("click", event => {
+        const bubble = document.getElementById("prostar-chat-bubble");
+        if (bubble && !bubble.contains(event.target) && this.state.isOpen) {
           this.closeChat();
         }
       });
@@ -491,48 +491,51 @@
     },
 
     openChat() {
-      const chatWindow = document.getElementById('prostar-chat-window');
-      const badge = document.getElementById('prostar-badge');
+      const chatWindow = document.getElementById("prostar-chat-window");
+      const badge = document.getElementById("prostar-badge");
       if (chatWindow) {
-        chatWindow.classList.add('open');
-        badge?.classList.add('hidden');
+        chatWindow.classList.add("open");
+        badge?.classList.add("hidden");
         this.state.isOpen = true;
-        document.getElementById('prostar-input')?.focus();
+        document.getElementById("prostar-input")?.focus();
       }
     },
 
     closeChat() {
-      const chatWindow = document.getElementById('prostar-chat-window');
+      const chatWindow = document.getElementById("prostar-chat-window");
       if (chatWindow) {
-        chatWindow.classList.remove('open');
+        chatWindow.classList.remove("open");
         this.state.isOpen = false;
       }
     },
 
     sendMessage() {
-      const input = document.getElementById('prostar-input');
+      const input = document.getElementById("prostar-input");
       const message = input?.value?.trim();
 
       if (!message) return;
 
       // Add user message
-      this.addMessage(message, 'user');
-      input.value = '';
+      this.addMessage(message, "user");
+      input.value = "";
 
       // Show typing indicator
       this.showTyping();
 
       // Simulate API call
-      setTimeout(() => {
-        this.removeTyping();
-        const response = this.getResponse(message);
-        this.addMessage(response, 'bot');
-      }, 1000 + Math.random() * 1000);
+      setTimeout(
+        () => {
+          this.removeTyping();
+          const response = this.getResponse(message);
+          this.addMessage(response, "bot");
+        },
+        1000 + Math.random() * 1000
+      );
     },
 
     addMessage(text, sender) {
-      const messagesContainer = document.getElementById('prostar-messages');
-      const messageDiv = document.createElement('div');
+      const messagesContainer = document.getElementById("prostar-messages");
+      const messageDiv = document.createElement("div");
       messageDiv.className = `prostar-message prostar-message-${sender}`;
       messageDiv.innerHTML = `<div class="prostar-message-content">${this.escapeHtml(text)}</div>`;
       messagesContainer?.appendChild(messageDiv);
@@ -544,10 +547,10 @@
     },
 
     showTyping() {
-      const messagesContainer = document.getElementById('prostar-messages');
-      const typingDiv = document.createElement('div');
-      typingDiv.className = 'prostar-message prostar-message-bot';
-      typingDiv.id = 'prostar-typing';
+      const messagesContainer = document.getElementById("prostar-messages");
+      const typingDiv = document.createElement("div");
+      typingDiv.className = "prostar-message prostar-message-bot";
+      typingDiv.id = "prostar-typing";
       typingDiv.innerHTML = `
         <div class="prostar-typing">
           <div class="prostar-typing-dot"></div>
@@ -560,7 +563,7 @@
     },
 
     removeTyping() {
-      const typing = document.getElementById('prostar-typing');
+      const typing = document.getElementById("prostar-typing");
       typing?.remove();
     },
 
@@ -569,14 +572,21 @@
 
       // FAQ Responses mit ProStar Brand Voice
       const responses = {
-        'kurs': 'Der Social-Media-Masterplan Kurs ist perfekt für KMUs, die ihre Social-Media-Präsenz aufbauen möchten. Mit 5 umfassenden Modulen, praktischen Templates und persönlicher Unterstützung lernen Sie bewährte Strategien, die sofort funktionieren.',
-        'preis': 'Wir bieten 3 Tiers: Starter (€97), Professional (€197) und Enterprise (€497). Jedes Paket ist auf unterschiedliche Bedürfnisse zugeschnitten. Alle Tiers beinhalten Zugang zu allen Modulen und lebenslangen Support.',
-        'modul': 'Der Kurs besteht aus 5 Modulen: 1) Grundlagen, 2) Content-Strategie, 3) Engagement-Taktiken, 4) Conversion-Optimization, 5) Community-Building. Jedes Modul hat Videos, Workbooks und praktische Übungen.',
-        'garantie': 'Wir bieten eine 30-Tage Geld-zurück-Garantie. Wenn der Kurs nicht Ihren Erwartungen entspricht, erhalten Sie volle Rückerstattung - keine Fragen gestellt.',
-        'zugang': 'Nach dem Kauf erhalten Sie sofortigen Zugang zu allen Kursinhalten. Sie können die Materialien herunterladen und in Ihrem eigenen Tempo lernen.',
-        'zertifikat': 'Nach Abschluss aller Module erhalten Sie ein ProStar-Zertifikat, das Sie auf LinkedIn und Ihrer Website verwenden können.',
-        'support': 'Sie erhalten E-Mail-Support von unserem Team. Bei Enterprise-Kunden bieten wir auch 1:1 Coaching-Sessions an.',
-        'default': 'Das ist eine großartige Frage! Für spezifische Informationen empfehle ich, unseren Kurs anzuschauen. Klick hier: https://prostarai.manus.space'
+        kurs: "Der Social-Media-Masterplan Kurs ist perfekt für KMUs, die ihre Social-Media-Präsenz aufbauen möchten. Mit 5 umfassenden Modulen, praktischen Templates und persönlicher Unterstützung lernen Sie bewährte Strategien, die sofort funktionieren.",
+        preis:
+          "Wir bieten 3 Tiers: Starter (€97), Professional (€197) und Enterprise (€497). Jedes Paket ist auf unterschiedliche Bedürfnisse zugeschnitten. Alle Tiers beinhalten Zugang zu allen Modulen und lebenslangen Support.",
+        modul:
+          "Der Kurs besteht aus 5 Modulen: 1) Grundlagen, 2) Content-Strategie, 3) Engagement-Taktiken, 4) Conversion-Optimization, 5) Community-Building. Jedes Modul hat Videos, Workbooks und praktische Übungen.",
+        garantie:
+          "Wir bieten eine 30-Tage Geld-zurück-Garantie. Wenn der Kurs nicht Ihren Erwartungen entspricht, erhalten Sie volle Rückerstattung - keine Fragen gestellt.",
+        zugang:
+          "Nach dem Kauf erhalten Sie sofortigen Zugang zu allen Kursinhalten. Sie können die Materialien herunterladen und in Ihrem eigenen Tempo lernen.",
+        zertifikat:
+          "Nach Abschluss aller Module erhalten Sie ein ProStar-Zertifikat, das Sie auf LinkedIn und Ihrer Website verwenden können.",
+        support:
+          "Sie erhalten E-Mail-Support von unserem Team. Bei Enterprise-Kunden bieten wir auch 1:1 Coaching-Sessions an.",
+        default:
+          "Das ist eine großartige Frage! Für spezifische Informationen empfehle ich, unseren Kurs anzuschauen. Klick hier: https://prostarai.manus.space",
       };
 
       for (const [key, response] of Object.entries(responses)) {
@@ -590,42 +600,45 @@
 
     loadHistory() {
       try {
-        const saved = localStorage.getItem('prostar_chat_history');
+        const saved = localStorage.getItem("prostar_chat_history");
         if (saved) {
           this.state.messages = JSON.parse(saved);
         }
-      } catch (e) {
-        console.error('Error loading chat history:', e);
+      } catch (error) {
+        console.error("Error loading chat history:", error);
       }
     },
 
     saveHistory() {
       try {
-        localStorage.setItem('prostar_chat_history', JSON.stringify(this.state.messages));
-      } catch (e) {
-        console.error('Error saving chat history:', e);
+        localStorage.setItem(
+          "prostar_chat_history",
+          JSON.stringify(this.state.messages)
+        );
+      } catch (error) {
+        console.error("Error saving chat history:", error);
       }
     },
 
     escapeHtml(text) {
-      const div = document.createElement('div');
+      const div = document.createElement("div");
       div.textContent = text;
       return div.innerHTML;
-    }
+    },
   };
 
   // Expose to global scope
   window.ProstarChatBubble = ProstarChatBubble;
 
   // Auto-init if script has data attributes
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener("DOMContentLoaded", () => {
     const script = document.currentScript;
-    if (script?.dataset.init === 'true') {
+    if (script?.dataset.init === "true") {
       ProstarChatBubble.init();
     }
 
     // Inject styles
-    const styleEl = document.createElement('div');
+    const styleEl = document.createElement("div");
     styleEl.innerHTML = ProstarChatBubble.getInlineStyles();
     document.head.appendChild(styleEl.firstElementChild);
   });

@@ -23,6 +23,7 @@ Der Kontext ist wie der Spielplatz. Ein Fussballer verhält sich anders auf eine
 
 **Wie?**
 Du antwortest auf diese Fragen:
+
 - Wer bin ich? (Die Rolle)
 - Was ist meine Zielgruppe?
 - Welches Problem löse ich?
@@ -32,8 +33,9 @@ Du antwortest auf diese Fragen:
 **Beispiele Kontext-Absätze:**
 
 ### Beispiel 1 (Marketing)
+
 ```
-Ich bin ein Digital Marketing Manager bei einem kleinen Tech-Startup (15 Personen). 
+Ich bin ein Digital Marketing Manager bei einem kleinen Tech-Startup (15 Personen).
 Wir verkaufen B2B SaaS Software für Projektmanagement.
 Unser Ideal Customer Profile: Kleine Agenturen (10-50 Personen), Budget 200-500 Euro/Monat.
 Unser Problem: Wir wissen nicht, wie wir auf LinkedIn relevante Leads erreichen.
@@ -41,6 +43,7 @@ Mein Ziel: mehr Sales-qualified Leads (SQL) pro Monat.
 ```
 
 ### Beispiel 2 (Content Creator)
+
 ```
 Ich bin ein YouTube Content Creator mit 50.000 Subscribers.
 Meine Zielgruppe: 25-35 Jährige, tech-interessiert, deutsch-sprachig.
@@ -65,6 +68,7 @@ Vage Aufgaben = Vage Ergebnisse.
 
 **Wie?**
 Immer mit einem starken VERB beginnen:
+
 - "Schreib" = Text erstellen
 - "Analysiere" = Vergleiche & bewerte
 - "Generiere" = Mehrere Optionen
@@ -96,6 +100,7 @@ Der gleiche Text kann in 1000 verschiedenen Weisen geschrieben werden. Anweisung
 
 **Wie?**
 Du gibst an:
+
 - **Ton:** Formal? Lustig? Neutral? Inspirierend?
 - **Länge:** 100 Worte? 500? Eine Seite?
 - **Format:** Nummeriert? Bullet Points? Absatz?
@@ -107,7 +112,7 @@ Du gibst an:
 ```
 Ton: Locker, lustig, aber informativ (wie talking to a friend)
 Länge: Max 250 Worte
-Format: 
+Format:
 - Hook (1 Satz, funny)
 - Problem (2-3 Sätze)
 - Lösung (2-3 Sätze)
@@ -139,6 +144,7 @@ Du schreibst:
 Verstanden? Mach jetzt 3 Varianten im gleichen Stil."
 
 **Beispiel 1 (Newsletter Hook):**
+
 ```
 Hier sind Beispiele, wie ich mir den Hook vorstelle:
 
@@ -151,6 +157,7 @@ Jetzt mach 5 mehr im gleichen Stil.
 ```
 
 **Beispiel 2 (Sales Email):**
+
 ```
 Hier ein Beispiel einer Sales Email, die ich haben möchte:
 
@@ -183,7 +190,7 @@ Ein Beispiel ist oft besser als 1000 Worte Beschreibung. KI lernt von Beispielen
 
 ```
 K = Kontext
-Aber ich bin ein LinkedIn Content Creator mit 20.000 Follower. 
+Aber ich bin ein LinkedIn Content Creator mit 20.000 Follower.
 Meine Zielgruppe: 30-45 jährige Business Owner & Founder.
 Mein Problem: Ich schreibe Posts, aber nur 2-3% have high engagement.
 Mein Ziel: Posts, die 15%+ Engagement haben.
@@ -229,6 +236,7 @@ Wenn alle Punkte ✅: Dein Prompt ist STARK.
 ## Übungen
 
 ### Übung 1: KAAB auseinanderhalten
+
 Liest du diese schlechten Prompts und erklärst, was fehlt:
 
 ```
@@ -236,12 +244,14 @@ Liest du diese schlechten Prompts und erklärst, was fehlt:
 ```
 
 **Analyse:**
+
 - K (Kontext): FEHLT! Wer bin ich? Wer ist der Client? Was biete ich?
 - A (Aufgabe): Schwach! "Schreib eine E-Mail" ist vage.
 - A (Anweisung): FEHLT! Wie lang? Welcher Ton?
 - B (Beispiel): FEHLT! Kein Beispiel
 
 **Besser:**
+
 ```
 K: Ich bin ein Finanzberater, spezialisiert auf "Private Wealth Management". Der Client ist ein 60-jähriger Business Owner, der gerade sein Unternehmen verkauft hat.
 
@@ -258,6 +268,7 @@ Gluckwunsch zum erfolgreichen Exit! Das ist eine große Leistung.
 ```
 
 ### Übung 2: Dein eigener KAAB
+
 Wähle ein Projekt aus (z.B. "Verkaufs-E-Mail schreiben") und füll die KAAB-Vorlage aus:
 
 **K =** [Dein Kontext - 3-5 Sätze]

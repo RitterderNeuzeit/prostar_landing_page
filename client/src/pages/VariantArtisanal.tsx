@@ -1,111 +1,123 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { ChevronDown, Check, Heart } from 'lucide-react';
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { ChevronDown, Check, Heart } from "lucide-react";
 
 /**
  * Handwerklich-Authentisch Design Variant
- * 
+ *
  * Color Scheme:
  * - Background: Warm Taupe (#D4C4B8) with cream accents
  * - Accent: Terracotta (#C85A3A)
  * - Text: Charcoal (#2C2C2C)
- * 
+ *
  * Style: Authentic, crafted, personal touch
  * Best for: SME owners, community-focused messaging
  */
 
 export default function VariantArtisanal() {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const [activeTab, setActiveTab] = useState(0);
 
-  const handleEmailSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Email submitted:', email);
-    setEmail('');
+  const handleEmailSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    console.log("Email submitted:", email);
+    setEmail("");
   };
 
   const modules = [
     {
       id: 1,
-      title: 'Deine einzigartige Strategie',
-      description: 'Finde heraus, was Dich und Dein Business einzigartig macht – und wie Du das in Social Media zeigst.',
-      icon: '🎯',
+      title: "Deine einzigartige Strategie",
+      description:
+        "Finde heraus, was Dich und Dein Business einzigartig macht – und wie Du das in Social Media zeigst.",
+      icon: "🎯",
     },
     {
       id: 2,
-      title: 'Authentische Inhalte',
-      description: 'Lerne, Inhalte zu erstellen, die Deine Persönlichkeit und Deine Werte widerspiegeln.',
-      icon: '✨',
+      title: "Authentische Inhalte",
+      description:
+        "Lerne, Inhalte zu erstellen, die Deine Persönlichkeit und Deine Werte widerspiegeln.",
+      icon: "✨",
     },
     {
       id: 3,
-      title: 'Echte Verbindungen',
-      description: 'Baue eine Community auf, die Dich wirklich versteht und unterstützt.',
-      icon: '🤝',
+      title: "Echte Verbindungen",
+      description:
+        "Baue eine Community auf, die Dich wirklich versteht und unterstützt.",
+      icon: "🤝",
     },
     {
       id: 4,
-      title: 'Wachstum mit Sinn',
-      description: 'Wachse nachhaltig, indem Du Dich treu bleibst und echte Beziehungen aufbaust.',
-      icon: '🌱',
+      title: "Wachstum mit Sinn",
+      description:
+        "Wachse nachhaltig, indem Du Dich treu bleibst und echte Beziehungen aufbaust.",
+      icon: "🌱",
     },
     {
       id: 5,
-      title: 'Von Fans zu Kunden',
-      description: 'Verwandle Deine Community in loyale Kunden, die Dein Business lieben.',
-      icon: '💝',
+      title: "Von Fans zu Kunden",
+      description:
+        "Verwandle Deine Community in loyale Kunden, die Dein Business lieben.",
+      icon: "💝",
     },
   ];
 
   const testimonials = [
     {
       id: 1,
-      name: 'Anna Bergmann',
-      company: 'Bergmann Handmade',
-      text: 'Endlich ein Kurs, der nicht nur Zahlen sieht, sondern die Person hinter dem Business. Ich fühle mich verstanden und inspiriert!',
+      name: "Anna Bergmann",
+      company: "Bergmann Handmade",
+      text: "Endlich ein Kurs, der nicht nur Zahlen sieht, sondern die Person hinter dem Business. Ich fühle mich verstanden und inspiriert!",
       rating: 5,
     },
     {
       id: 2,
-      name: 'Marco Rossi',
-      company: 'Rossi Café',
-      text: 'Die authentische Herangehensweise hat mir geholfen, meine echte Geschichte zu erzählen. Meine Kunden lieben es!',
+      name: "Marco Rossi",
+      company: "Rossi Café",
+      text: "Die authentische Herangehensweise hat mir geholfen, meine echte Geschichte zu erzählen. Meine Kunden lieben es!",
       rating: 5,
     },
     {
       id: 3,
-      name: 'Lisa Müller',
-      company: 'Müller Coaching',
-      text: 'Dieser Kurs hat mir gezeigt, dass ich nicht so sein muss wie alle anderen. Meine Authentizität ist meine Stärke!',
+      name: "Lisa Müller",
+      company: "Müller Coaching",
+      text: "Dieser Kurs hat mir gezeigt, dass ich nicht so sein muss wie alle anderen. Meine Authentizität ist meine Stärke!",
       rating: 5,
     },
   ];
 
   const faqs = [
     {
-      question: 'Ist dieser Kurs auch für mich, wenn ich neu in Social Media bin?',
-      answer: 'Ja, absolut! Der Kurs ist speziell für Menschen gemacht, die neu anfangen. Wir beginnen bei den Grundlagen und bauen von dort auf – ohne technisches Jargon.',
+      question:
+        "Ist dieser Kurs auch für mich, wenn ich neu in Social Media bin?",
+      answer:
+        "Ja, absolut! Der Kurs ist speziell für Menschen gemacht, die neu anfangen. Wir beginnen bei den Grundlagen und bauen von dort auf – ohne technisches Jargon.",
     },
     {
-      question: 'Kann ich den Kurs in meinem eigenen Tempo machen?',
-      answer: 'Ja, Du hast lebenslangen Zugriff auf alle Inhalte. Du kannst in Deinem eigenen Tempo lernen – es gibt keine Fristen oder Deadlines.',
+      question: "Kann ich den Kurs in meinem eigenen Tempo machen?",
+      answer:
+        "Ja, Du hast lebenslangen Zugriff auf alle Inhalte. Du kannst in Deinem eigenen Tempo lernen – es gibt keine Fristen oder Deadlines.",
     },
     {
-      question: 'Werde ich wirklich Kunden gewinnen?',
-      answer: 'Ja, wenn Du die Strategien umsetzt. Viele unserer Teilnehmer berichten von neuen Kunden bereits nach wenigen Wochen. Es braucht aber Geduld und Konsistenz.',
+      question: "Werde ich wirklich Kunden gewinnen?",
+      answer:
+        "Ja, wenn Du die Strategien umsetzt. Viele unserer Teilnehmer berichten von neuen Kunden bereits nach wenigen Wochen. Es braucht aber Geduld und Konsistenz.",
     },
     {
-      question: 'Welche Plattformen sollte ich nutzen?',
-      answer: 'Wir zeigen Dir, wie Du die richtige Plattform für Dein Business wählst. Es ist besser, eine Plattform gut zu machen, als überall präsent zu sein.',
+      question: "Welche Plattformen sollte ich nutzen?",
+      answer:
+        "Wir zeigen Dir, wie Du die richtige Plattform für Dein Business wählst. Es ist besser, eine Plattform gut zu machen, als überall präsent zu sein.",
     },
     {
-      question: 'Gibt es Support, wenn ich Fragen habe?',
-      answer: 'Ja! Du hast Zugriff auf unsere Community, wo Du Fragen stellen kannst. Außerdem gibt es monatliche Live-Sessions, wo wir gemeinsam Fragen beantworten.',
+      question: "Gibt es Support, wenn ich Fragen habe?",
+      answer:
+        "Ja! Du hast Zugriff auf unsere Community, wo Du Fragen stellen kannst. Außerdem gibt es monatliche Live-Sessions, wo wir gemeinsam Fragen beantworten.",
     },
     {
-      question: 'Was ist, wenn der Kurs nicht zu mir passt?',
-      answer: 'Kein Problem! Wir bieten 30 Tage Geld-zurück-Garantie. Wenn es nicht passt, bekommst Du Dein Geld zurück – ohne Fragen.',
+      question: "Was ist, wenn der Kurs nicht zu mir passt?",
+      answer:
+        "Kein Problem! Wir bieten 30 Tage Geld-zurück-Garantie. Wenn es nicht passt, bekommst Du Dein Geld zurück – ohne Fragen.",
     },
   ];
 
@@ -116,10 +128,30 @@ export default function VariantArtisanal() {
         <div className="container flex items-center justify-between h-16">
           <div className="text-2xl font-bold text-[#C85A3A]">ProStar</div>
           <div className="hidden md:flex items-center gap-8">
-            <a href="#modules" className="text-sm hover:text-[#C85A3A] transition-colors font-medium">Module</a>
-            <a href="#results" className="text-sm hover:text-[#C85A3A] transition-colors font-medium">Ergebnisse</a>
-            <a href="#pricing" className="text-sm hover:text-[#C85A3A] transition-colors font-medium">Preise</a>
-            <a href="#faq" className="text-sm hover:text-[#C85A3A] transition-colors font-medium">FAQ</a>
+            <a
+              href="#modules"
+              className="text-sm hover:text-[#C85A3A] transition-colors font-medium"
+            >
+              Module
+            </a>
+            <a
+              href="#results"
+              className="text-sm hover:text-[#C85A3A] transition-colors font-medium"
+            >
+              Ergebnisse
+            </a>
+            <a
+              href="#pricing"
+              className="text-sm hover:text-[#C85A3A] transition-colors font-medium"
+            >
+              Preise
+            </a>
+            <a
+              href="#faq"
+              className="text-sm hover:text-[#C85A3A] transition-colors font-medium"
+            >
+              FAQ
+            </a>
           </div>
           <Button className="px-6 py-2 bg-[#C85A3A] text-white hover:bg-[#A84A2A] transition-colors">
             Jetzt starten
@@ -138,7 +170,9 @@ export default function VariantArtisanal() {
               Social Media für Dein Business – Authentisch & Echt
             </h1>
             <p className="text-lg text-[#2C2C2C]/80 mb-8 leading-relaxed">
-              Vergiss alles, was Du über "perfekte" Social Media weißt. Lerne, wie Du mit Deiner echten Persönlichkeit eine Community aufbaust, die Dein Business liebt.
+              Vergiss alles, was Du über "perfekte" Social Media weißt. Lerne,
+              wie Du mit Deiner echten Persönlichkeit eine Community aufbaust,
+              die Dein Business liebt.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
               <Button className="px-8 py-3 bg-[#C85A3A] text-white hover:bg-[#A84A2A] font-semibold transition-colors">
@@ -176,12 +210,16 @@ export default function VariantArtisanal() {
       {/* Problem & Solution */}
       <section className="py-20 md:py-32 bg-[#F5F1ED]">
         <div className="container">
-          <h2 className="text-4xl font-bold text-center mb-12">Das Problem mit "Standard" Social Media</h2>
-          
+          <h2 className="text-4xl font-bold text-center mb-12">
+            Das Problem mit "Standard" Social Media
+          </h2>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div className="space-y-8">
               <div>
-                <h3 className="text-2xl font-bold mb-3 text-[#C85A3A]">❌ Was nicht funktioniert</h3>
+                <h3 className="text-2xl font-bold mb-3 text-[#C85A3A]">
+                  ❌ Was nicht funktioniert
+                </h3>
                 <ul className="space-y-3 text-[#2C2C2C]/80">
                   <li>• Ständig neue Trends nachmachen</li>
                   <li>• Dich selbst verleugnen für "Engagement"</li>
@@ -194,7 +232,9 @@ export default function VariantArtisanal() {
 
             <div className="space-y-8">
               <div>
-                <h3 className="text-2xl font-bold mb-3 text-[#C85A3A]">✅ Was wirklich funktioniert</h3>
+                <h3 className="text-2xl font-bold mb-3 text-[#C85A3A]">
+                  ✅ Was wirklich funktioniert
+                </h3>
                 <ul className="space-y-3 text-[#2C2C2C]/80">
                   <li>• Deine echte Geschichte erzählen</li>
                   <li>• Deine Werte und Persönlichkeit zeigen</li>
@@ -211,11 +251,14 @@ export default function VariantArtisanal() {
       {/* Modules Section */}
       <section id="modules" className="py-20 md:py-32">
         <div className="container">
-          <h2 className="text-4xl font-bold text-center mb-4">Was Du lernen wirst</h2>
+          <h2 className="text-4xl font-bold text-center mb-4">
+            Was Du lernen wirst
+          </h2>
           <p className="text-center text-[#2C2C2C]/70 text-lg mb-16 max-w-2xl mx-auto">
-            5 Module, die Dich von "Ich weiß nicht, wie ich anfangen soll" zu "Ich habe eine echte Community" bringen.
+            5 Module, die Dich von "Ich weiß nicht, wie ich anfangen soll" zu
+            "Ich habe eine echte Community" bringen.
           </p>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {modules.map((module, index) => (
               <div
@@ -234,36 +277,46 @@ export default function VariantArtisanal() {
       {/* Results Section */}
       <section id="results" className="py-20 md:py-32 bg-[#F5F1ED]">
         <div className="container">
-          <h2 className="text-4xl font-bold text-center mb-4">Was unsere Teilnehmer erreicht haben</h2>
+          <h2 className="text-4xl font-bold text-center mb-4">
+            Was unsere Teilnehmer erreicht haben
+          </h2>
           <p className="text-center text-[#2C2C2C]/70 text-lg mb-16 max-w-2xl mx-auto">
             Echte Menschen, echte Ergebnisse.
           </p>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             <div className="text-center">
               <div className="text-5xl font-bold text-[#C85A3A] mb-2">+500</div>
-              <p className="text-[#2C2C2C]/70">Neue Follower im ersten Monat (durchschnittlich)</p>
+              <p className="text-[#2C2C2C]/70">
+                Neue Follower im ersten Monat (durchschnittlich)
+              </p>
             </div>
             <div className="text-center">
               <div className="text-5xl font-bold text-[#C85A3A] mb-2">10+</div>
-              <p className="text-[#2C2C2C]/70">Neue Kunden pro Monat (durchschnittlich)</p>
+              <p className="text-[#2C2C2C]/70">
+                Neue Kunden pro Monat (durchschnittlich)
+              </p>
             </div>
             <div className="text-center">
               <div className="text-5xl font-bold text-[#C85A3A] mb-2">100%</div>
-              <p className="text-[#2C2C2C]/70">Würden den Kurs weiterempfehlen</p>
+              <p className="text-[#2C2C2C]/70">
+                Würden den Kurs weiterempfehlen
+              </p>
             </div>
           </div>
 
           <div className="max-w-3xl mx-auto">
-            <h3 className="text-2xl font-bold mb-8 text-center">Im Kurs enthalten</h3>
+            <h3 className="text-2xl font-bold mb-8 text-center">
+              Im Kurs enthalten
+            </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <ul className="space-y-4">
                 {[
-                  'Video-Module (einfach erklärt)',
-                  'Workbooks zum Ausfüllen',
-                  'Vorlagen & Checklisten',
-                  'Echte Fallstudien',
-                  'Community Forum',
+                  "Video-Module (einfach erklärt)",
+                  "Workbooks zum Ausfüllen",
+                  "Vorlagen & Checklisten",
+                  "Echte Fallstudien",
+                  "Community Forum",
                 ].map((item, i) => (
                   <li key={i} className="flex items-center gap-3">
                     <Check className="w-5 h-5 text-[#C85A3A] flex-shrink-0" />
@@ -273,11 +326,11 @@ export default function VariantArtisanal() {
               </ul>
               <ul className="space-y-4">
                 {[
-                  'Monatliche Live-Sessions',
-                  'Bonus: Content-Kalender',
-                  'Bonus: Storytelling-Guide',
-                  'Lebenslanger Zugriff',
-                  'Geld-zurück-Garantie',
+                  "Monatliche Live-Sessions",
+                  "Bonus: Content-Kalender",
+                  "Bonus: Storytelling-Guide",
+                  "Lebenslanger Zugriff",
+                  "Geld-zurück-Garantie",
                 ].map((item, i) => (
                   <li key={i} className="flex items-center gap-3">
                     <Check className="w-5 h-5 text-[#C85A3A] flex-shrink-0" />
@@ -293,20 +346,31 @@ export default function VariantArtisanal() {
       {/* Testimonials */}
       <section className="py-20 md:py-32">
         <div className="container">
-          <h2 className="text-4xl font-bold text-center mb-16">Das sagen unsere Teilnehmer</h2>
-          
+          <h2 className="text-4xl font-bold text-center mb-16">
+            Das sagen unsere Teilnehmer
+          </h2>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial) => (
-              <div key={testimonial.id} className="bg-[#F5F1ED] rounded-lg p-8 border-l-4 border-[#C85A3A]">
+            {testimonials.map(testimonial => (
+              <div
+                key={testimonial.id}
+                className="bg-[#F5F1ED] rounded-lg p-8 border-l-4 border-[#C85A3A]"
+              >
                 <div className="flex gap-1 mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <span key={i} className="text-[#C85A3A]">★</span>
+                    <span key={i} className="text-[#C85A3A]">
+                      ★
+                    </span>
                   ))}
                 </div>
-                <p className="text-[#2C2C2C]/80 mb-6 italic">"{testimonial.text}"</p>
+                <p className="text-[#2C2C2C]/80 mb-6 italic">
+                  "{testimonial.text}"
+                </p>
                 <div>
                   <p className="font-semibold">{testimonial.name}</p>
-                  <p className="text-sm text-[#2C2C2C]/60">{testimonial.company}</p>
+                  <p className="text-sm text-[#2C2C2C]/60">
+                    {testimonial.company}
+                  </p>
                 </div>
               </div>
             ))}
@@ -317,9 +381,13 @@ export default function VariantArtisanal() {
       {/* Pricing */}
       <section id="pricing" className="py-20 md:py-32 bg-[#F5F1ED]">
         <div className="container">
-          <h2 className="text-4xl font-bold text-center mb-4">Einfache Preise</h2>
-          <p className="text-center text-[#2C2C2C]/70 text-lg mb-16">Wähle den Plan, der zu Dir passt.</p>
-          
+          <h2 className="text-4xl font-bold text-center mb-4">
+            Einfache Preise
+          </h2>
+          <p className="text-center text-[#2C2C2C]/70 text-lg mb-16">
+            Wähle den Plan, der zu Dir passt.
+          </p>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             <div className="bg-[#D4C4B8] border-2 border-[#C85A3A]/30 rounded-lg p-8">
               <h3 className="text-2xl font-bold mb-2">Starter</h3>
@@ -345,7 +413,7 @@ export default function VariantArtisanal() {
                 Jetzt starten
               </Button>
             </div>
-            
+
             <div className="bg-[#C85A3A] text-white rounded-lg p-8 relative transform md:scale-105">
               <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-white text-[#C85A3A] px-4 py-1 rounded-full text-sm font-semibold">
                 Beliebt ⭐
@@ -373,7 +441,7 @@ export default function VariantArtisanal() {
                 Jetzt starten
               </Button>
             </div>
-            
+
             <div className="bg-[#D4C4B8] border-2 border-[#C85A3A]/30 rounded-lg p-8">
               <h3 className="text-2xl font-bold mb-2">VIP</h3>
               <p className="text-[#2C2C2C]/70 mb-6">Mit 1:1 Coaching</p>
@@ -405,14 +473,20 @@ export default function VariantArtisanal() {
       {/* CTA Section */}
       <section className="py-20 md:py-32 bg-[#C85A3A] text-white">
         <div className="container max-w-2xl">
-          <h2 className="text-4xl font-bold text-center mb-4">Bereit, Deine Geschichte zu erzählen?</h2>
+          <h2 className="text-4xl font-bold text-center mb-4">
+            Bereit, Deine Geschichte zu erzählen?
+          </h2>
           <p className="text-center text-white/90 text-lg mb-8">
-            Tritt unserer Community bei und starte Deine Social-Media-Reise – authentisch und erfolgreich.
+            Tritt unserer Community bei und starte Deine Social-Media-Reise –
+            authentisch und erfolgreich.
           </p>
-          
+
           <form onSubmit={handleEmailSubmit} className="space-y-4">
             <div>
-              <label htmlFor="email" className="block text-sm font-semibold mb-2">
+              <label
+                htmlFor="email"
+                className="block text-sm font-semibold mb-2"
+              >
                 Deine E-Mail
               </label>
               <Input
@@ -420,16 +494,19 @@ export default function VariantArtisanal() {
                 type="email"
                 placeholder="deine@email.de"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={event => setEmail(event.target.value)}
                 required
                 className="w-full bg-white/10 border-white/20 text-white placeholder:text-white/50"
               />
             </div>
-            <Button type="submit" className="w-full bg-white text-[#C85A3A] hover:bg-gray-100 font-semibold">
+            <Button
+              type="submit"
+              className="w-full bg-white text-[#C85A3A] hover:bg-gray-100 font-semibold"
+            >
               Kostenlose Mini-Lektion erhalten
             </Button>
           </form>
-          
+
           <p className="text-center text-xs text-white/70 mt-4">
             Keine Spam, nur echte Inhalte. Abmeldung jederzeit möglich.
           </p>
@@ -439,11 +516,13 @@ export default function VariantArtisanal() {
       {/* FAQ */}
       <section id="faq" className="py-20 md:py-32">
         <div className="container max-w-3xl">
-          <h2 className="text-4xl font-bold text-center mb-4">Häufig gestellte Fragen</h2>
+          <h2 className="text-4xl font-bold text-center mb-4">
+            Häufig gestellte Fragen
+          </h2>
           <p className="text-center text-[#2C2C2C]/70 text-lg mb-12">
             Alles, was Du wissen musst.
           </p>
-          
+
           <div className="space-y-4">
             {faqs.map((faq, index) => (
               <div
@@ -455,7 +534,7 @@ export default function VariantArtisanal() {
                   <h3 className="font-semibold text-lg">{faq.question}</h3>
                   <ChevronDown
                     className={`w-5 h-5 text-[#C85A3A] transition-transform ${
-                      activeTab === index ? 'rotate-180' : ''
+                      activeTab === index ? "rotate-180" : ""
                     }`}
                   />
                 </div>
@@ -477,35 +556,60 @@ export default function VariantArtisanal() {
             <div>
               <h4 className="font-semibold mb-4">ProStar Marketing</h4>
               <p className="text-sm text-gray-400">
-                Wir helfen Unternehmern, ihre echte Geschichte zu erzählen und eine Community aufzubauen.
+                Wir helfen Unternehmern, ihre echte Geschichte zu erzählen und
+                eine Community aufzubauen.
               </p>
             </div>
-            
+
             <div>
               <h4 className="font-semibold mb-4">Kurse</h4>
               <ul className="space-y-2 text-sm text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">Social Media Masterplan</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Alle Kurse</a></li>
+                <li>
+                  <a href="#" className="hover:text-white transition-colors">
+                    Social Media Masterplan
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white transition-colors">
+                    Alle Kurse
+                  </a>
+                </li>
               </ul>
             </div>
-            
+
             <div>
               <h4 className="font-semibold mb-4">Community</h4>
               <ul className="space-y-2 text-sm text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">Forum</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
+                <li>
+                  <a href="#" className="hover:text-white transition-colors">
+                    Forum
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white transition-colors">
+                    Blog
+                  </a>
+                </li>
               </ul>
             </div>
-            
+
             <div>
               <h4 className="font-semibold mb-4">Kontakt</h4>
               <ul className="space-y-2 text-sm text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">E-Mail</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Instagram</a></li>
+                <li>
+                  <a href="#" className="hover:text-white transition-colors">
+                    E-Mail
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white transition-colors">
+                    Instagram
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
-          
+
           <div className="border-t border-gray-700 pt-8">
             <p className="text-sm text-gray-400 text-center">
               © 2024 ProStar Marketing. Mit ❤️ gemacht.

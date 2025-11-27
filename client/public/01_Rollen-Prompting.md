@@ -3,6 +3,7 @@
 ## Der Trick
 
 **Ohne Rolle:**
+
 ```
 Schreib eine Produktbeschreibung für einen Kurs.
 ```
@@ -10,6 +11,7 @@ Schreib eine Produktbeschreibung für einen Kurs.
 KI antwortet: "Ein Kurs ist ein Bildungsprodukt, das..."
 
 **Mit Rolle:**
+
 ```
 Du bist ein Copywriter bei Apple. Du hast 20 Jahre Erfahrung.
 Dein Job: Produktbeschreibungen schreiben, die Menschen weiter machen wollen.
@@ -20,6 +22,7 @@ Schreib eine Produktbeschreibung für einen Kurs.
 KI antwortet: "Entdecke, wie du in 3 Wochen zum KI-Profi wirst..."
 
 **Der Unterschied?**
+
 - Ohne Rolle: Generic, textbook-style
 - Mit Rolle: Magical, sales-focused, creative
 
@@ -54,24 +57,28 @@ Aufgabe: "Schreib einen Fitness-Plan"
 ## Praktische Rollen für Anfänger
 
 ### Rollen für VERKAUFEN
+
 - LinkedIn Expert mit 15+ Jahren Sales Experience
 - Apple Copywriter (fokus auf Simplicity & Emotion)
 - Direct Response Marketer (fokus auf ROI)
 - TED Talk Speaker (fokus auf Storytelling)
 
 ### Rollen für CONTENT
+
 - YouTuber mit 500k+ Followers
 - Bestseller Author
 - Journalist (focused auf facts & objectivity)
 - Comedian (focused auf humor)
 
 ### Rollen für STRATEGIE
+
 - Fortune 500 CEO
 - Startup Founder (bootstrap mindset)
 - McKinsey Consultant
 - Angel Investor
 
 ### Rollen für ANALYSEN
+
 - Data Scientist
 - Business Analyst
 - UX Researcher
@@ -84,6 +91,7 @@ Aufgabe: "Schreib einen Fitness-Plan"
 **Aufgabe:** "Schreib einen LinkedIn Post über KI-Automation"
 
 ### Rolle 1: LinkedIn Growth Hacker
+
 ```
 Du bist ein LinkedIn Growth Expert mit 50k+ followers.
 Dein spezialität: Posts die 5k+ Engagements erreichen.
@@ -94,6 +102,7 @@ Ton: Viral-worthy, surprising, actionable.
 **Output:** "3 Stunden später: 500 Leads, 0 spent. Klingt unmöglich? So machen wir's..."
 
 ### Rolle 2: Academic Professor
+
 ```
 Du bist ein Professor für Computerwissenschaften mit 20 Jahren Erfahrung.
 Dein Spezialität: Komplexe Konzepte einfach erklären.
@@ -104,6 +113,7 @@ Ton: Educational, accurate, accessible.
 **Output:** "Lassen Sie mich das Konzept der Automatisierung mit einem Analogie erklären. Stellen Sie sich einen Buch vor..."
 
 ### Rolle 3: Skeptical Investor
+
 ```
 Du bist ein Angel Investor mit 20+ Investitionen.
 Dein Mindset: Ich bin skeptisch, ich will Facts und ROI.
@@ -114,6 +124,7 @@ Ton: Data-focused, skeptical, practical.
 **Output:** "KI-Automation. Ein Buzzword oder ein echtes Return on Investment? Hier die Zahlen..."
 
 ### Rolle 4: Best Friend / Coach
+
 ```
 Du bist ein enger Freund und Coach von diesem Unternehmer.
 Du magst ihn und willst ihm helfen.
@@ -124,6 +135,7 @@ Ton: Casual, encouraging, personal.
 **Output:** "Bruder, ich muss dir was zeigen. Letzte Woche habe ich 12 Stunden Arbeit auf 20 Minuten reduziert..."
 
 ### Rolle 5: Skeptic/Devil's Advocate
+
 ```
 Du bist ein kritischer Denker, der immer die andere Seite sieht.
 Du fragst Fragen und stellst Annahmen in Frage.

@@ -3,21 +3,25 @@
 ## Die Zeitleiste
 
 ### Stage 1: Chatbot (2016-2018)
+
 - Du: "Hallo!"
 - KI: "Hallo! Wie kann ich dir helfen?"
 - Level: Basic Q&A
 
 ### Stage 2: Assistant (2018-2021)
+
 - Du: "Schreib mir einen Text"
 - KI: "Ok, hier ist ein Text..."
 - Level: Instruction-following
 
 ### Stage 3: Workflow (2021-2023)
+
 - Du: "Schreib einen Text, dann optimiere ihn für LinkedIn"
 - KI: "Step 1: Geschrieben. Step 2: Optimiert."
 - Level: Multi-step processes
 
 ### Stage 4: Agent (2023-2025) ← DU BIST HIER
+
 - Du: "Ich will 100 neue Leads pro Monat. Mach es."
 - KI: "Ok, ich recherchiere Leads, qualifiziere sie, schreibe Outreach, folge nach. Ergebnis: 120 Leads."
 - Level: Autonomous systems
@@ -72,9 +76,11 @@
 ## Praktische Beispiele
 
 ### Agent 1: Lead Research Agent
+
 **Ziel:** "Find me 50 qualified B2B leads in Berlin tech scene"
 
 **Was der Agent macht:**
+
 1. Researches: "Who's hiring in Berlin tech?"
 2. Finds: Companies, decision makers, recent news
 3. Qualifies: "Do they meet our ICP?"
@@ -82,9 +88,11 @@
 5. Outputs: Ready for outreach
 
 ### Agent 2: Content Production Agent
+
 **Ziel:** "Turn 1 Blog Idea into 10 Social Media Posts"
 
 **Was der Agent macht:**
+
 1. Takes: Your blog idea
 2. Extracts: Key points
 3. Generates: 10 different angles
@@ -93,9 +101,11 @@
 6. Outputs: Ready to publish
 
 ### Agent 3: Customer Support Agent
+
 **Ziel:** "Handle 80% of support tickets automatically"
 
 **Was der Agent macht:**
+
 1. Receives: Customer question
 2. Classifies: What type of problem?
 3. Searches: Knowledge base

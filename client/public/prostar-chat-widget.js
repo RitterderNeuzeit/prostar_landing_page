@@ -1,6 +1,6 @@
 /**
  * ProStar Chat Widget - Embeddable Chat Assistant
- * 
+ *
  * Usage:
  * <script src="https://yourdomain.com/prostar-chat-widget.js"></script>
  * <script>
@@ -12,62 +12,62 @@
  * </script>
  */
 
-(function() {
-  'use strict';
+(function () {
+  "use strict";
 
   const ProStarChat = {
     config: {
-      apiUrl: 'https://prostarai.manus.space/api',
-      position: 'bottom-right',
-      theme: 'dark',
-      title: 'ProStar Chat Assistant',
-      placeholder: 'Stellen Sie eine Frage...',
-      initialMessage: 'Hallo! 👋 Wie kann ich Ihnen heute helfen?'
+      apiUrl: "https://prostarai.manus.space/api",
+      position: "bottom-right",
+      theme: "dark",
+      title: "ProStar Chat Assistant",
+      placeholder: "Stellen Sie eine Frage...",
+      initialMessage: "Hallo! 👋 Wie kann ich Ihnen heute helfen?",
     },
 
     state: {
       isOpen: false,
       messages: [],
-      isLoading: false
+      isLoading: false,
     },
 
-    init: function(options = {}) {
+    init: function (options = {}) {
       // Merge user config with defaults
       this.config = { ...this.config, ...options };
-      
+
       // Create widget container
       this.createWidget();
-      
+
       // Load chat history from localStorage
       this.loadChatHistory();
-      
+
       // Add event listeners
       this.attachEventListeners();
-      
-      console.log('ProStar Chat Widget initialized');
+
+      console.log("ProStar Chat Widget initialized");
     },
 
-    createWidget: function() {
+    createWidget: function () {
       // Create main container
-      const container = document.createElement('div');
-      container.id = 'prostar-chat-widget';
+      const container = document.createElement("div");
+      container.id = "prostar-chat-widget";
       container.className = `prostar-chat-${this.config.position} prostar-chat-${this.config.theme}`;
-      
+
       // Create chat bubble button
-      const bubble = document.createElement('button');
-      bubble.id = 'prostar-chat-bubble';
-      bubble.className = 'prostar-chat-bubble';
+      const bubble = document.createElement("button");
+      bubble.id = "prostar-chat-bubble";
+      bubble.className = "prostar-chat-bubble";
       bubble.innerHTML = `
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
         </svg>
       `;
-      bubble.setAttribute('aria-label', 'Chat öffnen');
-      
+      bubble.setAttribute("aria-label", "Chat öffnen");
+
       // Create chat window
-      const window = document.createElement('div');
-      window.id = 'prostar-chat-window';
-      window.className = 'prostar-chat-window';
+      const window = document.createElement("div");
+      window.id = "prostar-chat-window";
+      window.className = "prostar-chat-window";
       window.innerHTML = `
         <div class="prostar-chat-header">
           <h3>${this.config.title}</h3>
@@ -94,18 +94,18 @@
           </button>
         </div>
       `;
-      
+
       // Add styles
       this.injectStyles();
-      
+
       // Append to body
       container.appendChild(bubble);
       container.appendChild(window);
       document.body.appendChild(container);
     },
 
-    injectStyles: function() {
-      const style = document.createElement('style');
+    injectStyles: function () {
+      const style = document.createElement("style");
       style.textContent = `
         #prostar-chat-widget {
           position: fixed;
@@ -354,25 +354,25 @@
       document.head.appendChild(style);
     },
 
-    attachEventListeners: function() {
-      const bubble = document.getElementById('prostar-chat-bubble');
-      const closeBtn = document.getElementById('prostar-chat-close');
-      const input = document.getElementById('prostar-chat-input');
-      const sendBtn = document.getElementById('prostar-chat-send');
-      const window = document.getElementById('prostar-chat-window');
+    attachEventListeners: function () {
+      const bubble = document.getElementById("prostar-chat-bubble");
+      const closeBtn = document.getElementById("prostar-chat-close");
+      const input = document.getElementById("prostar-chat-input");
+      const sendBtn = document.getElementById("prostar-chat-send");
+      const window = document.getElementById("prostar-chat-window");
 
-      bubble.addEventListener('click', () => this.toggleChat());
-      closeBtn.addEventListener('click', () => this.closeChat());
-      sendBtn.addEventListener('click', () => this.sendMessage());
-      input.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') this.sendMessage();
+      bubble.addEventListener("click", () => this.toggleChat());
+      closeBtn.addEventListener("click", () => this.closeChat());
+      sendBtn.addEventListener("click", () => this.sendMessage());
+      input.addEventListener("keypress", e => {
+        if (e.key === "Enter") this.sendMessage();
       });
     },
 
-    toggleChat: function() {
-      const window = document.getElementById('prostar-chat-window');
-      const bubble = document.getElementById('prostar-chat-bubble');
-      
+    toggleChat: function () {
+      const window = document.getElementById("prostar-chat-window");
+      const bubble = document.getElementById("prostar-chat-bubble");
+
       if (this.state.isOpen) {
         this.closeChat();
       } else {
@@ -380,138 +380,156 @@
       }
     },
 
-    openChat: function() {
-      const window = document.getElementById('prostar-chat-window');
-      const bubble = document.getElementById('prostar-chat-bubble');
-      
-      window.classList.add('active');
-      bubble.classList.add('active');
+    openChat: function () {
+      const window = document.getElementById("prostar-chat-window");
+      const bubble = document.getElementById("prostar-chat-bubble");
+
+      window.classList.add("active");
+      bubble.classList.add("active");
       this.state.isOpen = true;
-      
+
       // Add initial message if no messages exist
       if (this.state.messages.length === 0) {
-        this.addMessage(this.config.initialMessage, 'assistant');
+        this.addMessage(this.config.initialMessage, "assistant");
       }
-      
+
       // Focus input
-      document.getElementById('prostar-chat-input').focus();
+      document.getElementById("prostar-chat-input").focus();
     },
 
-    closeChat: function() {
-      const window = document.getElementById('prostar-chat-window');
-      const bubble = document.getElementById('prostar-chat-bubble');
-      
-      window.classList.remove('active');
-      bubble.classList.remove('active');
+    closeChat: function () {
+      const window = document.getElementById("prostar-chat-window");
+      const bubble = document.getElementById("prostar-chat-bubble");
+
+      window.classList.remove("active");
+      bubble.classList.remove("active");
       this.state.isOpen = false;
     },
 
-    sendMessage: function() {
-      const input = document.getElementById('prostar-chat-input');
+    sendMessage: function () {
+      const input = document.getElementById("prostar-chat-input");
       const message = input.value.trim();
-      
+
       if (!message) return;
-      
+
       // Add user message
-      this.addMessage(message, 'user');
-      input.value = '';
-      
+      this.addMessage(message, "user");
+      input.value = "";
+
       // Show typing indicator
       this.showTypingIndicator();
-      
+
       // Send to API
       this.fetchResponse(message);
     },
 
-    addMessage: function(text, sender) {
-      const messagesContainer = document.getElementById('prostar-chat-messages');
-      
-      const messageDiv = document.createElement('div');
+    addMessage: function (text, sender) {
+      const messagesContainer = document.getElementById(
+        "prostar-chat-messages"
+      );
+
+      const messageDiv = document.createElement("div");
       messageDiv.className = `prostar-chat-message ${sender}`;
-      
-      const contentDiv = document.createElement('div');
-      contentDiv.className = 'prostar-chat-message-content';
+
+      const contentDiv = document.createElement("div");
+      contentDiv.className = "prostar-chat-message-content";
       contentDiv.textContent = text;
-      
+
       messageDiv.appendChild(contentDiv);
       messagesContainer.appendChild(messageDiv);
-      
+
       // Store message
       this.state.messages.push({ text, sender, timestamp: new Date() });
-      
+
       // Save to localStorage
       this.saveChatHistory();
-      
+
       // Scroll to bottom
       messagesContainer.scrollTop = messagesContainer.scrollHeight;
     },
 
-    showTypingIndicator: function() {
-      const messagesContainer = document.getElementById('prostar-chat-messages');
-      
-      const typingDiv = document.createElement('div');
-      typingDiv.id = 'prostar-chat-typing';
-      typingDiv.className = 'prostar-chat-typing';
-      typingDiv.innerHTML = '<span></span><span></span><span></span>';
-      
+    showTypingIndicator: function () {
+      const messagesContainer = document.getElementById(
+        "prostar-chat-messages"
+      );
+
+      const typingDiv = document.createElement("div");
+      typingDiv.id = "prostar-chat-typing";
+      typingDiv.className = "prostar-chat-typing";
+      typingDiv.innerHTML = "<span></span><span></span><span></span>";
+
       messagesContainer.appendChild(typingDiv);
       messagesContainer.scrollTop = messagesContainer.scrollHeight;
     },
 
-    removeTypingIndicator: function() {
-      const typing = document.getElementById('prostar-chat-typing');
+    removeTypingIndicator: function () {
+      const typing = document.getElementById("prostar-chat-typing");
       if (typing) typing.remove();
     },
 
-    fetchResponse: function(message) {
+    fetchResponse: function (message) {
       // Simulate API call - replace with actual API endpoint
-      setTimeout(() => {
-        this.removeTypingIndicator();
-        
-        // Mock responses based on keywords
-        let response = this.getMockResponse(message);
-        this.addMessage(response, 'assistant');
-      }, 1000 + Math.random() * 1000);
+      setTimeout(
+        () => {
+          this.removeTypingIndicator();
+
+          // Mock responses based on keywords
+          let response = this.getMockResponse(message);
+          this.addMessage(response, "assistant");
+        },
+        1000 + Math.random() * 1000
+      );
     },
 
-    getMockResponse: function(message) {
+    getMockResponse: function (message) {
       const lowerMessage = message.toLowerCase();
-      
+
       const responses = {
-        preis: 'Unsere Kurse kosten €97 (Starter), €197 (Professional) oder €497 (Enterprise). Alle Pläne bieten lebenslangen Zugriff!',
-        modul: 'Der Kurs besteht aus 5 umfassenden Modulen: Strategie, Content-Planung, Community, Analytics und Conversion.',
-        anfang: 'Ja, dieser Kurs ist perfekt für Anfänger! Wir beginnen mit den Grundlagen und bauen darauf auf.',
-        garantie: 'Wir bieten eine 30-Tage Geld-zurück-Garantie. Wenn Sie nicht zufrieden sind, erhalten Sie Ihr Geld zurück.',
-        default: 'Großartig! Wie kann ich Ihnen noch helfen? Sie können nach Preis, Modulen, oder anderen Fragen fragen.'
+        preis:
+          "Unsere Kurse kosten €97 (Starter), €197 (Professional) oder €497 (Enterprise). Alle Pläne bieten lebenslangen Zugriff!",
+        modul:
+          "Der Kurs besteht aus 5 umfassenden Modulen: Strategie, Content-Planung, Community, Analytics und Conversion.",
+        anfang:
+          "Ja, dieser Kurs ist perfekt für Anfänger! Wir beginnen mit den Grundlagen und bauen darauf auf.",
+        garantie:
+          "Wir bieten eine 30-Tage Geld-zurück-Garantie. Wenn Sie nicht zufrieden sind, erhalten Sie Ihr Geld zurück.",
+        default:
+          "Großartig! Wie kann ich Ihnen noch helfen? Sie können nach Preis, Modulen, oder anderen Fragen fragen.",
       };
-      
+
       for (const [key, value] of Object.entries(responses)) {
         if (lowerMessage.includes(key)) {
           return value;
         }
       }
-      
+
       return responses.default;
     },
 
-    saveChatHistory: function() {
-      localStorage.setItem('prostarChatHistory', JSON.stringify(this.state.messages));
+    saveChatHistory: function () {
+      localStorage.setItem(
+        "prostarChatHistory",
+        JSON.stringify(this.state.messages)
+      );
     },
 
-    loadChatHistory: function() {
-      const history = localStorage.getItem('prostarChatHistory');
+    loadChatHistory: function () {
+      const history = localStorage.getItem("prostarChatHistory");
       if (history) {
         this.state.messages = JSON.parse(history);
       }
-    }
+    },
   };
 
   // Expose globally
   window.ProStarChat = ProStarChat;
 
   // Auto-initialize if data attributes are present
-  if (document.currentScript && document.currentScript.dataset.init === 'true') {
-    document.addEventListener('DOMContentLoaded', () => {
+  if (
+    document.currentScript &&
+    document.currentScript.dataset.init === "true"
+  ) {
+    document.addEventListener("DOMContentLoaded", () => {
       ProStarChat.init();
     });
   }
