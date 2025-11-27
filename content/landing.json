@@ -1,0 +1,70 @@
+{
+  "title": "ProStar - Social Media Marketing Masterclass",
+  "subtitle": "Dein Social-Media-Erfolg beginnt hier",
+  "description": "Lerne die bewährten Strategien, um deine Social-Media-Präsenz aufzubauen und dein Business zu wachsen.",
+  "cta_primary": "Jetzt Kurs starten",
+  "cta_secondary": "Mehr erfahren",
+  "brand": {
+    "headline": "Social Media, das verkauft.",
+    "subheadline": "Baue eine starke Marke, gewinne Kunden und skaliere mit planbaren Kampagnen."
+  },
+  "ctas": {
+    "primary": {
+      "label": "Zum Kurs anmelden",
+      "href": "/course"
+    },
+    "secondary": {
+      "label": "Programm ansehen",
+      "href": "/course-info"
+    }
+  },
+  "modules": [
+    {
+      "id": "strategy",
+      "title": "Strategie & Positionierung",
+      "description": "Zielgruppenanalyse, Markenbotschaft und Content-Pillars, die Verkäufe vorbereiten."
+    },
+    {
+      "id": "content",
+      "title": "Content, der konvertiert",
+      "description": "Hook-Frameworks, Skripte und Templates für Reels, Stories und Ads."
+    },
+    {
+      "id": "growth",
+      "title": "Wachstum & Reichweite",
+      "description": "Algorithmus-Hebel, Hashtag-Strategie und Kooperationen für planbares Wachstum."
+    },
+    {
+      "id": "funnels",
+      "title": "Funnels & Offers",
+      "description": "Lead-Magnet, Tripwire und High-Ticket-Angebote mit klaren Journeys."
+    },
+    {
+      "id": "ops",
+      "title": "Systeme & Automation",
+      "description": "Redaktionspläne, Automationen, Teamprozesse und Metriken zur Optimierung."
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Für wen ist der Kurs geeignet?",
+      "answer": "Für Solo-Selbständige, Agenturen und kleine Teams, die Social Media als Umsatzkanal aufbauen wollen."
+    },
+    {
+      "question": "Wie lange habe ich Zugriff?",
+      "answer": "Lebenslanger Zugriff inkl. Updates, damit du immer die neuesten Taktiken nutzen kannst."
+    },
+    {
+      "question": "Brauche ich Vorerfahrung?",
+      "answer": "Nein. Wir starten bei Strategie und führen dich Schritt für Schritt zu skalierbaren Kampagnen."
+    },
+    {
+      "question": "Gibt es Vorlagen und Checklisten?",
+      "answer": "Ja, du erhältst alle Frameworks, Skripte, Vorlagen und Checklisten sofort zum Download."
+    },
+    {
+      "question": "Bekomme ich Support?",
+      "answer": "Im Kurs findest du Support-Kanäle für Fragen sowie regelmäßige Q&A-Sessions (im Professional/Enterprise Paket)."
+    }
+  ]
+}
