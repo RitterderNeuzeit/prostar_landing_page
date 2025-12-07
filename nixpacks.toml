@@ -6,7 +6,13 @@ nixPkgs = ["nodejs_20", "pnpm"]
 cmds = ["pnpm install --frozen-lockfile"]
 
 [phases.build]
-cmds = ["pnpm build"]
+cmds = [
+  "pnpm build",
+  "ls -la dist/ | head -20",
+  "echo '=== Checking if index.html exists in dist root ==='",
+  "test -f dist/index.html && echo '✅ index.html found' || echo '❌ index.html NOT found'",
+  "echo '=== Dist structure verification complete ==='"
+]
 
 [start]
 cmd = "pnpm start"
