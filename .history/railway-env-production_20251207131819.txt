@@ -1,0 +1,35 @@
+# ========================================
+# Railway Environment Variables - PRODUCTION READY
+# ========================================
+# Fertig zum Einfügen in Railway!
+# Railway Dashboard → Variables Tab → Raw Editor → Alles kopieren & einfügen → Save
+# ========================================
+
+# Database (Azure MySQL) - BITTE ERGÄNZEN!
+# Format: mysql://USERNAME:PASSWORD@SERVER.mysql.database.azure.com:3306/DBNAME?ssl-mode=REQUIRED
+DATABASE_URL=mysql://<USERNAME>:<PASSWORD>@<SERVER>.mysql.database.azure.com:3306/<DBNAME>?ssl-mode=REQUIRED
+
+# Authentication
+JWT_SECRET=e6f71626e977eb742e6f9fd9c66ef5bb1502e5402fb13b36cf6abaaff2b5cb84
+NODE_ENV=production
+PORT=3000
+
+# URLs
+SITE_URL=https://kurs.prostarmarketing.de
+OAUTH_SERVER_URL=https://kurs.prostarmarketing.de
+
+# Email Configuration (Gmail - READY!)
+EMAIL_USER=info@prostarmarketing.de
+EMAIL_PASSWORD=apeextssieskueh
+EMAIL_FROM=ProStar Marketing <info@prostarmarketing.de>
+
+# Stripe Keys - BITTE ERGÄNZEN!
+# Test Keys: https://dashboard.stripe.com/test/apikeys
+# Live Keys: https://dashboard.stripe.com/apikeys
+STRIPE_SECRET_KEY=sk_test_<DEIN-STRIPE-SECRET-KEY>
+STRIPE_WEBHOOK_SECRET=whsec_<DEIN-WEBHOOK-SECRET>
+STRIPE_PUBLISHABLE_KEY=pk_test_<DEIN-PUBLISHABLE-KEY>
+
+# Optional: Google OAuth
+# GOOGLE_CLIENT_ID=<optional>
+# GOOGLE_CLIENT_SECRET=<optional>
