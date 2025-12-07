@@ -1,0 +1,58 @@
+FROM node:20-slim AS builder
+
+WORKDIR /usr/src/app
+
+# Activate corepack and pnpm
+RUN corepack enable && corepack prepare pnpm@latest --activate || true
+
+# Copy package files, lockfile AND patches FIRST
+COPY package.json pnpm-lock.yaml ./
+COPY patches ./patches
+
+# Install ALL dependencies (including devDependencies for build)
+RUN pnpm install --no-frozen-lockfile
+
+# Copy remaining project files
+COPY . .
+
+# Build client and server bundle (mirrors `pnpm build`)
+RUN pnpm build
+
+# Verify build output exists
+RUN ls -la dist/ && ls -la dist/public/ && echo "✅ Build successful"
+
+FROM node:20-slim AS runner
+WORKDIR /usr/src/app
+
+RUN useradd -m appuser || true
+
+# Activate corepack and pnpm for production
+RUN corepack enable && corepack prepare pnpm@latest --activate || true
+
+# Copy package files for production dependencies
+COPY package.json pnpm-lock.yaml ./
+COPY patches ./patches
+
+# Copy built server AND client from builder (explicitly copy both parts)
+COPY --from=builder /usr/src/app/dist/index.js ./dist/index.js
+COPY --from=builder /usr/src/app/dist/public ./dist/public
+
+# Install ONLY production dependencies
+RUN pnpm install --prod --no-frozen-lockfile
+
+# Verify runtime structure
+RUN echo "=== Runtime structure ===" && \
+    ls -la /usr/src/app/ && \
+    ls -la /usr/src/app/dist/ && \
+    ls -la /usr/src/app/dist/public/ | head -10 && \
+    echo "=== Verification complete ==="
+
+RUN chown -R appuser:appuser /usr/src/app
+USER appuser
+
+ENV NODE_ENV=production
+ENV PORT=3000
+EXPOSE 3000
+
+# Explicitly use node (not pnpm dev, not tsx)
+CMD ["node", "dist/index.js"]
