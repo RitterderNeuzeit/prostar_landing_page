@@ -1,34 +1,55 @@
+# Build Stage
 FROM node:20-slim AS builder
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
-# Activate corepack and pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate || true
+# Installiere wget und curl
+RUN apt-get update && apt-get install -y wget curl && rm -rf /var/lib/apt/lists/*
 
-# Copy package files and lockfile first
+# Aktiviere pnpm
+RUN corepack enable && corepack prepare pnpm@latest --activate
+
+# Kopiere package files
 COPY package.json pnpm-lock.yaml ./
 
-# Install deps
-RUN pnpm install --frozen-lockfile --ignore-scripts || true
+# Installiere alle Dependencies (inkl. dev für build)
+RUN pnpm install --frozen-lockfile
 
-# Copy project files
+# Kopiere Source Code
 COPY . .
 
-# Build client and server bundle (mirrors `pnpm build`)
-RUN pnpm build
+# Build Production
+RUN pnpm run build
 
-FROM node:20-slim AS runner
-WORKDIR /usr/src/app
+# Production Stage
+FROM node:20-slim
 
-RUN useradd -m appuser || true
+WORKDIR /app
 
-# Copy built output from builder
-COPY --from=builder /usr/src/app/dist ./dist
+# Installiere wget für Healthcheck
+RUN apt-get update && apt-get install -y wget curl && rm -rf /var/lib/apt/lists/*
 
-RUN chown -R appuser:appuser /usr/src/app
+# Aktiviere pnpm
+RUN corepack enable && corepack prepare pnpm@latest --activate
+
+# Kopiere package files und installiere nur Production Dependencies
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --prod --frozen-lockfile
+
+# Kopiere gebaute App vom Builder
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/client ./client
+
+# Non-root User
+RUN useradd -m appuser && chown -R appuser:appuser /app
 USER appuser
 
 ENV NODE_ENV=production
+ENV PORT=3000
+
 EXPOSE 3000
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=30s --retries=3 \
+  CMD wget --spider -q http://localhost:3000 || exit 1
 
 CMD ["node", "dist/index.js"]

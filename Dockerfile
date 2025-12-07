@@ -1,24 +1,28 @@
 FROM node:20-slim
 
-# Verwende non-root user
-RUN useradd -m appuser || true
+# Installiere wget für Healthcheck
+RUN apt-get update && apt-get install -y wget && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /usr/src/app
 
-# Aktivieren corepack + pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate || true
+# Aktiviere Corepack und installiere pnpm (NON-INTERACTIVE!)
+ENV COREPACK_ENABLE_DOWNLOAD_PROMPT=0
+RUN corepack enable && corepack prepare pnpm@10.4.1 --activate
 
-# Kopiere package files zuerst zur schnellen Installation
-COPY package.json pnpm-lock.yaml ./
-
-# Installiere deps (Prod deps) - in dev wir mounten lokalen code
-RUN pnpm install --frozen-lockfile --prefer-offline --ignore-scripts || true
-
-# Kopiere Projekt
-COPY . .
-
-RUN chown -R appuser:appuser /usr/src/app
+# Verwende non-root user VOR dem Kopieren
+RUN useradd -m appuser && chown -R appuser:appuser /usr/src/app
 
 USER appuser
+
+# Kopiere package files UND patches
+COPY --chown=appuser:appuser package.json pnpm-lock.yaml ./
+COPY --chown=appuser:appuser patches ./patches
+
+# Installiere deps
+RUN pnpm install --frozen-lockfile --prefer-offline || pnpm install --no-frozen-lockfile
+
+# Kopiere restliches Projekt
+COPY --chown=appuser:appuser . .
 
 ENV NODE_ENV=development
 EXPOSE 3000

@@ -25,8 +25,9 @@ const ChatWidget: React.FC = () => {
 
   // API Configuration
   const API_URL =
+    import.meta.env.VITE_PROSTAR_AI_URL ||
     "https://ai-sales-agent-for-prostar-marketing-1013733494627.us-west1.run.app";
-  const API_KEY = "AIzaSyDpxE_NS-6pmYrSuUvsv4D_NODVJ8CrjwQ";
+  const API_KEY = import.meta.env.VITE_PROSTAR_AI_KEY || "";
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
