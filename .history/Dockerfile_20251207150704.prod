@@ -1,0 +1,43 @@
+FROM node:20-slim AS builder
+
+WORKDIR /usr/src/app
+
+# Activate corepack and pnpm
+RUN corepack enable && corepack prepare pnpm@latest --activate || true
+
+# Copy package files and lockfile first
+COPY package.json pnpm-lock.yaml ./
+
+# Install ALL dependencies (including devDependencies for build)
+RUN pnpm install --frozen-lockfile
+
+# Copy project files
+COPY . .
+
+# Build client and server bundle (mirrors `pnpm build`)
+RUN pnpm build
+
+FROM node:20-slim AS runner
+WORKDIR /usr/src/app
+
+RUN useradd -m appuser || true
+
+# Activate corepack and pnpm for production
+RUN corepack enable && corepack prepare pnpm@latest --activate || true
+
+# Copy package files for production dependencies
+COPY package.json pnpm-lock.yaml ./
+
+# Install ONLY production dependencies
+RUN pnpm install --prod --frozen-lockfile --ignore-scripts || true
+
+# Copy built output from builder
+COPY --from=builder /usr/src/app/dist ./dist
+
+RUN chown -R appuser:appuser /usr/src/app
+USER appuser
+
+ENV NODE_ENV=production
+EXPOSE 3000
+
+CMD ["node", "dist/index.js"]
