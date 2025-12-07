@@ -1,11 +1,32 @@
-# ProStar Landing Page – Projektstruktur & Nutzung
+# ProStar Landing Page
 
-## Schnellstart
+**Version:** 1.0.0 - Master Checkpoint 🎯  
+**Status:** ✅ PRODUCTION READY - STABLE BASE  
+**Branch:** `master-checkpoint-v1.0.0`  
+**Tag:** `v1.0.0`  
+**Datum:** 7. Dezember 2025
+
+> **FINAL Release:** Alle Features getestet, dokumentiert und synchronisiert.  
+> Breaking Changes erfordern neue Checkpoint-Version.
+
+---
+
+## 🚀 Schnellstart
 
 ```sh
+# 1. Dependencies installieren
 pnpm install
+
+# 2. Environment konfigurieren
+cp .env.example .env
+# -> .env mit echten Werten bearbeiten
+
+# 3. Datenbank vorbereiten
+pnpm run db:push
+
+# 4. Dev-Server starten
 pnpm dev
-# Öffne http://localhost:3000
+# -> Öffne http://localhost:3000
 ```
 
 ## Struktur
@@ -16,27 +37,68 @@ pnpm dev
 - `shared/` – Gemeinsame Typen/Konstanten
 - `docs/` – Dokumentation & Guides
 
-## Wichtige Befehle
+## 📦 Wichtige Befehle
 
-- `pnpm dev` – Dev-Server mit HMR
-- `pnpm test` – Tests ausführen (Vitest)
-- `pnpm run format:check` – Prettier-Check
-- `pnpm run lint` – ESLint-Check
-- `pnpm duplication:check` – Duplikate prüfen
+### Development
+- `pnpm dev` – Dev-Server mit HMR (Hot Module Reload)
+- `pnpm run check` – TypeScript Type-Check (ohne emit)
+- `pnpm test` – Unit-Tests ausführen (Vitest)
+
+### Build & Deployment
+- `pnpm run build` – Production Build (Vite + ESBuild)
+- `pnpm start` – Production Server starten
+- `pnpm run clean` – Build-Artefakte löschen
+
+### Code Quality
+- `pnpm run format` – Code formatieren (Prettier)
+- `pnpm run format:check` – Format prüfen (CI)
+- `pnpm run lint` – Linting durchführen
+
+### Datenbank
+- `pnpm run db:generate` – Drizzle Migrations generieren
+- `pnpm run db:migrate` – Migrations anwenden
+- `pnpm run db:push` – Generate + Migrate (Shortcut)
+- `pnpm run db:studio` – Drizzle Studio öffnen
 
 ## Automatisierte Checks
 
 Siehe `docs/AUTOMATISIERTE_CHECKS.md` für Details zu Formatierung, Linting und Tests.
 
-## Weitere Infos
+## 📚 Dokumentation
 
-- Stripe-Integration: `docs/STRIPE_INTEGRATION_GUIDE.md`
-- Deployment: `docs/README_AUTOMATION.md`
-- Fehlerbehebung: `docs/AUTOMATISIERTE_CHECKS.md`
+### Kern-Dokumente
+- **[MASTER_CHECKPOINT.md](./MASTER_CHECKPOINT.md)** – Vollständige Checkpoint-Dokumentation
+- **[.github/copilot-instructions.md](./.github/copilot-instructions.md)** – AI-Copilot Anleitung
+
+### Guides
+- **Stripe-Integration:** `docs/STRIPE_INTEGRATION_GUIDE.md`
+- **Deployment & Automation:** `docs/README_AUTOMATION.md`
+- **Tests & Checks:** `docs/AUTOMATISIERTE_CHECKS.md`
+
+## 🎯 Features (LOCKED)
+
+✅ **Landing Page** – Hero, Case Studies, Testimonials, Trust-Section  
+✅ **Kurs-System** – 6 Module mit Markdown-Content, Progress-Tracking  
+✅ **Registrierung** – Email-Verifizierung mit Access-Keys  
+✅ **Email-Automation** – SMTP via Gmail, Open-Tracking, Retry-Logic  
+✅ **Payment** – Stripe Integration (3 Pricing-Tiers)  
+✅ **Datenbank** – MySQL 8.0 mit Drizzle ORM  
+✅ **API** – tRPC + REST Endpoints  
+
+## 🏗️ Tech Stack
+
+```
+Frontend:  Vite + React + Tailwind CSS + shadcn/ui
+Backend:   Express.js + tRPC + TypeScript  
+Database:  MySQL 8.0 + Drizzle ORM
+Email:     Nodemailer (Gmail SMTP)
+Payment:   Stripe API
+```
 
 ---
 
-**Stand:** 20.11.2025
+**Letztes Update:** 2025-12-07  
+**Checkpoint-Hash:** `1d8d638`
 
 ## Automatisierte E2E-Tests & E-Mail-Flow
 
