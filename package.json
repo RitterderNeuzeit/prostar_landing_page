@@ -7,7 +7,7 @@
     "dev": "NODE_ENV=development tsx watch server/_core/index.ts",
     "dev:open": "bash ./scripts/start-dev-and-open.sh",
     "dev:local-auto": "bash ./scripts/start-local-auto.sh",
-    "build": "pnpm check && vite build && esbuild server/_core/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist --minify && cp -r dist/public/* dist/ && echo '✅ Client files copied to dist root'",
+    "build": "pnpm check && vite build && esbuild server/_core/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist --minify && (cd dist/public && cp -r . ..) && echo '✅ Client files copied to dist root'",
     "build:fast": "vite build && esbuild server/_core/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist && cp -r dist/public/* dist/",
     "start": "NODE_ENV=production node dist/index.js",
     "check": "tsc --noEmit",
