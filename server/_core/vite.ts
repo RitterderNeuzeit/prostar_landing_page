@@ -50,14 +50,13 @@ export async function setupVite(app: Express, server: Server) {
 export function serveStatic(app: Express) {
   // Try multiple possible paths for static files
   const possiblePaths = [
-    // Railway/Docker: Always check /app/dist first
+    // Railway/Docker: Always check /app/dist first (vite builds here now)
     path.resolve("/app/dist"),
-    path.resolve("/app/dist/public"),
-    // Local production: files in dist root
+    // Local production: current directory
     import.meta.dirname,
-    // Development: from server/_core/vite.ts to dist/public
+    // Legacy fallbacks
+    path.resolve("/app/dist/public"),
     path.resolve(import.meta.dirname, "../..", "dist", "public"),
-    // Production fallback: from dist/index.js to dist/public
     path.resolve(import.meta.dirname, "public"),
   ];
   
