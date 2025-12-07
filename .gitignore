@@ -107,3 +107,29 @@ temp/
 *.sqlite3
 .history/
 tmp_debug/
+
+# Build artifacts (Clean Builds)
+dist/
+*.zip
+*.log
+*-output.txt
+docker_logs*.txt
+monitor.log
+
+# Deployment temp files
+.deployment
+deploy-temp/
+render.yaml
+web.config
+azure-*.json
+azure-*.zip
+
+# Test files
+test-*.js
+test-*.mjs
+test-*.ts
+
+# History and caches
+.history/
+.pnpm-store/
+
