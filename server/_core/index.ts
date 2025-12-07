@@ -112,6 +112,37 @@ async function startServer() {
       createContext,
     })
   );
+  // Debug endpoint for Railway
+  app.get("/api/debug/fs", (req, res) => {
+    const fs = require("fs");
+    const path = require("path");
+    
+    const cwd = process.cwd();
+    const dirname = import.meta.dirname;
+    
+    const checkPaths = [
+      dirname,
+      path.resolve(dirname, "public"),
+      path.resolve(dirname, "../.."),
+      path.resolve(dirname, "../..", "dist"),
+      path.resolve(dirname, "../..", "dist", "public"),
+      "/app",
+      "/app/dist",
+      "/app/dist/public",
+    ];
+    
+    const results = checkPaths.map(p => ({
+      path: p,
+      exists: fs.existsSync(p),
+      isDir: fs.existsSync(p) ? fs.statSync(p).isDirectory() : false,
+      files: fs.existsSync(p) && fs.statSync(p).isDirectory() 
+        ? fs.readdirSync(p).slice(0, 20) 
+        : []
+    }));
+    
+    res.json({ cwd, dirname, checks: results });
+  });
+  
   // development mode uses Vite, production mode uses static files
   if (process.env.NODE_ENV === "development") {
     await setupVite(app, server);
