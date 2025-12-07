@@ -56,8 +56,9 @@ export function serveStatic(app: Express) {
     path.resolve(import.meta.dirname, "../..", "dist", "public"),
     // Production fallback: from dist/index.js to dist/public
     path.resolve(import.meta.dirname, "public"),
-    // Absolute fallback
-    path.resolve("/usr/src/app/dist"),
+    // Absolute fallback for Railway
+    path.resolve("/app/dist/public"),
+    path.resolve("/app/dist"),
   ];
   
   console.log(`[ServeStatic] NODE_ENV: ${process.env.NODE_ENV}`);
@@ -66,12 +67,13 @@ export function serveStatic(app: Express) {
   
   let distPath: string | null = null;
   for (const tryPath of possiblePaths) {
-    if (fs.existsSync(tryPath)) {
+    const indexHtmlPath = path.resolve(tryPath, "index.html");
+    if (fs.existsSync(indexHtmlPath)) {
       distPath = tryPath;
       console.log(`✅ Found static files at: ${distPath}`);
       break;
     } else {
-      console.log(`❌ Not found: ${tryPath}`);
+      console.log(`❌ No index.html at: ${tryPath}`);
     }
   }
   
