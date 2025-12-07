@@ -50,12 +50,14 @@ export async function setupVite(app: Express, server: Server) {
 export function serveStatic(app: Express) {
   // Try multiple possible paths for static files
   const possiblePaths = [
+    // Production: files copied to dist root (same dir as index.js)
+    import.meta.dirname,
     // Development: from server/_core/vite.ts to dist/public
     path.resolve(import.meta.dirname, "../..", "dist", "public"),
-    // Production: from dist/index.js to dist/public
+    // Production fallback: from dist/index.js to dist/public
     path.resolve(import.meta.dirname, "public"),
-    // Fallback: absolute path if running from /usr/src/app
-    path.resolve("/usr/src/app/dist/public"),
+    // Absolute fallback
+    path.resolve("/usr/src/app/dist"),
   ];
   
   console.log(`[ServeStatic] NODE_ENV: ${process.env.NODE_ENV}`);
