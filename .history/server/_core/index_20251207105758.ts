@@ -50,36 +50,6 @@ async function startServer() {
   // Trust proxy for production deployments
   app.set('trust proxy', 1);
   
-  // CORS configuration for Squarespace embedding
-  const allowedOrigins = [
-    'https://kursprostarmarketing.squarespace.com',
-    'https://prostarmarketing.de',
-    'https://www.prostarmarketing.de',
-    'http://localhost:3000',
-    'http://localhost:5173'
-  ];
-  
-  // Add Railway domain if present
-  if (process.env.RAILWAY_STATIC_URL) {
-    allowedOrigins.push(`https://${process.env.RAILWAY_STATIC_URL}`);
-  }
-  
-  app.use(cors({
-    origin: (origin, callback) => {
-      // Allow requests with no origin (mobile apps, curl, etc.)
-      if (!origin) return callback(null, true);
-      
-      if (allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
-  }));
-  
   // Configure body parser with larger size limit for file uploads
   // Stripe webhook needs raw body, so register it before JSON parser
   app.post('/api/stripe/webhook', express.raw({type: 'application/json'}), (req, res, next) => {
@@ -89,21 +59,11 @@ async function startServer() {
   app.use(express.json({ limit: "10mb" }));
   app.use(express.urlencoded({ limit: "10mb", extended: true }));
   
-  // Security headers with iframe support for Squarespace
+  // Security headers
   app.use((req, res, next) => {
     res.setHeader('X-Content-Type-Options', 'nosniff');
-    
-    // Allow embedding in Squarespace domains
-    const allowedFrameOrigins = [
-      "'self'",
-      'https://kursprostarmarketing.squarespace.com',
-      'https://prostarmarketing.de',
-      'https://www.prostarmarketing.de'
-    ].join(' ');
-    
-    res.setHeader('Content-Security-Policy', `frame-ancestors ${allowedFrameOrigins}`);
+    res.setHeader('X-Frame-Options', 'DENY');
     res.setHeader('X-XSS-Protection', '1; mode=block');
-    
     next();
   });
   // OAuth callback under /api/oauth/callback

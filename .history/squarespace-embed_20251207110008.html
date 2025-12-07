@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ProStar Kurs-Zugang - Squarespace Integration</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      overflow: hidden;
+    }
+    
+    #prostar-iframe-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 999999;
+    }
+    
+    #prostar-app-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+    
+    /* Loading Spinner */
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000000;
+      transition: opacity 0.5s ease;
+    }
+    
+    .loading-overlay.hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+    
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .loading-text {
+      margin-top: 20px;
+      color: white;
+      font-size: 18px;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" id="loading">
+    <div class="spinner"></div>
+    <div class="loading-text">ProStar Kurs-Portal lädt...</div>
+  </div>
+  
+  <!-- App Container -->
+  <div id="prostar-iframe-container">
+    <iframe 
+      id="prostar-app-iframe"
+      src="https://your-app-xyz.up.railway.app"
+      allow="camera; microphone; payment; clipboard-write"
+      loading="eager"
+      sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox allow-modals"
+      title="ProStar Kurs-Zugang">
+    </iframe>
+  </div>
+  
+  <script>
+    // Configuration
+    const config = {
+      // Replace with your Railway URL
+      appUrl: 'https://your-app-xyz.up.railway.app',
+      loadTimeout: 10000 // 10 seconds
+    };
+    
+    // Get iframe element
+    const iframe = document.getElementById('prostar-app-iframe');
+    const loading = document.getElementById('loading');
+    
+    // Set correct app URL
+    iframe.src = config.appUrl;
+    
+    // Hide loading when iframe loads
+    iframe.addEventListener('load', function() {
+      setTimeout(() => {
+        loading.classList.add('hide');
+      }, 500);
+    });
+    
+    // Fallback: Hide loading after timeout
+    setTimeout(() => {
+      loading.classList.add('hide');
+    }, config.loadTimeout);
+    
+    // Error handling
+    iframe.addEventListener('error', function(e) {
+      console.error('Iframe loading error:', e);
+      loading.innerHTML = `
+        <div style="text-align: center; color: white;">
+          <div style="font-size: 48px; margin-bottom: 20px;">⚠️</div>
+          <div style="font-size: 24px; margin-bottom: 10px;">Verbindungsfehler</div>
+          <div style="font-size: 16px; opacity: 0.9;">
+            Die Kurs-App konnte nicht geladen werden.<br>
+            Bitte versuchen Sie es später erneut.
+          </div>
+        </div>
+      `;
+    });
+    
+    // Prevent Squarespace header/footer from showing
+    window.addEventListener('DOMContentLoaded', function() {
+      // Hide Squarespace elements if they exist
+      const squarespaceHeader = document.querySelector('#header');
+      const squarespaceFooter = document.querySelector('#footer');
+      const announcementBar = document.querySelector('.sqs-announcement-bar');
+      
+      if (squarespaceHeader) squarespaceHeader.style.display = 'none';
+      if (squarespaceFooter) squarespaceFooter.style.display = 'none';
+      if (announcementBar) announcementBar.style.display = 'none';
+    });
+    
+    // Communication with iframe (optional)
+    window.addEventListener('message', function(event) {
+      // Verify origin
+      if (event.origin !== config.appUrl) return;
+      
+      // Handle messages from iframe
+      const data = event.data;
+      
+      if (data.type === 'READY') {
+        console.log('ProStar App is ready');
+      }
+      
+      if (data.type === 'NAVIGATION') {
+        console.log('User navigated to:', data.path);
+      }
+    });
+  </script>
+</body>
+</html>
