@@ -1,0 +1,52 @@
+name: Deploy to Azure
+
+on:
+  push:
+    branches: [ restore-complete-visuals-ui ]
+  workflow_dispatch:
+
+env:
+  AZURE_WEBAPP_NAME: prostar-kurs-app
+  NODE_VERSION: '20'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+    
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v4
+      with:
+        version: 10
+    
+    - name: Install dependencies
+      run: pnpm install --frozen-lockfile
+    
+    - name: Build application
+      run: pnpm build
+    
+    - name: Create deployment package
+      run: |
+        mkdir deploy-package
+        cp -r dist deploy-package/
+        cp package.json deploy-package/
+        cp pnpm-lock.yaml deploy-package/
+        cp web.config deploy-package/
+        cp -r patches deploy-package/ || true
+        cd deploy-package
+        npm install --production --ignore-scripts
+        zip -r ../deploy.zip . -q
+    
+    - name: Deploy to Azure Web App
+      uses: azure/webapps-deploy@v3
+      with:
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+        package: deploy.zip
