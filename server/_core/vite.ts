@@ -48,14 +48,33 @@ export async function setupVite(app: Express, server: Server) {
 }
 
 export function serveStatic(app: Express) {
+  // In production: dist/index.js is running, so dirname is 'dist'
+  // We need dist/public which is at ./public relative to dist/
   const distPath =
     process.env.NODE_ENV === "development"
       ? path.resolve(import.meta.dirname, "../..", "dist", "public")
       : path.resolve(import.meta.dirname, "public");
+  
+  console.log(`[ServeStatic] NODE_ENV: ${process.env.NODE_ENV}`);
+  console.log(`[ServeStatic] import.meta.dirname: ${import.meta.dirname}`);
+  console.log(`[ServeStatic] Serving static from: ${distPath}`);
+  console.log(`[ServeStatic] Path exists: ${fs.existsSync(distPath)}`);
+  
   if (!fs.existsSync(distPath)) {
     console.error(
-      `Could not find the build directory: ${distPath}, make sure to build the client first`
+      `❌ Could not find the build directory: ${distPath}, make sure to build the client first`
     );
+    // List what's actually there
+    const parentDir = path.dirname(distPath);
+    console.error(`Contents of ${parentDir}:`);
+    try {
+      const contents = fs.readdirSync(parentDir);
+      console.error(contents);
+    } catch (e) {
+      console.error("Cannot read parent directory");
+    }
+  } else {
+    console.log(`✅ Static files directory found at ${distPath}`);
   }
 
   app.use(express.static(distPath));
