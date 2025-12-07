@@ -5,13 +5,14 @@ WORKDIR /usr/src/app
 # Activate corepack and pnpm
 RUN corepack enable && corepack prepare pnpm@latest --activate || true
 
-# Copy package files and lockfile first
+# Copy package files, lockfile AND patches FIRST
 COPY package.json pnpm-lock.yaml ./
+COPY patches ./patches
 
 # Install ALL dependencies (including devDependencies for build)
 RUN pnpm install --no-frozen-lockfile
 
-# Copy project files
+# Copy remaining project files
 COPY . .
 
 # Build client and server bundle (mirrors `pnpm build`)
