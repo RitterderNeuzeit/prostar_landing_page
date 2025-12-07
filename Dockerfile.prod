@@ -22,6 +22,15 @@ WORKDIR /usr/src/app
 
 RUN useradd -m appuser || true
 
+# Activate corepack and pnpm for production
+RUN corepack enable && corepack prepare pnpm@latest --activate || true
+
+# Copy package files for production dependencies
+COPY package.json pnpm-lock.yaml ./
+
+# Install ONLY production dependencies
+RUN pnpm install --prod --frozen-lockfile --ignore-scripts || true
+
 # Copy built output from builder
 COPY --from=builder /usr/src/app/dist ./dist
 
