@@ -86,13 +86,29 @@ export function serveStatic(app: Express) {
 
   app.use(express.static(distPath));
 
-  // fall through to index.html if the file doesn't exist
-  app.use("*", (_req, res) => {
+  // SPA fallback - serve index.html for non-API routes
+  app.get("*", (req, res, next) => {
+    // Skip API routes
+    if (req.path.startsWith("/api/")) {
+      return next();
+    }
+    
     const indexPath = path.resolve(distPath!, "index.html");
     if (fs.existsSync(indexPath)) {
       res.sendFile(indexPath);
     } else {
-      res.status(404).json({ error: "index.html not found", path: indexPath });
+      console.error(`❌ index.html not found at: ${indexPath}`);
+      res.status(404).json({ 
+        status: "error",
+        code: 404,
+        message: "Application not found",
+        details: {
+          searchPath: indexPath,
+          distPath: distPath,
+          cwd: process.cwd(),
+          dirname: import.meta.dirname
+        }
+      });
     }
   });
 }
